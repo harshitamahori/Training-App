@@ -1,0 +1,572 @@
+"'Request Update Screen' As screen":
+    Fill: =RGBA(255, 255, 255, 1)
+    OnVisible: =Refresh(Progress_sales)
+
+    Container5_3 As groupContainer.manualLayoutContainer:
+        Height: =140
+        Width: =126
+        X: =389
+        Y: =106
+        ZIndex: =1
+
+    Container5_2 As groupContainer.manualLayoutContainer:
+        Height: =140
+        Width: =126
+        X: =261
+        Y: =106
+        ZIndex: =2
+
+    Container5 As groupContainer.manualLayoutContainer:
+        Height: =140
+        Width: =126
+        X: =2
+        Y: =106
+        ZIndex: =3
+
+    Container5_1 As groupContainer.manualLayoutContainer:
+        Height: =140
+        Width: =126
+        X: =131
+        Y: =106
+        ZIndex: =4
+
+    screen_heading As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(0, 18, 107, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =87
+        Size: =30
+        Text: ="Request Update"
+        Width: =640
+        ZIndex: =5
+
+    "UpdateRequestList_Gallery As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0'":
+        DelayItemLoading: =true
+        Fill: =RGBA(241, 244, 249, 1)
+        Height: =773
+        Items: |-
+            =SortByColumns(
+                Filter(
+                    Progress_sales,'Updated By'.EmployeeID=varCurrentUser.EmployeeID &&
+                    (IsBlank(varUpdateFilter) || 'Approval Status'=varUpdateFilter)
+                ),
+                "cr371_updateddate",SortOrder.Descending
+            )
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplateFill: |
+            =If(ThisItem.'Approval Status' = 'Approval Status (Progress_sales)'.Cancelled, RGBA(200, 200, 200, 0.5), RGBA(241, 244, 249, 1))
+        TemplatePadding: =0
+        TemplateSize: =387
+        Y: =312
+        ZIndex: =6
+
+        Rectangle3_4 As rectangle:
+            Height: =Parent.TemplateHeight - Separator1_1.Height
+            OnSelect: =Select(Parent)
+            Visible: =ThisItem.IsSelected
+            Width: =4
+            Y: =8
+            ZIndex: =1
+
+        Title2_9 As label:
+            FontWeight: =FontWeight.Semibold
+            Height: =30
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =18
+            Text: ="Progress Value"
+            VerticalAlign: =VerticalAlign.Top
+            Width: =177
+            X: =20
+            Y: =192
+            ZIndex: =2
+
+        Title2_12 As label:
+            FontWeight: =FontWeight.Semibold
+            Height: =59
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =18
+            Text: |-
+                ="Remarks 
+                (if any)"
+            VerticalAlign: =VerticalAlign.Top
+            Width: =177
+            X: =20
+            Y: =297
+            ZIndex: =3
+
+        Title2_13 As label:
+            FontWeight: =FontWeight.Semibold
+            Height: =30
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =18
+            Text: ="Target ID"
+            VerticalAlign: =VerticalAlign.Top
+            Width: =177
+            X: =22
+            Y: =80
+            ZIndex: =4
+
+        Title2_7 As label:
+            Height: =30
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =18
+            Text: =ThisItem.'Progress Value'
+            VerticalAlign: =VerticalAlign.Top
+            Width: =207
+            X: =243
+            Y: =192
+            ZIndex: =5
+
+        Label15_1 As label:
+            Height: =30
+            OnSelect: =Select(Parent)
+            Size: =18
+            Text: =Text(ThisItem.'Updated Date',"dd mmmm,yyyy")
+            Width: =247
+            X: =243
+            Y: =247
+            ZIndex: =7
+
+        Title2_10 As label:
+            FontWeight: =FontWeight.Semibold
+            Height: =30
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =18
+            Text: ="Updated Date"
+            VerticalAlign: =VerticalAlign.Top
+            Width: =177
+            X: =20
+            Y: =246
+            ZIndex: =8
+
+        Subtitle1_1 As label:
+            Height: =62
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =18
+            Text: =Coalesce(ThisItem.Remarks,"No Remarks Given")
+            VerticalAlign: =VerticalAlign.Top
+            Width: =350
+            X: =241
+            Y: =300
+            ZIndex: =11
+
+        Separator1_1 As rectangle:
+            Height: =8
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - Self.Height
+            ZIndex: =12
+
+        Title2_14 As label:
+            FontWeight: =FontWeight.Semibold
+            Height: =30
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =18
+            Text: =ThisItem.TargetID.TargetID
+            VerticalAlign: =VerticalAlign.Top
+            Width: =177
+            X: =234
+            Y: =80
+            ZIndex: =14
+
+        Title2_15 As label:
+            FontWeight: =FontWeight.Semibold
+            Height: =30
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =18
+            Text: ="Description"
+            VerticalAlign: =VerticalAlign.Top
+            Width: =177
+            X: =22
+            Y: =134
+            ZIndex: =15
+
+        Title2_16 As label:
+            FontWeight: =FontWeight.Semibold
+            Height: =31
+            OnSelect: =Select(Parent)
+            Overflow: =Overflow.Scroll
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =18
+            Text: =LookUp(Target_sales,TargetID=ThisItem.TargetID.TargetID,Description)
+            VerticalAlign: =VerticalAlign.Top
+            Width: =394
+            X: =243
+            Y: =133
+            ZIndex: =16
+
+        Button8 As button:
+            DisplayMode: =DisplayMode.View
+            Fill: |-
+                =Switch(
+                    ThisItem.'Approval Status',
+                    'Approval Status (Progress_sales)'.Pending,Color.DarkOrange,
+                    'Approval Status (Progress_sales)'.Approved,Color.Green,
+                    'Approval Status (Progress_sales)'.Rejected,Color.Red
+                )
+            Height: =34
+            OnSelect: =ThisItem.'Approval Status'
+            RadiusBottomLeft: =15
+            RadiusBottomRight: =15
+            RadiusTopLeft: =15
+            RadiusTopRight: =15
+            Size: =18
+            Text: =ThisItem.'Approval Status'
+            Width: =142
+            X: =20
+            Y: =29
+            ZIndex: =17
+
+        cancel As button:
+            DisplayMode: |
+                =If(ThisItem.'Approval Status' = 'Approval Status (Progress_sales)'.Cancelled, DisplayMode.Disabled, DisplayMode.Edit)
+            Fill: =RGBA(128, 128, 128, 1)
+            Height: =39
+            HoverFill: =RGBA(102,102,102,1)
+            OnSelect: |+
+                =Patch(
+                    Progress_sales,
+                    ThisItem,
+                    {
+                        'Approval Status': 'Approval Status (Progress_sales)'.Cancelled
+                    }
+                );
+                Notify("Request has been cancelled successfully!", NotificationType.Success);
+                
+            Text: ="Cancel"
+            Visible: =ThisItem.'Approval Status'= 'Approval Status (Progress_sales)'.Pending
+            Width: =134
+            X: =479
+            Y: =323
+            ZIndex: =18
+
+    "'Rejected-btn' As button":
+        BorderColor: =RGBA(172, 62, 11, 1)
+        Fill: =RGBA(172, 62, 11, 1)
+        Height: =47
+        HoverFill: =RGBA(221,79,14,1)
+        OnSelect: |-
+            =UpdateContext({varUpdateFilter:'Approval Status (Progress_sales)'.Pending})
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =18
+        Text: ="Pending"
+        Width: =128
+        X: =128
+        Y: =265
+        ZIndex: =7
+
+    "'Approved-btn' As button":
+        BorderColor: =RGBA(127, 178, 57, 1)
+        Fill: =RGBA(99, 139, 44, 1)
+        Height: =47
+        HoverFill: =RGBA(127,178,51,1)
+        OnSelect: |-
+            =UpdateContext({varUpdateFilter:'Approval Status (Progress_sales)'.Approved})
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =18
+        Text: ="Approved"
+        Width: =128
+        X: =259
+        Y: =265
+        ZIndex: =8
+
+    "'Pending-btn' As button":
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =RGBA(151, 0, 0, 1)
+        Height: =47
+        HoverColor: =RGBA(255,255,255,1)
+        HoverFill: =RGBA(151,0,0,1)
+        OnSelect: |-
+            =UpdateContext({varUpdateFilter:'Approval Status (Progress_sales)'.Rejected})
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =18
+        Text: ="Rejected"
+        Width: =128
+        X: =387
+        Y: =265
+        ZIndex: =9
+
+    "'All-btn' As button":
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =RGBA(50, 86, 160, 1)
+        Height: =47
+        HoverFill: =RGBA(136,160,209,1)
+        OnSelect: |-
+            =UpdateContext({varUpdateFilter:Blank()})
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =18
+        Text: ="All"
+        Width: =128
+        Y: =265
+        ZIndex: =10
+
+    Label7_2 As label:
+        Align: =Align.Center
+        Color: =RGBA(128, 128, 128, 1)
+        Height: =709
+        Size: =21
+        Text: ="Sorry, we couldn't find any results"
+        Visible: =IsEmpty(UpdateRequestList_Gallery.AllItems)
+        Width: =640
+        Y: =351
+        ZIndex: =11
+
+    cry_cat_2 As image:
+        Height: =77
+        Image: =cry
+        Visible: =IsEmpty(UpdateRequestList_Gallery.AllItems)
+        Width: =136
+        X: =245
+        Y: =610
+        ZIndex: =12
+
+    Label16 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(50, 86, 160, 1)
+        FontWeight: =FontWeight.Semibold
+        Size: =15
+        Text: ="Total"
+        Width: =110
+        X: =9
+        Y: =115
+        ZIndex: =13
+
+    Label16_1 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(50, 86, 160, 1)
+        Height: =73
+        Size: =25
+        Text: |-
+            =If(
+                IsEmpty(Progress_sales),
+                0,
+                CountIf(Progress_sales,'Updated By'.EmployeeID=varCurrentUser.EmployeeID))
+        Width: =110
+        X: =9
+        Y: =163
+        ZIndex: =14
+
+    Label16_2 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(221, 79, 14, 1)
+        FontWeight: =FontWeight.Semibold
+        Size: =15
+        Text: ="Pending"
+        Width: =110
+        X: =140
+        Y: =115
+        ZIndex: =15
+
+    Label16_3 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(221, 79, 14, 1)
+        Height: =73
+        Size: =25
+        Text: |-
+            =If(
+                IsEmpty(Progress_sales),
+                0,
+                CountIf(
+                    Progress_sales,
+                    'Updated By'.EmployeeID=varCurrentUser.EmployeeID &&
+                    'Approval Status'='Approval Status (Progress_sales)'.Pending
+                )
+            )
+        Width: =110
+        X: =140
+        Y: =163
+        ZIndex: =16
+
+    Label16_4 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(127, 178, 57, 1)
+        FontWeight: =FontWeight.Semibold
+        Size: =15
+        Text: ="Approved"
+        Width: =110
+        X: =268
+        Y: =115
+        ZIndex: =17
+
+    Label16_5 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(127, 178, 57, 1)
+        Height: =73
+        Size: =25
+        Text: |-
+            =If(
+                IsEmpty(Progress_sales),
+                0,
+                CountIf(
+                    Progress_sales,
+                    'Updated By'.EmployeeID=varCurrentUser.EmployeeID &&
+                    'Approval Status'='Approval Status (Progress_sales)'.Approved
+                )
+            )
+        Width: =110
+        X: =268
+        Y: =163
+        ZIndex: =18
+
+    Label16_6 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(151, 0, 0, 1)
+        Size: =15
+        Text: ="Rejected"
+        Width: =110
+        X: =396
+        Y: =115
+        ZIndex: =19
+
+    Label16_7 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(151, 0, 0, 1)
+        Height: =72
+        Size: =25
+        Text: |-
+            =If(
+                IsEmpty(Progress_sales),
+                0,
+                CountIf(
+                    Progress_sales,
+                    'Updated By'.EmployeeID=varCurrentUser.EmployeeID &&
+                    'Approval Status'='Approval Status (Progress_sales)'.Rejected
+                )
+            )
+        Width: =110
+        X: =396
+        Y: =163
+        ZIndex: =20
+
+    sep6_8 As rectangle:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        Fill: =RGBA(128, 128, 128, 1)
+        Height: =1
+        Width: =640
+        Y: =1085
+        ZIndex: =21
+
+    Icon12 As icon.Home:
+        Color: =RGBA(128, 128, 128, 1)
+        Height: =39
+        Icon: =Icon.Home
+        OnSelect: =Navigate(UserHomeScreen,ScreenTransition.Fade);
+        Width: =39
+        X: =290
+        Y: =1093
+        ZIndex: =22
+
+    "'All-btn_1' As button":
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =RGBA(102, 102, 102, 1)
+        Height: =47
+        HoverFill: =RGBA(128,128,128,1)
+        OnSelect: |-
+            =UpdateContext({varUpdateFilter:'Approval Status (Progress_sales)'.Cancelled})
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =18
+        Text: ="Cancelled"
+        Width: =128
+        X: =512
+        Y: =265
+        ZIndex: =23
+
+    Container5_4 As groupContainer.manualLayoutContainer:
+        Height: =140
+        Width: =126
+        X: =514
+        Y: =106
+        ZIndex: =24
+
+    Label16_8 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(128, 128, 128, 1)
+        Size: =15
+        Text: ="Cancelled"
+        Width: =110
+        X: =521
+        Y: =115
+        ZIndex: =25
+
+    Label16_9 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(128, 128, 128, 1)
+        Height: =72
+        Size: =25
+        Text: |-
+            =If(
+                IsEmpty(Progress_sales),
+                0,
+                CountIf(
+                    Progress_sales,
+                    'Updated By'.EmployeeID=varCurrentUser.EmployeeID &&
+                    'Approval Status'='Approval Status (Progress_sales)'.Cancelled
+                )
+            )
+        Width: =110
+        X: =521
+        Y: =163
+        ZIndex: =26
+

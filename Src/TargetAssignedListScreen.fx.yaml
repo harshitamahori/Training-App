@@ -1,0 +1,400 @@
+"TargetAssignedListScreen As screen.'phoneLayout_FluidGridWithHeaderPageLayout_ver3.0'":
+    OnVisible: |-
+        =Set(varSortBy,"Priority : High to Low");
+
+    LblAppName1 As label:
+        Align: =Align.Center
+        Fill: =RGBA(0, 18, 107, 1)
+        Height: =88
+        Size: =27
+        Text: ="Assigned Target List"
+        Width: =Parent.Width
+        ZIndex: =2
+
+    Canvas1 As fluidGrid.fluidGridWithBlankCard:
+        BorderThickness: =0
+        Height: =Parent.Height - Self.Y
+        Width: =Parent.Width
+        Y: =
+        ZIndex: =3
+
+        DataCard1 As dataCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            BorderThickness: =0
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =1049
+            Width: =640
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+    "TargetAssign_ManagerGallery As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0'":
+        DelayItemLoading: =true
+        Fill: =RGBA(241, 244, 249, 1)
+        Height: =912
+        Items: |
+            =Sort(
+                AddColumns(
+                    If( 
+                        varFiltersApplied,
+                        Filter(
+                            Target_sales,
+                            (IsBlank(varFilterName) || AssignedTo.Name = varFilterName) &&
+                            (IsBlank(varFilterTargetMin) || 'Target Value' >= varFilterTargetMin) &&
+                            (IsBlank(varFilterTargetMax) || 'Target Value' <= varFilterTargetMax) &&  
+                            (IsBlank(varFilterDate) || 'End Date' >= varFilterDate && 'End Date' < DateAdd(varFilterDate, 1, TimeUnit.Days)) &&
+                            (IsBlank(varFilterStatus) || status = varFilterStatus) &&
+                            (IsBlank(varFilterPriority) || Priority = varFilterPriority) &&
+                            (IsBlank(varManagerDashboardStatusFilter) || status = varManagerDashboardStatusFilter) 
+                        ),
+                        Filter(
+                            Target_sales,
+                            IsBlank(varManagerDashboardStatusFilter) || status = varManagerDashboardStatusFilter
+                        )
+                    ),
+                    'PriorityVal', 
+                    Switch(
+                        Priority, 
+                        'Priority (Target_sales)'.Low, 1, 
+                        'Priority (Target_sales)'.Medium, 2, 
+                        'Priority (Target_sales)'.High, 3
+                    )
+                ),
+                If(
+                    varSortBy = "Recently Added", 'Created On',
+                    varSortBy = "Target Value : Low to High", 'Target Value',
+                    varSortBy = "Target Value : High to Low", 'Target Value',
+                    varSortBy = "Priority : Low to High", 'PriorityVal',
+                    varSortBy = "Priority : High to Low", 'PriorityVal'
+                ),
+                If(
+                    Or(
+                        varSortBy = "Target Value : Low to High",
+                        varSortBy = "Priority : Low to High"
+                    ), 
+                    SortOrder.Ascending, 
+                    SortOrder.Descending
+                )
+            )
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        OnSelect: |-
+            =Set(varSelectedRecord, TargetAssign_ManagerGallery.Selected);
+            Navigate(AssignedTarget_DetailedScreen,ScreenTransition.Fade);
+        TemplatePadding: =0
+        TemplateSize: =326
+        Y: =144
+        ZIndex: =4
+
+        "'Description-show' As label":
+            Color: =RGBA(0, 0, 0, 1)
+            Height: =24
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: =ThisItem.Description
+            VerticalAlign: =VerticalAlign.Top
+            Width: =313
+            X: =211
+            Y: =61
+            ZIndex: =2
+
+        "'Tragetvalue-show' As label":
+            Height: =23
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: =ThisItem.'Target Value'
+            VerticalAlign: =VerticalAlign.Top
+            Width: =74
+            X: =211
+            Y: =103
+            ZIndex: =3
+
+        Separator4 As rectangle:
+            Height: =5
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - Self.Height
+            ZIndex: =5
+
+        "'Name-label' As label":
+            FontWeight: =FontWeight.Bold
+            Height: =38
+            OnSelect: =Select(Parent)
+            Size: =20
+            Text: =LookUp(Employee_sales,EmployeeID=ThisItem.AssignedTo.EmployeeID,Name)
+            Width: =309
+            X: =16
+            Y: =11
+            ZIndex: =7
+
+        "'Traget Value -lable' As label":
+            FontWeight: =FontWeight.Semibold
+            Height: =27
+            OnSelect: =Select(Parent)
+            Size: =15
+            Text: ="Target Value"
+            Width: =132
+            X: =16
+            Y: =99
+            ZIndex: =8
+
+        "'DueDate-label' As label":
+            FontWeight: =FontWeight.Semibold
+            Height: =22
+            OnSelect: =Select(Parent)
+            Size: =15
+            Text: ="Due Date"
+            Width: =112
+            X: =16
+            Y: =143
+            ZIndex: =9
+
+        "'endDate-show' As label":
+            Height: =23
+            OnSelect: =Select(Parent)
+            Size: =14
+            Text: =Text(ThisItem.'End Date',"dd mmmm yyyy")
+            Width: =236
+            X: =211
+            Y: =142
+            ZIndex: =10
+
+        "'Description-label' As label":
+            FontWeight: =FontWeight.Semibold
+            Height: =25
+            OnSelect: =Select(Parent)
+            Size: =15
+            Text: ="Description"
+            Width: =129
+            X: =16
+            Y: =60
+            ZIndex: =11
+
+        Label11 As label:
+            Color: |
+                =Switch(ThisItem.status,
+                'status (Target_sales)'.Assigned,Color.Red,
+                'status (Target_sales)'.'In Progress',Color.Blue,
+                'status (Target_sales)'.Completed,Color.Green,
+                Color.Gray
+                )
+            FontWeight: =FontWeight.Bold
+            Height: =24
+            OnSelect: =Select(Parent)
+            Size: =14
+            Text: =ThisItem.status
+            Width: =114
+            X: =211
+            Y: =185
+            ZIndex: =12
+
+        Label12 As label:
+            FontWeight: =FontWeight.Semibold
+            Height: =27
+            OnSelect: =Select(Parent)
+            Size: =15
+            Text: ="Progress"
+            Width: =112
+            X: =16
+            Y: =226
+            ZIndex: =13
+
+        Rectangle1 As rectangle:
+            Fill: =RGBA(237, 237, 237, 1)
+            Height: =22
+            OnSelect: =Select(Parent)
+            Width: =170
+            X: =211
+            Y: =228
+            ZIndex: =14
+
+        "'Status-label' As label":
+            FontWeight: =FontWeight.Semibold
+            Height: =23
+            OnSelect: =Select(Parent)
+            Size: =15
+            Text: ="Status"
+            Width: =89
+            X: =16
+            Y: =183
+            ZIndex: =15
+
+        "'Priority-lbl' As label":
+            FontWeight: =FontWeight.Semibold
+            Height: =24
+            OnSelect: =Select(Parent)
+            Size: =15
+            Text: ="Priority"
+            Width: =89
+            X: =16
+            Y: =278
+            ZIndex: =16
+
+        Icon1 As icon.Flag:
+            Color: |
+                =Switch(
+                    ThisItem.Priority, 
+                    'Priority (Target_sales)'.High, Color.Red,
+                    'Priority (Target_sales)'.Medium, Color.DarkOrange,
+                    'Priority (Target_sales)'.Low, Color.Green,
+                    Color.Gray
+                )
+            Height: =36
+            Icon: =Icon.Flag
+            OnSelect: =Select(Parent)
+            Width: =53
+            X: =211
+            Y: =266
+            ZIndex: =17
+
+        Rectangle3_3 As rectangle:
+            Height: =
+            OnSelect: =Select(Parent)
+            Visible: =ThisItem.IsSelected
+            Width: =4
+            ZIndex: =18
+
+    SortBy As button:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        BorderThickness: =1
+        Color: =RGBA(0, 0, 0, 1)
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =56
+        HoverFill: =RGBA(136, 160, 209, 1)
+        OnSelect: =Set(varShowSortPanel,!varShowSortPanel);
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =20
+        Text: ="Sort By "
+        Width: =319
+        Y: =88
+        ZIndex: =5
+
+    "'sortBy-icon' As icon.ArrowsUpDown":
+        Color: =RGBA(0, 0, 0, 1)
+        Height: =24
+        Icon: =Icon.Sort
+        Width: =52
+        X: =49
+        Y: =104
+        ZIndex: =6
+
+    SortBy_1 As button:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        BorderThickness: =1
+        Color: =RGBA(0, 0, 0, 1)
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =56
+        HoverFill: =RGBA(136, 160, 209, 1)
+        OnSelect: =Set(varShowFilterPanel,!varShowFilterPanel)
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =20
+        Text: ="Filter"
+        Width: =319
+        X: =319
+        Y: =88
+        ZIndex: =7
+
+    "'filter-icon' As icon.Filter":
+        Color: =RGBA(0, 0, 0, 1)
+        Height: =27
+        Icon: =Icon.Filter
+        Width: =38
+        X: =393
+        Y: =104
+        ZIndex: =8
+
+    Arrow2 As arrow.backArrow:
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =47
+        OnSelect: =Navigate(ManagerHomeScreen);
+        Width: =49
+        X: =15
+        Y: =20
+        ZIndex: =10
+
+    sortBy_Filter_1 As sortBy_Filter_Manager:
+        Height: =913
+        Visible: =varShowSortPanel
+        Width: =638
+        Y: =144
+        ZIndex: =11
+
+    Icon3_1 As icon.Home:
+        Color: =RGBA(128, 128, 128, 1)
+        Height: =51
+        Icon: =Icon.Home
+        OnSelect: =Navigate(ManagerHomeScreen,ScreenTransition.Fade)
+        Width: =57
+        X: =276
+        Y: =1070
+        ZIndex: =12
+
+    Icon4_1 As icon.Add:
+        Color: =RGBA(128, 128, 128, 1)
+        Height: =51
+        Icon: =Icon.Add
+        OnSelect: =Navigate('Assign Target Screen',ScreenTransition.Fade);
+        Width: =57
+        X: =517
+        Y: =1070
+        ZIndex: =13
+
+    Icon6_1 As icon.Person:
+        Color: =RGBA(128, 128, 128, 1)
+        Height: =51
+        Icon: =Icon.Person
+        Width: =57
+        X: =52
+        Y: =1070
+        ZIndex: =14
+
+    sep6_2 As rectangle:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        Fill: =RGBA(166, 166, 166, 1)
+        Height: =1
+        Width: =640
+        Y: =1056
+        ZIndex: =15
+
+    TargetAssigned_Filter_1 As TargetAssigned_Filter_Manager:
+        Height: =912
+        Visible: =varShowFilterPanel
+        Y: =144
+        ZIndex: =16
+
+    Label7_1 As label:
+        Align: =Align.Center
+        Color: =RGBA(128, 128, 128, 1)
+        Height: =709
+        Size: =21
+        Text: ="Sorry, we couldn't find any results"
+        Visible: =IsEmpty(TargetAssign_ManagerGallery.AllItems)&&varEmpFiltersApplied
+        Width: =640
+        Y: =347
+        ZIndex: =17
+
+    cry_cat_1 As image:
+        Height: =77
+        Image: =cry
+        Visible: =IsEmpty(TargetAssign_ManagerGallery.AllItems)&&varEmpFiltersApplied
+        Width: =136
+        X: =245
+        Y: =606
+        ZIndex: =18
+

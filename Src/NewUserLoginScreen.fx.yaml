@@ -1,0 +1,390 @@
+NewUserLoginScreen As screen:
+    Fill: =RGBA(241, 244, 249, 1)
+
+    "'Heading-Register' As label":
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(0, 18, 107, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =91
+        Size: =30
+        Text: ="Register"
+        Width: =640
+        ZIndex: =1
+
+    "'haveAccount-lbl' As label":
+        FontWeight: =FontWeight.Semibold
+        Height: =46
+        Size: =16
+        Text: ="Already have an account ? "
+        Width: =320
+        X: =152
+        Y: =1004
+        ZIndex: =2
+
+    Label10 As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =52
+        Size: =20
+        Text: ="Name"
+        Width: =155
+        X: =24
+        Y: =148
+        ZIndex: =4
+
+    name_inp As text:
+        Default: =
+        Height: =52
+        HintText: ="Enter your name "
+        Size: =20
+        Width: =372
+        X: =241
+        Y: =148
+        ZIndex: =5
+
+    Label10_1 As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =52
+        Size: =20
+        Text: ="Phone "
+        Width: =155
+        X: =24
+        Y: =229
+        ZIndex: =6
+
+    phone_inp As text:
+        Default: =
+        Format: =TextFormat.Number
+        Height: =52
+        HintText: =" Phone number"
+        Size: =20
+        Width: =372
+        X: =241
+        Y: =226
+        ZIndex: =7
+
+    Label10_2 As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =52
+        Size: =20
+        Text: ="Email"
+        Width: =155
+        X: =24
+        Y: =305
+        ZIndex: =8
+
+    email_inp As text:
+        Default: =
+        Height: =52
+        HintText: ="Email"
+        Size: =20
+        Width: =372
+        X: =241
+        Y: =305
+        ZIndex: =9
+
+    Label10_3 As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =52
+        Size: =20
+        Text: ="Gender"
+        Width: =155
+        X: =24
+        Y: =378
+        ZIndex: =10
+
+    Label10_4 As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =43
+        Size: =20
+        Text: ="Date of Joining"
+        Width: =205
+        X: =24
+        Y: =458
+        ZIndex: =11
+
+    Label10_5 As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =43
+        Size: =20
+        Text: ="Role"
+        Width: =205
+        X: =24
+        Y: =537
+        ZIndex: =12
+
+    Label10_6 As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =43
+        Size: =20
+        Text: |-
+            ="DOB
+            "
+        Width: =205
+        X: =24
+        Y: =614
+        ZIndex: =13
+
+    Label10_7 As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =43
+        Size: =20
+        Text: ="Team"
+        Width: =205
+        X: =24
+        Y: =692
+        ZIndex: =14
+
+    Label10_8 As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =52
+        Size: =20
+        Text: ="Password"
+        Width: =205
+        X: =24
+        Y: =764
+        ZIndex: =15
+
+    Label10_9 As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =75
+        Size: =19
+        Text: |-
+            ="Confirm
+            Password"
+        Width: =183
+        X: =24
+        Y: =824
+        ZIndex: =16
+
+    Button7 As button:
+        Fill: =RGBA(0, 18, 107, 1)
+        Height: =48
+        OnSelect: |
+            =If(
+                !IsBlank(name_inp.Text) &&
+                !IsBlank(phone_inp.Text)&&
+                !IsBlank(email_inp.Text) &&
+                !IsBlank(role_inp.Selected.Value)&&
+                !IsBlank(pass_inp.Text) &&
+                !IsBlank(confmpass_inp.Text) &&
+                !IsBlank(phone_inp.Text) &&
+                pass_inp.Text = confmpass_inp.Text &&
+                IsMatch(phone_inp.Text, "^\d{10}$"),  
+            
+             
+                Patch(
+                    Employee_sales,
+                    Defaults(Employee_sales),
+                    {
+                        Name: name_inp.Text,
+                        Phone: phone_inp.Text,
+                        Email: email_inp.Text,
+                        Gender: Radio2.Selected.Value,
+                        'Date of joining': Doj_inp.SelectedDate,
+                        Role: role_inp.Selected.Value,
+                        DOB: If(!IsBlank(DOB_inp.SelectedDate), DOB_inp.SelectedDate, Blank()),
+                        Team: LookUp(Team_sales, 'Team Name' = team_inp.Selected.'Team Name'),
+                        Password: pass_inp.Text
+                    }
+                );
+            
+                Notify("Account created successfully!", NotificationType.Success);
+            
+                
+                Reset(name_inp);
+                Reset(phone_inp);
+                Reset(email_inp);
+                Reset(pass_inp);
+                Reset(confmpass_inp);
+                Reset(Doj_inp);
+                Reset(DOB_inp);
+                Reset(role_inp);
+                Reset(team_inp);
+                Reset(Radio2);
+            
+                Navigate(LoginScreen, ScreenTransition.Fade),
+            
+                Notify(
+                    If(
+                        IsBlank(name_inp.Text) ||  IsBlank(phone_inp.Text) || IsBlank(email_inp.Text) || IsBlank(role_inp.Selected.Value) || IsBlank(pass_inp.Text) || IsBlank(confmpass_inp.Text),
+                        "Please ensure all required fields are filled.",
+                        If(pass_inp.Text <> confmpass_inp.Text,
+                            "Passwords do not match.",
+                            "Phone number must be exactly 10 digits."
+                        )
+                    ),
+                    NotificationType.Error
+                )
+            )
+        Size: =24
+        Text: ="Create account"
+        Width: =280
+        X: =192
+        Y: =956
+        ZIndex: =17
+
+    Doj_inp As datepicker:
+        Height: =48
+        Size: =24
+        Width: =375
+        X: =241
+        Y: =458
+        ZIndex: =18
+
+    role_inp As dropdown:
+        AllowEmptySelection: =true
+        Height: =48
+        Items: =Choices('Role (Employee_sales)')
+        Size: =21
+        Width: =375
+        X: =241
+        Y: =531
+        ZIndex: =19
+
+    DOB_inp As datepicker:
+        Height: =48
+        Size: =24
+        Width: =375
+        X: =241
+        Y: =609
+        ZIndex: =20
+
+    pass_inp As text:
+        Default: =
+        Height: =52
+        HintText: ="Password"
+        Mode: =If(varShowRegPass,TextMode.SingleLine,TextMode.Password)
+        Size: =20
+        Width: =372
+        X: =244
+        Y: =759
+        ZIndex: =21
+
+    confmpass_inp As text:
+        Default: =
+        Height: =52
+        HintText: ="Email"
+        Mode: =If(varShowRegConfirmPass,TextMode.SingleLine,TextMode.Password)
+        Size: =20
+        Width: =372
+        X: =241
+        Y: =836
+        ZIndex: =22
+
+    team_inp As dropdown:
+        AllowEmptySelection: =true
+        Height: =48
+        Items: =Sort(Team_sales,'Team Name',SortOrder.Ascending)
+        Size: =21
+        Width: =375
+        X: =241
+        Y: =686
+        ZIndex: =23
+
+    Radio2 As radio:
+        Height: =59
+        Items: =Choices('Gender (Employee_sales)')
+        Layout: =Layout.Horizontal
+        RadioSize: =35
+        Size: =17
+        Width: =400
+        X: =240
+        Y: =378
+        ZIndex: =24
+
+    Label13 As label:
+        Color: =RGBA(184, 0, 0, 1)
+        Height: =28
+        Size: =15
+        Text: ="*"
+        Width: =43
+        X: =109
+        Y: =160
+        ZIndex: =25
+
+    Label13_1 As label:
+        Color: =RGBA(184, 0, 0, 1)
+        Height: =28
+        Size: =15
+        Text: ="*"
+        Width: =43
+        X: =105
+        Y: =314
+        ZIndex: =26
+
+    Label13_2 As label:
+        Color: =RGBA(184, 0, 0, 1)
+        Height: =28
+        Size: =15
+        Text: ="*"
+        Width: =43
+        X: =152
+        Y: =771
+        ZIndex: =27
+
+    Label13_3 As label:
+        Color: =RGBA(184, 0, 0, 1)
+        Height: =28
+        Size: =15
+        Text: ="*"
+        Width: =43
+        X: =136
+        Y: =831
+        ZIndex: =28
+
+    Icon10 As icon.View:
+        Height: =25
+        Icon: =Icon.View
+        OnSelect: =Set(varShowRegPass,!varShowRegPass)
+        Width: =30
+        X: =569
+        Y: =774
+        ZIndex: =29
+
+    Icon10_1 As icon.View:
+        Height: =25
+        Icon: =Icon.View
+        OnSelect: =Set(varShowRegConfirmPass,!varShowRegConfirmPass)
+        Width: =30
+        X: =569
+        Y: =849
+        ZIndex: =30
+
+    Label13_4 As label:
+        Color: =RGBA(184, 0, 0, 1)
+        Height: =28
+        Size: =15
+        Text: ="*"
+        Width: =43
+        X: =93
+        Y: =540
+        ZIndex: =31
+
+    login_nav As button:
+        Align: =Align.Left
+        BorderColor: =//ColorFade(Self.Fill, -15%)
+        BorderStyle: =//BorderStyle.Solid
+        BorderThickness: =0
+        Color: =RGBA(0, 18, 107, 1)
+        DisabledBorderColor: =//RGBA(166, 166, 166, 1)
+        DisabledColor: =//RGBA(166, 166, 166, 1)
+        DisabledFill: =//RGBA(255, 255, 255, 1)
+        Fill: =RGBA(241, 244, 249, 1)
+        FocusedBorderColor: =//Self.BorderColor
+        Height: =30
+        HoverBorderColor: =//ColorFade(Self.BorderColor, 20%)
+        HoverColor: =//RGBA(255, 255, 255, 1)
+        HoverFill: =//ColorFade(RGBA(56, 96, 178, 1), -20%)
+        OnSelect: |
+            =Navigate(LoginScreen,ScreenTransition.Fade);
+        PressedBorderColor: =//Self.Fill
+        PressedColor: =RGBA(0,0,0,1)
+        PressedFill: =//Self.Color
+        Text: ="Login"
+        Underline: =true
+        Width: =107
+        X: =432
+        Y: =1012
+        ZIndex: =32
+

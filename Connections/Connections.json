@@ -1,0 +1,90 @@
+{
+  "1ca41fbb-13a1-4b54-b14b-c0797b69882b": {
+    "appActions": [],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Office 365 Outlook",
+      "iconUri": "https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/releases/v1.0.1722/1.0.1722.3975/office365/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [],
+    "dependencies": {},
+    "dependents": [
+      "4706e0d0-8a46-4975-864d-253451c512ae"
+    ],
+    "id": "1ca41fbb-13a1-4b54-b14b-c0797b69882b"
+  },
+  "4706e0d0-8a46-4975-864d-253451c512ae": {
+    "appActions": [
+      "Run"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Logic flows",
+      "iconUri": "https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/releases/v1.0.1725/1.0.1725.4004/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "1ca41fbb-13a1-4b54-b14b-c0797b69882b": {
+          "value": "shared_office365"
+        },
+        "4d066db0-1187-4a8e-ab46-c051a7703af3": {
+          "value": "shared_commondataserviceforapps"
+        },
+        "workflowDisplayName": {
+          "value": "Password Reset Flow"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "8057747d-af04-45ac-9e4f-cb43f38213d2"
+        }
+      },
+      "parameterHintsV2": {
+        "shared_commondataserviceforapps": {
+          "value": "4d066db0-1187-4a8e-ab46-c051a7703af3"
+        },
+        "shared_office365": {
+          "value": "1ca41fbb-13a1-4b54-b14b-c0797b69882b"
+        },
+        "workflowDisplayName": {
+          "value": "Password Reset Flow"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "8057747d-af04-45ac-9e4f-cb43f38213d2"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "PasswordResetFlow"
+    ],
+    "dependencies": {
+      "shared_commondataserviceforapps": "4d066db0-1187-4a8e-ab46-c051a7703af3",
+      "shared_office365": "1ca41fbb-13a1-4b54-b14b-c0797b69882b"
+    },
+    "dependents": [],
+    "id": "4706e0d0-8a46-4975-864d-253451c512ae"
+  },
+  "4d066db0-1187-4a8e-ab46-c051a7703af3": {
+    "appActions": [],
+    "connectionRef": {
+      "apiTier": "Premium",
+      "bypassConsent": true,
+      "displayName": "Microsoft Dataverse",
+      "iconUri": "https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/releases/v1.0.1735/1.0.1735.4099/commondataserviceforapps/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_commondataserviceforapps",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [],
+    "dependencies": {},
+    "dependents": [
+      "4706e0d0-8a46-4975-864d-253451c512ae"
+    ],
+    "id": "4d066db0-1187-4a8e-ab46-c051a7703af3"
+  }
+}

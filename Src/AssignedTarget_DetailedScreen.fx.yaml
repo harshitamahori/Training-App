@@ -1,0 +1,459 @@
+AssignedTarget_DetailedScreen As screen:
+    Fill: =RGBA(245,245,245,0.2)
+    OnVisible: |
+        =ClearCollect(
+            TargetProductCatData,
+            AddColumns(
+                Target_sales,
+                ProductName, LookUp(Product_sales, ProductID = TargetAssign_ManagerGallery.Selected.ProductID.ProductID, 'Product Name'),
+                CategoryName, LookUp(Category_sales, CategoryID = TargetAssign_ManagerGallery.Selected.CategoryID.CategoryID, 'Category Name'),
+                ManagerName,LookUp(Employee_sales,EmployeeID=TargetAssign_ManagerGallery.Selected.AssignedBy.EmployeeID,Name)
+            )
+        );
+
+    "'Head-details' As rectangle":
+        Fill: =RGBA(0, 18, 107, 1)
+        Height: =87
+        Width: =640
+        ZIndex: =2
+
+    Arrow1 As arrow.backArrow:
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =60
+        OnSelect: =Navigate(TargetAssignedListScreen,ScreenTransition.Fade);
+        Width: =62
+        X: =14
+        Y: =13
+        ZIndex: =3
+
+    "'Heading-detail' As label":
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =60
+        Size: =30
+        Text: ="Target Detail"
+        Width: =402
+        X: =112
+        Y: =13
+        ZIndex: =4
+
+    "'Name-detail' As label":
+        FontWeight: =FontWeight.Semibold
+        Size: =30
+        Text: =varSelectedRecord.'Name-label'.Text
+        Width: =491
+        X: =14
+        Y: =125
+        ZIndex: =5
+
+    assignedOn As label:
+        Color: =RGBA(128, 128, 128, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =28
+        Size: =14
+        Text: ="Assigned On " & Text(varSelectedRecord.'Created On',"dd mmmm yyyy")
+        Width: =306
+        X: =21
+        Y: =184
+        ZIndex: =6
+
+    assignedBy As label:
+        Color: =RGBA(128, 128, 128, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =25
+        Size: =14
+        Text: |-
+            =//"Assigned By "&LookUp(Employee_sales,EmployeeID=TargetAssign_ManagerGallery.Selected.AssignedBy.EmployeeID,Name)
+            "Assigned By "&LookUp(TargetProductCatData,AssignedBy.EmployeeID=varSelectedRecord.AssignedBy.EmployeeID,ManagerName)
+        Width: =297
+        X: =333
+        Y: =186
+        ZIndex: =7
+
+    sep2 As rectangle:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        Fill: =RGBA(166, 166, 166, 1)
+        Height: =1
+        Width: =618
+        X: =9
+        Y: =214
+        ZIndex: =8
+
+    sep1 As rectangle:
+        Fill: =RGBA(166, 166, 166, 1)
+        Height: =25
+        Width: =1
+        X: =318
+        Y: =184
+        ZIndex: =9
+
+    "'descrip-label' As label":
+        FontWeight: =FontWeight.Semibold
+        Height: =29
+        Size: =15
+        Text: |-
+            ="Target Description : "
+        Width: =216
+        X: =21
+        Y: =333
+        ZIndex: =10
+
+    descrip As label:
+        Height: =47
+        Size: =14
+        Text: =varSelectedRecord.Description
+        Width: =361
+        X: =279
+        Y: =325
+        ZIndex: =11
+
+    "'val-label' As label":
+        FontWeight: =FontWeight.Semibold
+        Height: =29
+        Size: =15
+        Text: |-
+            ="Target Value : "
+        Width: =216
+        X: =25
+        Y: =392
+        ZIndex: =12
+
+    val As label:
+        Height: =29
+        Size: =15
+        Text: =varSelectedRecord.'Target Value'
+        Width: =216
+        X: =289
+        Y: =392
+        ZIndex: =13
+
+    sep3 As rectangle:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        Fill: =RGBA(166, 166, 166, 1)
+        Height: =1
+        Width: =618
+        X: =14
+        Y: =430
+        ZIndex: =14
+
+    "'StartDate-lbl' As label":
+        FontWeight: =FontWeight.Semibold
+        Height: =29
+        Size: =15
+        Text: |-
+            ="Start Date : "
+        Width: =138
+        X: =26
+        Y: =450
+        ZIndex: =15
+
+    StartDate As label:
+        Height: =34
+        Size: =15
+        Text: =Text(varSelectedRecord.'Start Date',"dd mmmm yyyy")
+        Width: =207
+        X: =404
+        Y: =444
+        ZIndex: =16
+
+    "'EndDate-lbl' As label":
+        FontWeight: =FontWeight.Semibold
+        Height: =26
+        Size: =15
+        Text: |-
+            ="End Date : "
+        Width: =115
+        X: =26
+        Y: =498
+        ZIndex: =17
+
+    EndDate As label:
+        Height: =29
+        Size: =15
+        Text: =Text(varSelectedRecord.'End Date',"dd mmmm yyyy")
+        Width: =207
+        X: =404
+        Y: =495
+        ZIndex: =18
+
+    sep4 As rectangle:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        Fill: =RGBA(166, 166, 166, 1)
+        Height: =1
+        Width: =618
+        X: =14
+        Y: =537
+        ZIndex: =19
+
+    "'status-lbl' As label":
+        FontWeight: =FontWeight.Semibold
+        Height: =27
+        Size: =15
+        Text: |-
+            ="Status :  "
+        Width: =137
+        X: =26
+        Y: =555
+        ZIndex: =20
+
+    "'status-view' As label":
+        Color: |-
+            =Switch(
+                varSelectedRecord.status,
+                'status (Target_sales)'.Assigned,Color.Red,
+                'status (Target_sales)'.'In Progress',Color.Blue,
+                'status (Target_sales)'.Completed,Color.Green,
+                Color.Gray
+            )
+        FontWeight: =FontWeight.Bold
+        Height: =27
+        Size: =15
+        Text: =varSelectedRecord.status
+        Width: =161
+        X: =467
+        Y: =555
+        ZIndex: =21
+
+    sep5 As rectangle:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        Fill: =RGBA(166, 166, 166, 1)
+        Height: =1
+        Width: =618
+        X: =14
+        Y: =601
+        ZIndex: =22
+
+    lastUpdate As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =33
+        Size: =15
+        Text: |-
+            ="Last Update Date :  "
+        Width: =200
+        X: =25
+        Y: =704
+        ZIndex: =23
+
+    Progress_lbl As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =33
+        Size: =15
+        Text: ="Progress  "
+        Width: =200
+        X: =25
+        Y: =757
+        ZIndex: =24
+
+    "'Remarks-lbl' As label":
+        FontWeight: =FontWeight.Semibold
+        Height: =29
+        Size: =15
+        Text: ="Remarks "
+        Width: =137
+        X: =28
+        Y: =810
+        ZIndex: =25
+
+    ProgressBar As rectangle:
+        Fill: =RGBA(166, 166, 166, 1)
+        Height: =21
+        Width: =191
+        X: =420
+        Y: =763
+        ZIndex: =26
+
+    sep6 As rectangle:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        Fill: =RGBA(166, 166, 166, 1)
+        Height: =1
+        Width: =618
+        X: =14
+        Y: =867
+        ZIndex: =28
+
+    IncentAmt As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =33
+        Size: =15
+        Text: |-
+            ="Incentive Amount :  "
+        Width: =200
+        X: =21
+        Y: =877
+        ZIndex: =29
+
+    BadgeEarned As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =33
+        Size: =15
+        Text: |-
+            ="Badge Earned :  "
+        Width: =200
+        X: =21
+        Y: =928
+        ZIndex: =30
+
+    "'RewardDate-lbl' As label":
+        FontWeight: =FontWeight.Semibold
+        Height: =33
+        Size: =15
+        Text: |-
+            ="Reward Date :  "
+        Width: =200
+        X: =24
+        Y: =982
+        ZIndex: =31
+
+    "'Pri-lbl' As label":
+        FontWeight: =FontWeight.Semibold
+        Height: =27
+        Size: =15
+        Text: |-
+            ="Priority :  "
+        Width: =137
+        X: =28
+        Y: =630
+        ZIndex: =32
+
+    "'Prior-flag' As icon.Flag":
+        Color: |-
+            =Switch(
+                varSelectedRecord.Priority,
+                'Priority (Target_sales)'.High,Color.Red,
+                'Priority (Target_sales)'.Medium,Color.DarkOrange,
+                'Priority (Target_sales)'.Low,Color.Green,
+                Color.Gray
+            )
+        Height: =41
+        Icon: =Icon.Flag
+        Width: =44
+        X: =494
+        Y: =622
+        ZIndex: =33
+
+    sep5_2 As rectangle:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        Fill: =RGBA(166, 166, 166, 1)
+        Height: =1
+        Width: =618
+        X: =14
+        Y: =678
+        ZIndex: =34
+
+    Rectangle2 As rectangle:
+        Height: =12
+        Width: =190
+        X: =421
+        Y: =767
+        ZIndex: =35
+
+    Icon3 As icon.Home:
+        Color: =RGBA(128, 128, 128, 1)
+        Height: =51
+        Icon: =Icon.Home
+        OnSelect: =Navigate(ManagerHomeScreen,ScreenTransition.Fade)
+        Width: =57
+        X: =276
+        Y: =1081
+        ZIndex: =36
+
+    Icon4 As icon.Add:
+        Color: =RGBA(128, 128, 128, 1)
+        Height: =51
+        Icon: =Icon.Add
+        OnSelect: =Navigate('Assign Target Screen',ScreenTransition.Fade);
+        Width: =57
+        X: =517
+        Y: =1081
+        ZIndex: =37
+
+    Icon6 As icon.Person:
+        Color: =RGBA(128, 128, 128, 1)
+        Height: =51
+        Icon: =Icon.Person
+        Width: =57
+        X: =52
+        Y: =1081
+        ZIndex: =38
+
+    sep6_1 As rectangle:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        Fill: =RGBA(166, 166, 166, 1)
+        Height: =1
+        Width: =640
+        Y: =1067
+        ZIndex: =39
+
+    "'cat-llbl' As label":
+        FontWeight: =FontWeight.Semibold
+        Height: =29
+        Size: =15
+        Text: |-
+            ="Category Name  : "
+        Width: =216
+        X: =22
+        Y: =239
+        ZIndex: =40
+
+    "'prod-llbl' As label":
+        FontWeight: =FontWeight.Semibold
+        Height: =29
+        Size: =15
+        Text: |-
+            ="Product Name  : "
+        Width: =216
+        X: =22
+        Y: =286
+        ZIndex: =41
+
+    "'cat-val' As label":
+        Height: =29
+        Size: =15
+        Text: |-
+            =//LookUp(Category_sales,CategoryID=TargetAssign_ManagerGallery.Selected.CategoryID.CategoryID,'Category Name')
+            LookUp(TargetProductCatData,CategoryID.CategoryID=varSelectedRecord.CategoryID.CategoryID,CategoryName)
+        Width: =308
+        X: =279
+        Y: =239
+        ZIndex: =42
+
+    Label4_2 As label:
+        Height: =29
+        Size: =15
+        Text: |+
+            =//LookUp(Product_sales,ProductID=TargetAssign_ManagerGallery.Selected.ProductID.ProductID,'Product Name')
+            //LookUp(TargetProductCatData, ProductID.ProductID = TargetAssign_ManagerGallery.Selected.ProductID.ProductID, ProductName)
+            LookUp(TargetProductCatData, ProductID.ProductID = varSelectedUserRecord.ProductID.ProductID, ProductName)
+            
+            
+            
+            
+        Width: =308
+        X: =279
+        Y: =286
+        ZIndex: =43
+
+    Icon7 As icon.DocumentPDF:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =44
+        Icon: =Icon.DocumentPDF
+        OnSelect: |+
+            =Set(varPDFGenerator,
+            PDF(AssignedTarget_DetailedScreen,{ExpandContainers:true}));
+            
+            Navigate(PDFdownloadScreen,ScreenTransition.Fade);
+            
+        Width: =48
+        X: =574
+        Y: =21
+        ZIndex: =44
+
+    Icon2 As icon.Note:
+        Height: =37
+        Icon: =Icon.Note
+        Width: =63
+        X: =494
+        Y: =802
+        ZIndex: =45
+

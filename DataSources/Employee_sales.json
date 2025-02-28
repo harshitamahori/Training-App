@@ -1,0 +1,178 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cr371_employee_saleses",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cr371_employee_sales",
+    "MaxGetRowsCount": 500,
+    "Name": "Employee_sales",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr371_dateofjoining": "Date of joining",
+      "cr371_department": "Department",
+      "cr371_dob": "DOB",
+      "cr371_email": "Email",
+      "cr371_employee_sales_AsyncOperations": "System Jobs",
+      "cr371_employee_sales_BulkDeleteFailures": "Bulk Delete Failures",
+      "cr371_employee_sales_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cr371_employee_sales_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cr371_employee_sales_ProcessSession": "Process Sessions",
+      "cr371_employee_sales_SyncErrors": "Sync Errors",
+      "cr371_employee_salesid": "Employee_sales",
+      "cr371_employeeid": "EmployeeID",
+      "cr371_gender": "Gender",
+      "cr371_incentive_sales_EmployeeID_cr371_employee_sales": "Incentive_sales",
+      "cr371_name": "Name",
+      "cr371_notification_sales_EmployeeID_cr371_employee_sales": "Notification_sales",
+      "cr371_password": "Password",
+      "cr371_passwordreset_sales_EmployeeID_cr371_employee_sales": "PasswordReset_sales",
+      "cr371_phone": "Phone",
+      "cr371_progress_sales_ApprovedBy_cr371_employee_sales": "Progress_sales (cr371_progress_sales_ApprovedBy_cr371_employee_sales)",
+      "cr371_progress_sales_UpdatedBy_cr371_employee_sales": "Progress_sales (cr371_progress_sales_UpdatedBy_cr371_employee_sales)",
+      "cr371_role": "Role",
+      "cr371_target_sales_AssignedBy_cr371_employee_sales": "Target_sales (cr371_target_sales_AssignedBy_cr371_employee_sales)",
+      "cr371_target_sales_AssignedTo_cr371_employee_sales": "Target_sales (cr371_target_sales_AssignedTo_cr371_employee_sales)",
+      "cr371_Team": "Team",
+      "cr371_team_sales_TeamLead_cr371_employee_sales": "Team_sales",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Employee_sales",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Employee_sales (Views)",
+    "Name": "_cr371_employee_sales_views",
+    "RelatedEntityName": "Employee_sales",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "007a9150-0575-4274-87ce-efcf621fce04": "Employee_sales Associated View",
+      "37dc5717-1cc0-4cce-aba5-7425ce5ba7d4": "Employee_sales Advanced Find View",
+      "3cbc9c15-9825-4854-b9ac-d0ea93858cb1": "Employee_sales Lookup View",
+      "6ca521ed-9694-4d10-843b-78b3381000ae": "Inactive Employee_sales",
+      "bd6ef7e1-fcfb-4348-a1b6-29d7b6e001da": "Active Employee_sales"
+    }
+  },
+  {
+    "DisplayName": "Department (Employee_sales)",
+    "Name": "cr371_employee_sales_cr371_department",
+    "OptionSetInfoNameMapping": {
+      "852020000": "Sales",
+      "852020001": "Marketing",
+      "852020002": "IT",
+      "852020003": "Human Resource",
+      "852020004": "Operations"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr371_department",
+        "OptionSetReferenceEntityName": "Employee_sales"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr371_department",
+    "RelatedEntityName": "Employee_sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Gender (Employee_sales)",
+    "Name": "cr371_employee_sales_cr371_gender",
+    "OptionSetInfoNameMapping": {
+      "852020000": "Male",
+      "852020001": "Female",
+      "852020002": "Other"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr371_gender",
+        "OptionSetReferenceEntityName": "Employee_sales"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr371_gender",
+    "RelatedEntityName": "Employee_sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Role (Employee_sales)",
+    "Name": "cr371_employee_sales_cr371_role",
+    "OptionSetInfoNameMapping": {
+      "852020000": "Admin",
+      "852020001": "Manager",
+      "852020002": "User"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr371_role",
+        "OptionSetReferenceEntityName": "Employee_sales"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr371_role",
+    "RelatedEntityName": "Employee_sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Employee_sales)",
+    "Name": "cr371_employee_sales_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Employee_sales"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Employee_sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Employee_sales)",
+    "Name": "cr371_employee_sales_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Employee_sales"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Employee_sales",
+    "Type": "OptionSetInfo"
+  }
+]

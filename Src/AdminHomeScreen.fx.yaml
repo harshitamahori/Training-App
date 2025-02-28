@@ -1,0 +1,15 @@
+AdminHomeScreen As screen:
+
+    Label2 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(0, 18, 107, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =70
+        Size: =21
+        Text: |-
+            ="Admin Home Screen
+            "
+        Width: =640
+        ZIndex: =1
+

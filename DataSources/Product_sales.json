@@ -1,0 +1,124 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cr371_product_saleses",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cr371_product_sales",
+    "MaxGetRowsCount": 500,
+    "Name": "Product_sales",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr371_CategoryID": "CategoryID",
+      "cr371_price": "Price",
+      "cr371_price_base": "Price (Base)",
+      "cr371_product_sales_AsyncOperations": "System Jobs",
+      "cr371_product_sales_BulkDeleteFailures": "Bulk Delete Failures",
+      "cr371_product_sales_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cr371_product_sales_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cr371_product_sales_ProcessSession": "Process Sessions",
+      "cr371_product_sales_SyncErrors": "Sync Errors",
+      "cr371_product_salesid": "Product_sales",
+      "cr371_productid": "ProductID",
+      "cr371_productname": "Product Name",
+      "cr371_status": "Status (cr371_status)",
+      "cr371_stockquantity": "Stock Quantity",
+      "cr371_target_sales_ProductID_cr371_product_sales": "Target_sales",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "exchangerate": "Exchange Rate",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status (statecode)",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "transactioncurrencyid": "Currency",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Product_sales",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Product_sales (Views)",
+    "Name": "_cr371_product_sales_views",
+    "RelatedEntityName": "Product_sales",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "3d0d97e6-fcb3-4e17-8eac-ff595d4a6dca": "Product_sales Lookup View",
+      "4f14f6a9-fc01-4a60-8f46-111a83c63aec": "Product_sales Advanced Find View",
+      "740fe9f0-7da6-4b15-8efb-ab273aaecfc5": "Active Product_sales",
+      "742bb089-df11-40ce-b7d1-7237bfdedd4a": "Inactive Product_sales",
+      "ea1e4270-eff4-43f2-b893-da22ca486f67": "Product_sales Associated View"
+    }
+  },
+  {
+    "DisplayName": "Status (Product_sales)",
+    "Name": "cr371_product_sales_cr371_status",
+    "OptionSetInfoNameMapping": {
+      "852020000": "Active",
+      "852020001": "Discontinued"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr371_status",
+        "OptionSetReferenceEntityName": "Product_sales"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr371_status",
+    "RelatedEntityName": "Product_sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Product_sales)_1",
+    "Name": "cr371_product_sales_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Product_sales"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Product_sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Product_sales)",
+    "Name": "cr371_product_sales_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Product_sales"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Product_sales",
+    "Type": "OptionSetInfo"
+  }
+]

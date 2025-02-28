@@ -1,0 +1,123 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cr371_team_saleses",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cr371_team_sales",
+    "MaxGetRowsCount": 500,
+    "Name": "Team_sales",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr371_department": "Department",
+      "cr371_employee_sales_Team_cr371_team_sales": "Employee_sales",
+      "cr371_target_sales_TeamID_cr371_team_sales": "Target_sales",
+      "cr371_team_sales_AsyncOperations": "System Jobs",
+      "cr371_team_sales_BulkDeleteFailures": "Bulk Delete Failures",
+      "cr371_team_sales_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cr371_team_sales_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cr371_team_sales_ProcessSession": "Process Sessions",
+      "cr371_team_sales_SyncErrors": "Sync Errors",
+      "cr371_team_salesid": "Team_sales",
+      "cr371_teamid": "TeamID",
+      "cr371_TeamLead": "TeamLead",
+      "cr371_teamname": "Team Name",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Team_sales",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Team_sales (Views)",
+    "Name": "_cr371_team_sales_views",
+    "RelatedEntityName": "Team_sales",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "27ba67e8-3129-4adb-9db5-608f6ebbc5a0": "Team_sales Lookup View",
+      "3d6a91b6-3879-4832-9992-96f1da635f3e": "Team_sales Advanced Find View",
+      "427ebec7-a384-497a-b81a-4234f0d4a162": "Inactive Team_sales",
+      "ca2ae1e8-b4b3-4c57-97b7-ffa24b745fdd": "Team_sales Associated View",
+      "d6b2a696-2de2-47a0-b4c2-9eedd5106577": "Active Team_sales"
+    }
+  },
+  {
+    "DisplayName": "Department (Team_sales)",
+    "Name": "cr371_team_sales_cr371_department",
+    "OptionSetInfoNameMapping": {
+      "852020000": "Sales",
+      "852020001": "Marketing",
+      "852020002": "Human Resource",
+      "852020003": "Operations",
+      "852020004": "IT"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr371_department",
+        "OptionSetReferenceEntityName": "Team_sales"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr371_department",
+    "RelatedEntityName": "Team_sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Team_sales)",
+    "Name": "cr371_team_sales_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Team_sales"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Team_sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Team_sales)",
+    "Name": "cr371_team_sales_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Team_sales"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Team_sales",
+    "Type": "OptionSetInfo"
+  }
+]

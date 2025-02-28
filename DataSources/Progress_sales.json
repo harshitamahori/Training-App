@@ -1,0 +1,128 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cr371_progress_saleses",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cr371_progress_sales",
+    "MaxGetRowsCount": 500,
+    "Name": "Progress_sales",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr371_approvaldate": "ApprovalDate",
+      "cr371_approvalstatus": "Approval Status",
+      "cr371_ApprovedBy": "ApprovedBy",
+      "cr371_invoiceattachment": "InvoiceAttachment",
+      "cr371_progress_sales_AsyncOperations": "System Jobs",
+      "cr371_progress_sales_BulkDeleteFailures": "Bulk Delete Failures",
+      "cr371_progress_sales_FileAttachments": "FileAttachments",
+      "cr371_progress_sales_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cr371_progress_sales_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cr371_progress_sales_ProcessSession": "Process Sessions",
+      "cr371_progress_sales_SyncErrors": "Sync Errors",
+      "cr371_progress_salesid": "Progress_sales",
+      "cr371_progressid": "ProgressID",
+      "cr371_progressvalue": "Progress Value",
+      "cr371_rejectionreason": "Rejection Reason",
+      "cr371_remarks": "Remarks",
+      "cr371_TargetID": "TargetID",
+      "cr371_UpdatedBy": "Updated By",
+      "cr371_updateddate": "Updated Date",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Progress_sales",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Progress_sales (Views)",
+    "Name": "_cr371_progress_sales_views",
+    "RelatedEntityName": "Progress_sales",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "06f13b53-87ba-48d9-8c53-40d2966edf70": "Progress_sales Advanced Find View",
+      "11096aaa-e116-46c9-b409-14d26d3c9aba": "Progress_sales Lookup View",
+      "122b2d88-1f19-4bc3-b5e3-8a44bb0253b3": "Active Progress_sales",
+      "6b1fbdc5-71dc-42d8-9533-d33e752aa626": "Inactive Progress_sales",
+      "8362140b-1efc-4455-9f34-650e307449da": "Progress_sales Associated View"
+    }
+  },
+  {
+    "DisplayName": "Approval Status (Progress_sales)",
+    "Name": "cr371_progress_sales_cr371_approvalstatus",
+    "OptionSetInfoNameMapping": {
+      "852020000": "Pending",
+      "852020001": "Approved",
+      "852020002": "Rejected",
+      "852020003": "Cancelled"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr371_approvalstatus",
+        "OptionSetReferenceEntityName": "Progress_sales"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr371_approvalstatus",
+    "RelatedEntityName": "Progress_sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Progress_sales)",
+    "Name": "cr371_progress_sales_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Progress_sales"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Progress_sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Progress_sales)",
+    "Name": "cr371_progress_sales_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Progress_sales"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Progress_sales",
+    "Type": "OptionSetInfo"
+  }
+]

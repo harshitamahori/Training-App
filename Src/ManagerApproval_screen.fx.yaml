@@ -1,0 +1,473 @@
+ManagerApproval_screen As screen:
+    OnVisible: |-
+        =Refresh(Progress_sales);
+        Refresh(Target_sales);
+
+    screen_heading_1 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(0, 18, 107, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =87
+        Size: =30
+        Text: ="Request Approval"
+        Width: =640
+        ZIndex: =1
+
+    "Gallery1 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0'":
+        BorderColor: =RGBA(128, 128, 128, 1)
+        BorderThickness: =1
+        DelayItemLoading: =true
+        Height: =775
+        Items: =Progress_sales
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplatePadding: =0
+        TemplateSize: =595
+        Y: =299
+        ZIndex: =2
+
+        Rectangle3 As rectangle:
+            Height: =
+            OnSelect: =Select(Parent)
+            Visible: =ThisItem.IsSelected
+            Width: =4
+            ZIndex: =6
+
+        Container6 As groupContainer.manualLayoutContainer:
+            Fill: =RGBA(241, 244, 249, 1)
+            Height: =569
+            Width: |+
+                =Parent.TemplateWidth-25
+                
+                
+            X: =10
+            Y: =12
+            ZIndex: =7
+
+            Label8 As label:
+                FontWeight: =FontWeight.Bold
+                Height: =38
+                Size: =20
+                Text: =LookUp(Employee_sales,EmployeeID=ThisItem.'Updated By'.EmployeeID,Name)
+                Width: =395
+                X: =205
+                Y: =20
+                ZIndex: =1
+
+            Label9 As label:
+                Color: =RGBA(116, 116, 116, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =30
+                Size: =15
+                Text: |
+                    =If(
+                        DateDiff(ThisItem.'Updated Date', Now(),TimeUnit.Days) = 0, 
+                        "Today",
+                        If(
+                            DateDiff(ThisItem.'Updated Date', Now(),TimeUnit.Days) = 1,
+                            "1 Day Ago",
+                            DateDiff(ThisItem.'Updated Date', Now(),TimeUnit.Days) & " Days Ago"
+                        )
+                    )
+                Width: =278
+                X: =205
+                Y: =58
+                ZIndex: =2
+
+            Image2 As image:
+                Height: =75
+                RadiusBottomLeft: =75
+                RadiusBottomRight: =75
+                RadiusTopLeft: =75
+                RadiusTopRight: =75
+                Width: =75
+                X: =16
+                Y: =13
+                ZIndex: =3
+
+            Label9_1 As label:
+                Color: =RGBA(26, 26, 26, 1)
+                Height: =35
+                Size: =18
+                Text: |
+                    =ThisItem.TargetID.TargetID
+                Width: =278
+                X: =300
+                Y: =116
+                ZIndex: =4
+
+            Label14 As label:
+                FontWeight: =FontWeight.Semibold
+                Height: =35
+                Size: =18
+                Text: |-
+                    ="Requested Value :"
+                Width: =225
+                X: =16
+                Y: =273
+                ZIndex: =5
+
+            Label9_2 As label:
+                Color: =RGBA(26, 26, 26, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =35
+                Size: =18
+                Text: |
+                    ="Target ID : "
+                X: =16
+                Y: =116
+                ZIndex: =6
+
+            Label9_3 As label:
+                Color: =RGBA(26, 26, 26, 1)
+                Height: =35
+                Size: =18
+                Text: |
+                    =ThisItem.'Progress Value'
+                Width: =120
+                X: =300
+                Y: =271
+                ZIndex: =7
+
+            Label14_1 As label:
+                FontWeight: =FontWeight.Semibold
+                Height: =35
+                Size: =18
+                Text: |-
+                    ="Approval Status :"
+                Width: =210
+                X: =16
+                Y: =329
+                ZIndex: =8
+
+            Button10 As button:
+                DisplayMode: =DisplayMode.View
+                Fill: |-
+                    =Switch(
+                        ThisItem.'Approval Status',
+                        'Approval Status (Progress_sales)'.Approved,Color.Green,
+                        'Approval Status (Progress_sales)'.Pending,Color.Orange,
+                        'Approval Status (Progress_sales)'.Rejected,Color.Red,
+                        'Approval Status (Progress_sales)'.Cancelled,Color.Gray
+                    )
+                Height: =35
+                Size: =18
+                Text: =ThisItem.'Approval Status'
+                Width: =130
+                X: =300
+                Y: =329
+                ZIndex: =9
+
+            Label14_2 As label:
+                FontWeight: =FontWeight.Semibold
+                Height: =35
+                Size: =18
+                Text: |-
+                    ="Remarks :"
+                X: =16
+                Y: =386
+                ZIndex: =10
+
+            Label14_3 As label:
+                Height: =35
+                Size: =18
+                Text: =Coalesce(ThisItem.Remarks,"No remarks")
+                Width: =210
+                X: =300
+                Y: =370
+                ZIndex: =11
+
+            Label14_4 As label:
+                FontWeight: =FontWeight.Semibold
+                Height: =35
+                Size: =18
+                Text: |-
+                    ="Invoice :"
+                X: =16
+                Y: =439
+                ZIndex: =12
+
+            Icon13 As icon.Download:
+                Height: =37
+                Icon: =Icon.Download
+                OnSelect: =
+                Width: =60
+                X: =285
+                Y: =437
+                ZIndex: =14
+
+            Button11 As button:
+                Fill: =RGBA(99, 139, 44, 1)
+                Height: =42
+                HoverFill: =RGBA(127,178,57,1)
+                OnSelect: |
+                    =With(
+                        {
+                            remainingTargetValue: 
+                                LookUp(Target_sales, TargetID = ThisItem.TargetID.TargetID, 'Target Value') - ThisItem.'Progress Value'
+                        },
+                    
+                        Patch(
+                            Progress_sales,
+                            ThisItem,
+                            {
+                                'Approval Status': 'Approval Status (Progress_sales)'.Approved,
+                                ApprovalDate:Now(),
+                                ApprovedBy:LookUp(Employee_sales,EmployeeID=varCurrentUser.EmployeeID)
+                            }
+                        );
+                    
+                        Patch(
+                            Target_sales,
+                            LookUp(Target_sales, TargetID = ThisItem.TargetID.TargetID),
+                            {
+                                'Target Value': remainingTargetValue
+                            }
+                        );
+                    
+                        Notify("Request Approved & Target Value Updated!", NotificationType.Success);
+                    );
+                    Refresh(Target_sales);
+                    Refresh(Progress_sales);
+                Size: =18
+                Text: ="APPROVE"
+                Visible: =ThisItem.'Approval Status'='Approval Status (Progress_sales)'.Pending
+                Width: =208
+                X: =35
+                Y: =500
+                ZIndex: =15
+
+            Button11_1 As button:
+                Fill: =RGBA(184, 0, 0, 1)
+                Height: =42
+                HoverFill: =RGBA(203,102,102,1)
+                OnSelect: |
+                    =Patch(
+                        Progress_sales,
+                        ThisItem,
+                        {
+                            'Approval Status': 'Approval Status (Progress_sales)'.Rejected
+                        }
+                    );
+                    
+                    Notify("Request has been rejected!", NotificationType.Error);
+                    Refresh(Progress_sales);
+                Size: =18
+                Text: ="REJECT"
+                Visible: =ThisItem.'Approval Status'='Approval Status (Progress_sales)'.Pending
+                Width: =208
+                X: =370
+                Y: =500
+                ZIndex: =16
+
+            Label9_4 As label:
+                Color: =RGBA(26, 26, 26, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =35
+                Size: =18
+                Text: |
+                    ="Target Value : "
+                Width: =173
+                X: =16
+                Y: =169
+                ZIndex: =17
+
+            Label9_5 As label:
+                Color: =RGBA(26, 26, 26, 1)
+                Height: =35
+                Size: =18
+                Text: |
+                    =ThisItem.TargetID.'Target Value'
+                Width: =120
+                X: =300
+                Y: =169
+                ZIndex: =18
+
+            Label9_6 As label:
+                Color: =RGBA(26, 26, 26, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =35
+                Size: =18
+                Text: |
+                    ="Description : "
+                Width: =173
+                X: =16
+                Y: =220
+                ZIndex: =19
+
+            Label14_5 As label:
+                BorderColor: =RGBA(128, 128, 128, 1)
+                BorderThickness: =1
+                Height: =35
+                Overflow: =Overflow.Scroll
+                Size: =18
+                Text: =ThisItem.TargetID.Description
+                Width: =300
+                X: =300
+                Y: =219
+                ZIndex: =20
+
+    Icon14 As icon.Home:
+        Color: =RGBA(128, 128, 128, 1)
+        Height: =54
+        Icon: =Icon.Home
+        OnSelect: =Navigate(ManagerHomeScreen,ScreenTransition.Fade)
+        Width: =61
+        X: =289
+        Y: =1074
+        ZIndex: =3
+
+    Container5_5 As groupContainer.manualLayoutContainer:
+        Height: =140
+        Width: =126
+        X: =389
+        Y: =106
+        ZIndex: =4
+
+    Container5_6 As groupContainer.manualLayoutContainer:
+        Height: =140
+        Width: =126
+        X: =261
+        Y: =106
+        ZIndex: =5
+
+    Container5_7 As groupContainer.manualLayoutContainer:
+        Height: =140
+        Width: =126
+        X: =2
+        Y: =106
+        ZIndex: =6
+
+    Container5_8 As groupContainer.manualLayoutContainer:
+        Height: =140
+        Width: =126
+        X: =131
+        Y: =106
+        ZIndex: =7
+
+    Label16_10 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(50, 86, 160, 1)
+        FontWeight: =FontWeight.Semibold
+        Size: =15
+        Text: ="Total"
+        Width: =110
+        X: =9
+        Y: =115
+        ZIndex: =8
+
+    Label16_11 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(50, 86, 160, 1)
+        Height: =73
+        Size: =25
+        Text: =If(IsEmpty(Progress_sales),0,CountIf(Progress_sales,true))
+        Width: =110
+        X: =9
+        Y: =163
+        ZIndex: =9
+
+    Label16_12 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(221, 79, 14, 1)
+        FontWeight: =FontWeight.Semibold
+        Size: =15
+        Text: ="Pending"
+        Width: =110
+        X: =140
+        Y: =115
+        ZIndex: =10
+
+    Label16_13 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(221, 79, 14, 1)
+        Height: =73
+        Size: =25
+        Text: =If(IsEmpty(Progress_sales),0,CountIf(Progress_sales,'Approval Status'='Approval Status (Progress_sales)'.Pending))
+        Width: =110
+        X: =140
+        Y: =163
+        ZIndex: =11
+
+    Label16_14 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(127, 178, 57, 1)
+        FontWeight: =FontWeight.Semibold
+        Size: =15
+        Text: ="Approved"
+        Width: =110
+        X: =268
+        Y: =115
+        ZIndex: =12
+
+    Label16_15 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(127, 178, 57, 1)
+        Height: =73
+        Size: =25
+        Text: =If(IsEmpty(Progress_sales),0,CountIf(Progress_sales,'Approval Status'='Approval Status (Progress_sales)'.Approved))
+        Width: =110
+        X: =268
+        Y: =163
+        ZIndex: =13
+
+    Label16_16 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(151, 0, 0, 1)
+        Size: =15
+        Text: ="Rejected"
+        Width: =110
+        X: =396
+        Y: =115
+        ZIndex: =14
+
+    Label16_17 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(151, 0, 0, 1)
+        Height: =72
+        Size: =25
+        Text: =If(IsEmpty(Progress_sales),0,CountIf(Progress_sales,'Approval Status'='Approval Status (Progress_sales)'.Rejected))
+        Width: =110
+        X: =396
+        Y: =163
+        ZIndex: =15
+
+    Container5_9 As groupContainer.manualLayoutContainer:
+        Height: =140
+        Width: =126
+        X: =514
+        Y: =106
+        ZIndex: =16
+
+    Label16_18 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(128, 128, 128, 1)
+        Size: =15
+        Text: ="Cancelled"
+        Width: =110
+        X: =521
+        Y: =115
+        ZIndex: =17
+
+    Label16_19 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(128, 128, 128, 1)
+        Height: =72
+        Size: =25
+        Text: =If(IsEmpty(Progress_sales),0,CountIf(Progress_sales,'Approval Status'='Approval Status (Progress_sales)'.Cancelled))
+        Width: =110
+        X: =521
+        Y: =163
+        ZIndex: =18
+

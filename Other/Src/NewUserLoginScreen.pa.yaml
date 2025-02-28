@@ -1,0 +1,446 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps is in preview. The schema is being actively developed.
+# Content may be incomplete and subject to change.
+# This file is read-only and should only be used to review changes made within Power Apps Studio.
+# This file isn't used when loading the app. External editing, merging and conflict resolution are
+# not supported.
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  NewUserLoginScreen:
+    Properties:
+      Fill: =RGBA(241, 244, 249, 1)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - Heading-Register:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Bold
+            Height: =91
+            Size: =30
+            Text: ="Register"
+            Width: =640
+      - haveAccount-lbl:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =46
+            Size: =16
+            Text: ="Already have an account ? "
+            Width: =320
+            X: =152
+            Y: =1004
+      - Label10:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =52
+            Size: =20
+            Text: ="Name"
+            Width: =155
+            X: =24
+            Y: =148
+      - name_inp:
+          Control: Classic/TextInput@2.3.2
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Default: =
+            Font: =Font.'Open Sans'
+            Height: =52
+            HintText: ="Enter your name "
+            HoverBorderColor: =RGBA(0, 18, 107, 1)
+            HoverFill: =RGBA(186, 202, 226, 1)
+            Size: =20
+            Width: =372
+            X: =241
+            Y: =148
+      - Label10_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =52
+            Size: =20
+            Text: ="Phone "
+            Width: =155
+            X: =24
+            Y: =229
+      - phone_inp:
+          Control: Classic/TextInput@2.3.2
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Default: =
+            Font: =Font.'Open Sans'
+            Format: =TextFormat.Number
+            Height: =52
+            HintText: =" Phone number"
+            HoverBorderColor: =RGBA(0, 18, 107, 1)
+            HoverFill: =RGBA(186, 202, 226, 1)
+            Size: =20
+            Width: =372
+            X: =241
+            Y: =226
+      - Label10_2:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =52
+            Size: =20
+            Text: ="Email"
+            Width: =155
+            X: =24
+            Y: =305
+      - email_inp:
+          Control: Classic/TextInput@2.3.2
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Default: =
+            Font: =Font.'Open Sans'
+            Height: =52
+            HintText: ="Email"
+            HoverBorderColor: =RGBA(0, 18, 107, 1)
+            HoverFill: =RGBA(186, 202, 226, 1)
+            Size: =20
+            Width: =372
+            X: =241
+            Y: =305
+      - Label10_3:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =52
+            Size: =20
+            Text: ="Gender"
+            Width: =155
+            X: =24
+            Y: =378
+      - Label10_4:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =43
+            Size: =20
+            Text: ="Date of Joining"
+            Width: =205
+            X: =24
+            Y: =458
+      - Label10_5:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =43
+            Size: =20
+            Text: ="Role"
+            Width: =205
+            X: =24
+            Y: =537
+      - Label10_6:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =43
+            Size: =20
+            Text: |-
+              ="DOB
+              "
+            Width: =205
+            X: =24
+            Y: =614
+      - Label10_7:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =43
+            Size: =20
+            Text: ="Team"
+            Width: =205
+            X: =24
+            Y: =692
+      - Label10_8:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =52
+            Size: =20
+            Text: ="Password"
+            Width: =205
+            X: =24
+            Y: =764
+      - Label10_9:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =75
+            Size: =19
+            Text: |-
+              ="Confirm
+              Password"
+            Width: =183
+            X: =24
+            Y: =824
+      - Button7:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =ColorFade(Self.Fill, -15%)
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =48
+            HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+            OnSelect: "=If(\r\n    !IsBlank(name_inp.Text) &&\r\n    !IsBlank(phone_inp.Text)&&\r\n    !IsBlank(email_inp.Text) &&\r\n    !IsBlank(role_inp.Selected.Value)&&\r\n    !IsBlank(pass_inp.Text) &&\r\n    !IsBlank(confmpass_inp.Text) &&\r\n    !IsBlank(phone_inp.Text) &&\r\n    pass_inp.Text = confmpass_inp.Text &&\r\n    IsMatch(phone_inp.Text, \"^\\d{10}$\"),  \r\n\r\n \r\n    Patch(\r\n        Employee_sales,\r\n        Defaults(Employee_sales),\r\n        {\r\n            Name: name_inp.Text,\r\n            Phone: phone_inp.Text,\r\n            Email: email_inp.Text,\r\n            Gender: Radio2.Selected.Value,\r\n            'Date of joining': Doj_inp.SelectedDate,\r\n            Role: role_inp.Selected.Value,\r\n            DOB: If(!IsBlank(DOB_inp.SelectedDate), DOB_inp.SelectedDate, Blank()),\r\n            Team: LookUp(Team_sales, 'Team Name' = team_inp.Selected.'Team Name'),\r\n            Password: pass_inp.Text\r\n        }\r\n    );\r\n\r\n    Notify(\"Account created successfully!\", NotificationType.Success);\r\n\r\n    \r\n    Reset(name_inp);\r\n    Reset(phone_inp);\r\n    Reset(email_inp);\r\n    Reset(pass_inp);\r\n    Reset(confmpass_inp);\r\n    Reset(Doj_inp);\r\n    Reset(DOB_inp);\r\n    Reset(role_inp);\r\n    Reset(team_inp);\r\n    Reset(Radio2);\r\n\r\n    Navigate(LoginScreen, ScreenTransition.Fade),\r\n\r\n    Notify(\r\n        If(\r\n            IsBlank(name_inp.Text) ||  IsBlank(phone_inp.Text) || IsBlank(email_inp.Text) || IsBlank(role_inp.Selected.Value) || IsBlank(pass_inp.Text) || IsBlank(confmpass_inp.Text),\r\n            \"Please ensure all required fields are filled.\",\r\n            If(pass_inp.Text <> confmpass_inp.Text,\r\n                \"Passwords do not match.\",\r\n                \"Phone number must be exactly 10 digits.\"\r\n            )\r\n        ),\r\n        NotificationType.Error\r\n    )\r\n)\r\n"
+            PressedBorderColor: =Self.Fill
+            PressedColor: =Self.Fill
+            PressedFill: =Self.Color
+            Text: ="Create account"
+            X: =192
+            Y: =956
+      - Doj_inp:
+          Control: Classic/DatePicker@2.6.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =48
+            IconBackground: =RGBA(56, 96, 178, 1)
+            IconFill: =RGBA(255, 255, 255, 1)
+            Width: =375
+            X: =241
+            Y: =458
+      - role_inp:
+          Control: Classic/DropDown@2.3.1
+          Properties:
+            AllowEmptySelection: =true
+            BorderColor: =RGBA(0, 18, 107, 1)
+            ChevronBackground: =RGBA(56, 96, 178, 1)
+            ChevronFill: =RGBA(255, 255, 255, 1)
+            ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+            ChevronHoverFill: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            Height: =48
+            HoverFill: =RGBA(186, 202, 226, 1)
+            Items: =Choices('Role (Employee_sales)')
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(0, 18, 107, 1)
+            SelectionColor: =RGBA(255, 255, 255, 1)
+            SelectionFill: =RGBA(56, 96, 178, 1)
+            Width: =375
+            X: =241
+            Y: =531
+      - DOB_inp:
+          Control: Classic/DatePicker@2.6.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =48
+            IconBackground: =RGBA(56, 96, 178, 1)
+            IconFill: =RGBA(255, 255, 255, 1)
+            Width: =375
+            X: =241
+            Y: =609
+      - pass_inp:
+          Control: Classic/TextInput@2.3.2
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Default: =
+            Font: =Font.'Open Sans'
+            Height: =52
+            HintText: ="Password"
+            HoverBorderColor: =RGBA(0, 18, 107, 1)
+            HoverFill: =RGBA(186, 202, 226, 1)
+            Mode: =If(varShowRegPass,TextMode.SingleLine,TextMode.Password)
+            Size: =20
+            Width: =372
+            X: =244
+            Y: =759
+      - confmpass_inp:
+          Control: Classic/TextInput@2.3.2
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Default: =
+            Font: =Font.'Open Sans'
+            Height: =52
+            HintText: ="Email"
+            HoverBorderColor: =RGBA(0, 18, 107, 1)
+            HoverFill: =RGBA(186, 202, 226, 1)
+            Mode: =If(varShowRegConfirmPass,TextMode.SingleLine,TextMode.Password)
+            Size: =20
+            Width: =372
+            X: =241
+            Y: =836
+      - team_inp:
+          Control: Classic/DropDown@2.3.1
+          Properties:
+            AllowEmptySelection: =true
+            BorderColor: =RGBA(0, 18, 107, 1)
+            ChevronBackground: =RGBA(56, 96, 178, 1)
+            ChevronFill: =RGBA(255, 255, 255, 1)
+            ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+            ChevronHoverFill: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            Height: =48
+            HoverFill: =RGBA(186, 202, 226, 1)
+            Items: =Sort(Team_sales,'Team Name',SortOrder.Ascending)
+            Items.Value: =cr371_teamname
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(0, 18, 107, 1)
+            SelectionColor: =RGBA(255, 255, 255, 1)
+            SelectionFill: =RGBA(56, 96, 178, 1)
+            Width: =375
+            X: =241
+            Y: =686
+      - Radio2:
+          Control: Classic/Radio@2.3.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =59
+            HoverColor: =RGBA(0, 18, 107, 1)
+            Items: =Choices('Gender (Employee_sales)')
+            Layout: =Layout.Horizontal
+            RadioBorderColor: =RGBA(0, 18, 107, 1)
+            RadioSelectionFill: =RGBA(0, 0, 0, 1)
+            RadioSize: =35
+            Size: =17
+            Width: =400
+            X: =240
+            Y: =378
+      - Label13:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(184, 0, 0, 1)
+            Font: =Font.'Open Sans'
+            Height: =28
+            Size: =15
+            Text: ="*"
+            Width: =43
+            X: =109
+            Y: =160
+      - Label13_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(184, 0, 0, 1)
+            Font: =Font.'Open Sans'
+            Height: =28
+            Size: =15
+            Text: ="*"
+            Width: =43
+            X: =105
+            Y: =314
+      - Label13_2:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(184, 0, 0, 1)
+            Font: =Font.'Open Sans'
+            Height: =28
+            Size: =15
+            Text: ="*"
+            Width: =43
+            X: =152
+            Y: =771
+      - Label13_3:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(184, 0, 0, 1)
+            Font: =Font.'Open Sans'
+            Height: =28
+            Size: =15
+            Text: ="*"
+            Width: =43
+            X: =136
+            Y: =831
+      - Icon10:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(0, 18, 107, 1)
+            Height: =25
+            Icon: =Icon.View
+            OnSelect: =Set(varShowRegPass,!varShowRegPass)
+            Width: =30
+            X: =569
+            Y: =774
+      - Icon10_1:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(0, 18, 107, 1)
+            Height: =25
+            Icon: =Icon.View
+            OnSelect: =Set(varShowRegConfirmPass,!varShowRegConfirmPass)
+            Width: =30
+            X: =569
+            Y: =849
+      - Label13_4:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(184, 0, 0, 1)
+            Font: =Font.'Open Sans'
+            Height: =28
+            Size: =15
+            Text: ="*"
+            Width: =43
+            X: =93
+            Y: =540
+      - login_nav:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Align: =Align.Left
+            BorderColor: =//ColorFade(Self.Fill, -15%)
+            BorderStyle: =//BorderStyle.Solid
+            BorderThickness: =0
+            Color: =RGBA(0, 18, 107, 1)
+            DisabledBorderColor: =//RGBA(166, 166, 166, 1)
+            DisabledColor: =//RGBA(166, 166, 166, 1)
+            DisabledFill: =//RGBA(255, 255, 255, 1)
+            Fill: =RGBA(241, 244, 249, 1)
+            FocusedBorderColor: =//Self.BorderColor
+            Font: =Font.'Open Sans'
+            Height: =30
+            HoverBorderColor: =//ColorFade(Self.BorderColor, 20%)
+            HoverColor: =//RGBA(255, 255, 255, 1)
+            HoverFill: =//ColorFade(RGBA(56, 96, 178, 1), -20%)
+            OnSelect: |+
+              =Navigate(LoginScreen,ScreenTransition.Fade);
+            PressedBorderColor: =//Self.Fill
+            PressedColor: =RGBA(0,0,0,1)
+            PressedFill: =//Self.Color
+            Size: =15
+            Text: ="Login"
+            Underline: =true
+            Width: =107
+            X: =432
+            Y: =1012

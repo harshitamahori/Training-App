@@ -1,0 +1,224 @@
+LoginScreen As screen:
+    OnVisible: |-
+        =Set(passwordVisibility,false);
+        Set(InvalidLabel,false);
+
+    "'LoginPage-image' As image":
+        Fill: =RGBA(241, 244, 249, 1)
+        Height: =487
+        Image: ='business-goal'
+        Width: =640
+        ZIndex: =2
+
+    welcome As label:
+        Align: =Align.Center
+        Color: =RGBA(0, 18, 107, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =70
+        Size: =40
+        Text: ="WELCOME"
+        Width: =560
+        X: =33
+        Y: =515
+        ZIndex: =3
+
+    "'Sign-in lable' As label":
+        Align: =Align.Center
+        Color: =RGBA(0, 13, 75, 1)
+        Height: =70
+        Size: =15
+        Text: ="SIGN IN TO CONTINUE"
+        Width: =560
+        X: =33
+        Y: =573
+        ZIndex: =4
+
+    usernameInp As text:
+        Default: |
+            =
+        Height: =70
+        HintText: ="Username"
+        OnSelect: =Set(InvalidLabel,false);
+        PaddingLeft: =65
+        RadiusBottomLeft: =15
+        RadiusBottomRight: =15
+        RadiusTopLeft: =15
+        RadiusTopRight: =15
+        Size: =20
+        Width: =560
+        X: =40
+        Y: =684
+        ZIndex: =5
+
+    PasswordInp As text:
+        Default: |
+            =
+        Height: =70
+        HintText: ="Password"
+        Mode: =If(passwordVisibility,TextMode.SingleLine,TextMode.Password)
+        PaddingLeft: =65
+        RadiusBottomLeft: =15
+        RadiusBottomRight: =15
+        RadiusTopLeft: =15
+        RadiusTopRight: =15
+        Size: =20
+        Width: =560
+        X: =40
+        Y: =783
+        ZIndex: =6
+
+    "'Login-button' As button":
+        Fill: =RGBA(0, 18, 107, 1)
+        Height: =61
+        OnSelect: |+
+            =Set(varUser, LookUp(Employee_sales, Email = usernameInp.Text && Password = PasswordInp.Text));
+            
+            If(
+                IsBlank(varUser),
+                Notify("Incorrect username & password", NotificationType.Error);
+                Set(InvalidLabel, true),
+            
+                Set(varRole, varUser.Role), // Directly get role from Employee table
+                Set(varCurrentUser, varUser);
+            
+                /*If(
+                    Checkbox1.Value,
+                    Set(storedEmail, usernameInp.Text);
+                    Set(storedPassword, PasswordInp.Text)
+                );*/
+                  
+                /*If(
+                    Checkbox1.Value,  
+                    // Save credentials if "Remember Me" is checked
+                    ClearCollect(storedCredentials, { Username:usernameInp.Text, Password: PasswordInp.Text });
+                    SaveData(storedCredentials, "LoginData")
+                    );
+            
+                If(
+                    !Checkbox1.Value,  
+                    // Clear credentials if "Remember Me" is unchecked
+                    ClearCollect(storedCredentials, { Username: "", Password: "" });  
+                    SaveData(storedCredentials, "LoginData")  
+                );*/
+                
+                
+                /*If(
+                    Checkbox1.Value, 
+                    Patch(Employee_sales, varUser, { RememberMeFlag: "Yes", sessionID: Host.SessionID }),
+                    Patch(Employee_sales, varUser, { RememberMeFlag: "No", sessionID: Blank() })
+                );*/
+               
+            
+                Switch(
+                    Text(varRole), // Use .Value to extract text from Choice field
+                    "User", Navigate(UserHomeScreen),
+                    "Admin",Navigate(AdminHomeScreen),
+                    "Manager",Navigate(ManagerHomeScreen)
+                )
+            );
+            
+            
+            
+            
+        RadiusBottomLeft: =15
+        RadiusBottomRight: =15
+        RadiusTopLeft: =15
+        RadiusTopRight: =15
+        Size: =24
+        Text: |-
+            ="Login
+            "
+        Width: =554
+        X: =46
+        Y: =992
+        ZIndex: =7
+
+    "'lock-icon' As icon.Lock":
+        Height: =34
+        Icon: =Icon.Lock
+        Width: =44
+        X: =46
+        Y: =801
+        ZIndex: =8
+
+    "'addUser-icon' As icon.AddUser":
+        Height: =38
+        Icon: =Icon.AddUser
+        Width: =56
+        X: =40
+        Y: =700
+        ZIndex: =9
+
+    "'view-icon' As icon.View":
+        Height: =23
+        Icon: =Icon.View
+        OnSelect: =Set(passwordVisibility,!passwordVisibility);
+        Width: =46
+        X: =538
+        Y: =812
+        ZIndex: =10
+
+    "'Invalid Label' As label":
+        Align: =Align.Center
+        Color: =RGBA(168, 0, 0, 1)
+        Height: =36
+        Size: =15
+        Text: ="Invalid Username or Password!!"
+        Visible: =InvalidLabel
+        Width: =439
+        X: =103
+        Y: =934
+        ZIndex: =13
+
+    "'New_user-btn' As button":
+        Align: =Align.Left
+        BorderColor: =//ColorFade(Self.Fill, -15%)
+        BorderStyle: =//BorderStyle.Solid
+        BorderThickness: =0
+        Color: =RGBA(0, 0, 0, 1)
+        DisabledBorderColor: =//RGBA(166, 166, 166, 1)
+        DisabledColor: =//RGBA(166, 166, 166, 1)
+        DisabledFill: =//RGBA(255, 255, 255, 1)
+        Fill: =RGBA(255, 255, 255, 1)
+        FocusedBorderColor: =//Self.BorderColor
+        FontWeight: =FontWeight.Normal
+        Height: =50
+        HoverBorderColor: =//ColorFade(Self.BorderColor, 20%)
+        HoverColor: =//RGBA(255, 255, 255, 1)
+        HoverFill: =//ColorFade(RGBA(56, 96, 178, 1), -20%)
+        OnSelect: =Navigate(NewUserLoginScreen,ScreenTransition.Fade);
+        PressedBorderColor: =//Self.Fill
+        PressedColor: =RGBA(0,0,0,1)
+        PressedFill: =//Self.Color
+        Text: ="New User ?"
+        Width: =185
+        X: =46
+        Y: =869
+        ZIndex: =17
+
+    ForgotPasswrd_btn As button:
+        Align: =Align.Left
+        BorderColor: =//ColorFade(Self.Fill, -15%)
+        BorderStyle: =//BorderStyle.Solid
+        BorderThickness: =0
+        Color: =RGBA(0, 0, 0, 1)
+        DisabledBorderColor: =//RGBA(166, 166, 166, 1)
+        DisabledColor: =//RGBA(166, 166, 166, 1)
+        DisabledFill: =//RGBA(255, 255, 255, 1)
+        Fill: =RGBA(255, 255, 255, 1)
+        FocusedBorderColor: =//Self.BorderColor
+        FontWeight: =FontWeight.Normal
+        Height: =50
+        HoverBorderColor: =//ColorFade(Self.BorderColor, 20%)
+        HoverColor: =//RGBA(255, 255, 255, 1)
+        HoverFill: =//ColorFade(RGBA(56, 96, 178, 1), -20%)
+        OnSelect: =Navigate(ForgotPassword_screen,ScreenTransition.Fade);
+        PressedBorderColor: =//Self.Fill
+        PressedColor: =RGBA(0,0,0,1)
+        PressedFill: =//Self.Color
+        Text: ="Forgot Password ?"
+        Width: =185
+        X: =415
+        Y: =869
+        ZIndex: =18
+

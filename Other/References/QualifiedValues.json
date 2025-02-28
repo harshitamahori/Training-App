@@ -1,0 +1,83 @@
+{
+  "QualifiedValues": [
+    {
+      "Kind": "default.cds_cr371_employee_sales_forms",
+      "Namespace": "Employee_sales (Forms)",
+      "Values": {
+        "Information": "e1bcba5c-00d4-44f0-a805-d2716b977ed5"
+      }
+    },
+    {
+      "Kind": "default.cds_cr371_target_sales_forms",
+      "Namespace": "Target_sales (Forms)",
+      "Values": {
+        "Information": "09ea8b1c-ae96-4908-a979-fdaa8e9b4393"
+      }
+    },
+    {
+      "Kind": "default.cds_cr371_team_sales_forms",
+      "Namespace": "Team_sales (Forms)",
+      "Values": {
+        "Information": "cdb0a0f6-1e7f-46ab-bd84-d97533374869"
+      }
+    },
+    {
+      "Kind": "default.cds_cr371_notification_sales_forms",
+      "Namespace": "Notification_sales (Forms)",
+      "Values": {
+        "Information": "b82540de-7b3f-4ab8-b0e1-6b16cbe3c556"
+      }
+    },
+    {
+      "Kind": "default.cds_cr371_product_sales_forms",
+      "Namespace": "Product_sales (Forms)",
+      "Values": {
+        "Information": "990cedbd-cad3-49cd-ba86-4c22781956e5"
+      }
+    },
+    {
+      "Kind": "default.cds_cr371_category_sales_forms",
+      "Namespace": "Category_sales (Forms)",
+      "Values": {
+        "Information": "0479e5de-5d51-4792-8564-f7ad37b9bd51"
+      }
+    },
+    {
+      "Kind": "default.cds_cr371_progress_sales_forms",
+      "Namespace": "Progress_sales (Forms)",
+      "Values": {
+        "Information": "191cd4c1-fa19-4d06-aedc-a0679a0e191a"
+      }
+    },
+    {
+      "Kind": "default.cds_cr371_passwordreset_sales_forms",
+      "Namespace": "PasswordReset_sales (Forms)",
+      "Values": {
+        "Information": "26820c5e-3ce5-4384-95e6-f4767cf1d3b3"
+      }
+    },
+    {
+      "Kind": "default.cds_cr371_userauthentication_sales_forms",
+      "Namespace": "UserAuthentication_sales (Forms)",
+      "Values": {
+        "Information": "466af806-fb4f-4e4a-8c26-e394e74b1a54"
+      }
+    },
+    {
+      "Kind": "default.cds_systemuser_forms",
+      "Namespace": "Users (Forms)",
+      "Values": {
+        "Application User": "d26924ef-4d80-46f7-ab1d-e6ae80a54ce8",
+        "Information": "094fb08a-77bb-49e0-b7ea-8dbddfd01294",
+        "User": "c2cd9e55-d4b4-4b55-9951-16ead79643e5",
+        "User form – Business": "c2413504-7eb2-4c59-a087-95d819866114",
+        "User Hierarchy Tile Form": "c68d6c09-d7a7-4959-8d0f-44b8cff9b452"
+      }
+    },
+    {
+      "Kind": "default.cds_bulkdeletefailure_forms",
+      "Namespace": "Bulk Delete Failures (Forms)",
+      "Values": {}
+    }
+  ]
+}

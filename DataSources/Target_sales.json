@@ -1,0 +1,152 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cr371_target_saleses",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cr371_target_sales",
+    "MaxGetRowsCount": 500,
+    "Name": "Target_sales",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr371_AssignedBy": "AssignedBy",
+      "cr371_AssignedTo": "AssignedTo",
+      "cr371_assignment_type": "Assignment_Type",
+      "cr371_CategoryID": "CategoryID",
+      "cr371_description": "Description",
+      "cr371_enddate": "End Date",
+      "cr371_incentive_sales_TargetID_cr371_target_sales": "Incentive_sales",
+      "cr371_notification_sales_TargetID_cr371_target_sales": "Notification_sales",
+      "cr371_priority": "Priority",
+      "cr371_ProductID": "ProductID",
+      "cr371_progress_sales_TargetID_cr371_target_sales": "Progress_sales",
+      "cr371_startdate": "Start Date",
+      "cr371_status": "status",
+      "cr371_target_sales_AsyncOperations": "System Jobs",
+      "cr371_target_sales_BulkDeleteFailures": "Bulk Delete Failures",
+      "cr371_target_sales_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cr371_target_sales_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cr371_target_sales_ProcessSession": "Process Sessions",
+      "cr371_target_sales_SyncErrors": "Sync Errors",
+      "cr371_target_salesid": "Target_sales",
+      "cr371_targetid": "TargetID",
+      "cr371_targetvalue": "Target Value",
+      "cr371_TeamID": "TeamID",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Target_sales",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Target_sales (Views)",
+    "Name": "_cr371_target_sales_views",
+    "RelatedEntityName": "Target_sales",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "0cdfeba0-a7d0-4716-9e34-655ba06df007": "Target_sales Lookup View",
+      "32ab6870-9383-4f9e-ba98-77fdd46d3adf": "Target_sales Advanced Find View",
+      "339d156e-8177-4591-8561-24c5bd979243": "Inactive Target_sales",
+      "aa588689-2502-45b8-b65d-fb1a40a1252a": "Target_sales Associated View",
+      "d0b0e7ae-00e2-44ff-82ca-ce6421747d57": "Active Target_sales"
+    }
+  },
+  {
+    "DisplayName": "Priority (Target_sales)",
+    "Name": "cr371_target_sales_cr371_priority",
+    "OptionSetInfoNameMapping": {
+      "852020000": "High",
+      "852020001": "Medium",
+      "852020002": "Low"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr371_priority",
+        "OptionSetReferenceEntityName": "Target_sales"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr371_priority",
+    "RelatedEntityName": "Target_sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "status (Target_sales)",
+    "Name": "cr371_target_sales_cr371_status",
+    "OptionSetInfoNameMapping": {
+      "852020000": "Assigned",
+      "852020001": "In Progress",
+      "852020002": "Completed"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr371_status",
+        "OptionSetReferenceEntityName": "Target_sales"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr371_status",
+    "RelatedEntityName": "Target_sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Target_sales)",
+    "Name": "cr371_target_sales_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Target_sales"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Target_sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Target_sales)",
+    "Name": "cr371_target_sales_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Target_sales"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Target_sales",
+    "Type": "OptionSetInfo"
+  }
+]

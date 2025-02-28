@@ -1,0 +1,487 @@
+"'Assign Target Screen' As screen":
+    Fill: =RGBA(241, 244, 249, 1)
+    OnVisible: |
+        =ClearCollect(
+            colEmployees, 
+            AddColumns(
+            ShowColumns(Employee_sales,EmployeeID,Name,Role,Team),
+            'Display Name',cr371_name
+            )
+        );
+        
+        ClearCollect(
+            colTeams, 
+            AddColumns(
+            ShowColumns(Team_sales,TeamID,'Team Name'),
+            'Display Name',cr371_teamname
+            )
+        );
+
+    head_rectangle As rectangle:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        BorderThickness: =2
+        Fill: =RGBA(0, 16, 96, 1)
+        Height: =86
+        Width: =640
+        ZIndex: =1
+
+    "'back-icon' As icon.ArrowLeft":
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =42
+        Icon: =Icon.ArrowLeft
+        OnSelect: =Navigate(ManagerHomeScreen);
+        Width: =59
+        X: =13
+        Y: =18
+        ZIndex: =3
+
+    hamburger As icon.Hamburger:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =42
+        Icon: =Icon.Hamburger
+        Width: =65
+        X: =557
+        Y: =18
+        ZIndex: =4
+
+    "'Target Heading' As label":
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =52
+        Size: =25
+        Text: ="Assign Target"
+        Width: =376
+        X: =119
+        Y: =13
+        ZIndex: =5
+
+    "'Assign Label' As label":
+        Size: =19
+        Text: ="Assign To"
+        Width: =154
+        X: =16
+        Y: =201
+        ZIndex: =6
+
+    AssignTo_Dropdown As dropdown:
+        AllowEmptySelection: =true
+        Height: =38
+        Items: |+
+            =//ShowColumns(Filter(Employee_sales,Role='Role (Employee_sales)'.User),Name)
+            /*If(AssignType_dropdown.Selected.Value="Individual",
+            ShowColumns(Filter(Employee_sales,Role='Role (Employee_sales)'.User),Name)
+            //ShowColumns(Team_sales,'Team Name')
+            )*/
+            colFilteredOptions
+            
+        Size: =18
+        Width: =309
+        X: =290
+        Y: =201
+        ZIndex: =7
+
+    DescriptionLabel As label:
+        Size: =19
+        Text: ="Description"
+        Width: =208
+        X: =16
+        Y: =703
+        ZIndex: =8
+
+    DescriptionInp As text:
+        Align: =Align.Justify
+        BorderColor: =RGBA(166, 166, 166, 1)
+        Default: =
+        Height: =206
+        HintText: ="Description"
+        RadiusBottomLeft: =10
+        RadiusBottomRight: =10
+        RadiusTopLeft: =10
+        RadiusTopRight: =10
+        Size: =18
+        Width: =309
+        X: =290
+        Y: =703
+        ZIndex: =9
+
+    TargetValueLabel As label:
+        Size: =19
+        Text: ="Target Value (in units)"
+        Width: =298
+        X: =13
+        Y: =562
+        ZIndex: =10
+
+    TargetValueInp As text:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        Default: =
+        Format: =TextFormat.Number
+        Height: =43
+        RadiusBottomLeft: =10
+        RadiusBottomRight: =10
+        RadiusTopLeft: =10
+        RadiusTopRight: =10
+        Size: =18
+        Width: =309
+        X: =290
+        Y: =562
+        ZIndex: =11
+
+    "'Assign Label_3' As label":
+        Size: =19
+        Text: ="Start Date"
+        Width: =204
+        X: =14
+        Y: =414
+        ZIndex: =12
+
+    EndDateLabel As label:
+        Size: =19
+        Text: ="End Date"
+        Width: =200
+        X: =13
+        Y: =482
+        ZIndex: =13
+
+    startDate As datepicker:
+        Height: =38
+        OnChange: =
+        Size: =18
+        Width: =309
+        X: =290
+        Y: =416
+        ZIndex: =14
+
+    endDate As datepicker:
+        DefaultDate: =Today()+1
+        Height: =38
+        Size: =18
+        Width: =309
+        X: =290
+        Y: =490
+        ZIndex: =15
+
+    startdateInvalidLabel_1 As label:
+        Color: =RGBA(168, 0, 0, 1)
+        Height: =34
+        Size: =15
+        Text: ="Please select a future date"
+        Visible: |
+            =If(
+                endDate.SelectedDate < startDate.SelectedDate + 1,
+                true,
+                false
+            )
+        Width: =266
+        X: =290
+        Y: =522
+        ZIndex: =17
+
+    Button2 As button:
+        Fill: =RGBA(0, 16, 96, 1)
+        Height: =43
+        OnSelect: |
+            =If(
+                //Check Start Date & End Date Validation
+                IsBlank(startDate.SelectedDate) || IsBlank(endDate.SelectedDate),
+                Notify("Please select both Start and End Dates.", NotificationType.Error),
+                
+                startDate.SelectedDate < Today(),
+                Notify("Start Date must be today or later.", NotificationType.Error),
+            
+                endDate.SelectedDate <= startDate.SelectedDate,
+                Notify("End Date must be at least one day after Start Date.", NotificationType.Error),
+            
+                //Check Target Value Validation
+                IsBlank(TargetValueInp.Text) || !IsNumeric(TargetValueInp.Text) || Value(TargetValueInp.Text) <= 0,
+                Notify("Please enter a valid positive Target Value.", NotificationType.Error),
+            
+                //Check Assignment Type Validation
+                IsBlank(AssignType_dropdown.Selected.Value),
+                Notify("Please select an Assignment Type (Individual/Team).", NotificationType.Error),
+            
+                AssignType_dropdown.Selected.Value = "Individual" && IsBlank(AssignTo_Dropdown.Selected.'Display Name'),
+                Notify("Please select an Employee for Individual Assignment.", NotificationType.Error),
+            
+                AssignType_dropdown.Selected.Value = "Team" && IsBlank(AssignTo_Dropdown.Selected.'Display Name'),
+                Notify("Please select a Team for Team Assignment.", NotificationType.Error),
+            
+                //Check Category & Product Selection
+                IsBlank(Category_dp.Selected.'Category Name'),
+                Notify("Please select a Category.", NotificationType.Error),
+            
+                IsBlank(prod_dp.Selected.'Product Name'),
+                Notify("Please select a Product.", NotificationType.Error),
+            
+                // Check Priority Selection
+                IsBlank(Priority_dropdown.Selected.Value),
+                Notify("Please select a Priority level.", NotificationType.Error),
+            
+                // If all validations pass, proceed with the Patch
+                Set(VarNewItem,
+                Patch(
+                    Target_sales,
+                    Defaults(Target_sales),
+                    {
+                       Assignment_Type: AssignType_dropdown.SelectedText.Value,
+                       AssignedTo: If(
+                           AssignType_dropdown.Selected.Value = "Individual",
+                           LookUp(Employee_sales, Name = AssignTo_Dropdown.Selected.'Display Name'),
+                           Blank()
+                       ),
+                       AssignedBy: LookUp(Employee_sales, Email = varUser.Email),
+                       TeamID: If(
+                           AssignType_dropdown.Selected.Value = "Team",
+                           LookUp(Team_sales, 'Team Name' = AssignTo_Dropdown.Selected.'Display Name'),Blank()),
+                       Description: DescriptionInp.Text,
+                       'Target Value': Value(TargetValueInp.Text),
+                       Priority: Priority_dropdown.Selected.Value,
+                       'Start Date': startDate.SelectedDate,
+                       'End Date': endDate.SelectedDate,
+                       CategoryID: LookUp(Category_sales, 'Category Name' = Category_dp.Selected.'Category Name'),
+                       ProductID: LookUp(Product_sales, 'Product Name' = prod_dp.Selected.'Product Name')
+                    }
+                )
+                ),
+            
+                Notify("Target assigned successfully!", NotificationType.Success);
+            
+                // Add Notification Patch
+                Patch(Notification_sales,
+                    Defaults(Notification_sales),
+                    {
+                        EmployeeID: LookUp(Employee_sales, Name = AssignTo_Dropdown.Selected.'Display Name'),
+                        Title: "New Sales Target Assigned",
+                        TargetID: LookUp(Target_sales, TargetID = VarNewItem.TargetID),
+                        Message: "You have been assigned a new sales target!",
+                        'Notification Date': Today(),
+                        'Read status': 'Read status (Notification_sales)'.No,
+                        isEmailSent: 'isEmailSent (Notification_sales)'.No,
+                        'Notification Type': 'Notification Type (Notification_sales)'.'New Target Assigned',
+                        'Recipient Email': LookUp(Employee_sales, Name = AssignTo_Dropdown.Selected.'Display Name').Email
+                    }
+                );
+            
+                //  Reset Input Fields
+                Reset(AssignTo_Dropdown); 
+                Reset(DescriptionInp);
+                Reset(TargetValueInp);
+                Reset(Priority_dropdown);
+                Reset(startDate);
+                Reset(endDate);
+                Reset(Category_dp);
+                Reset(prod_dp);
+            
+                //  Navigate to Manager Home Screen
+                Navigate(ManagerHomeScreen, ScreenTransition.Fade)
+            )
+        Size: =20
+        Text: |-
+            ="Assign Target
+            "
+        Width: =268
+        X: =173
+        Y: =967
+        ZIndex: =18
+
+    "'Assign Label_1' As label":
+        Size: =19
+        Text: ="Assignment Type"
+        Width: =215
+        X: =16
+        Y: =129
+        ZIndex: =19
+
+    AssignType_dropdown As dropdown:
+        AllowEmptySelection: =true
+        Height: =38
+        Items: |
+            =["Team","Individual"]
+        OnChange: |+
+            =ClearCollect( 
+                colFilteredOptions, 
+                If(
+                    AssignType_dropdown.Selected.Value = "Individual",
+                    Filter(colEmployees, cr371_role='Role (Employee_sales)'.User),
+                    colTeams
+                )
+            );
+            
+        Size: =18
+        Width: =309
+        X: =290
+        Y: =131
+        ZIndex: =20
+
+    "'Priority-label' As label":
+        Size: =19
+        Text: ="Priority"
+        Width: =208
+        X: =13
+        Y: =636
+        ZIndex: =21
+
+    Priority_dropdown As dropdown:
+        AllowEmptySelection: =true
+        Height: =38
+        Items: =Choices('Priority (Target_sales)')
+        Size: =18
+        Width: =309
+        X: =290
+        Y: =636
+        ZIndex: =22
+
+    footer As groupContainer.manualLayoutContainer:
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =65
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =640
+        Y: =1069
+        ZIndex: =27
+
+        hm As icon.Home:
+            Color: =RGBA(128, 128, 128, 1)
+            Height: =51
+            Icon: =Icon.Home
+            OnSelect: =Navigate(ManagerHomeScreen,ScreenTransition.Fade)
+            Width: =57
+            X: =549
+            Y: =10
+            ZIndex: =1
+
+        prof As icon.Person:
+            Color: =RGBA(128, 128, 128, 1)
+            Height: =51
+            Icon: =Icon.Person
+            Width: =57
+            X: =41
+            Y: =10
+            ZIndex: =3
+
+    "'Cat-lbl' As label":
+        Size: =19
+        Text: ="Category"
+        Width: =136
+        X: =13
+        Y: =269
+        ZIndex: =28
+
+    Category_dp As dropdown:
+        AllowEmptySelection: =true
+        Height: =38
+        Items: =Sort(Category_sales,'Category Name',SortOrder.Ascending)
+        Size: =18
+        Width: =309
+        X: =290
+        Y: =267
+        ZIndex: =29
+
+    "'prod-lbl' As label":
+        Size: =19
+        Text: ="Product"
+        Width: =136
+        X: =13
+        Y: =338
+        ZIndex: =30
+
+    prod_dp As dropdown:
+        AllowEmptySelection: =true
+        Height: =39
+        Items: =Sort(Filter(Product_sales,CategoryID.CategoryID=Category_dp.Selected.CategoryID),'Product Name',SortOrder.Ascending)
+        Size: =18
+        Width: =309
+        X: =290
+        Y: =338
+        ZIndex: =31
+
+    startdateInvalidLabel_2 As label:
+        Color: =RGBA(168, 0, 0, 1)
+        Height: =34
+        Size: =15
+        Text: ="Please select a future date"
+        Visible: |+
+            =If(
+                startDate.SelectedDate < Today(), 
+                true, 
+                false
+            )
+            
+        Width: =266
+        X: =290
+        Y: =448
+        ZIndex: =32
+
+    Label13_7 As label:
+        Color: =RGBA(184, 0, 0, 1)
+        Height: =28
+        Size: =15
+        Text: ="*"
+        Width: =43
+        X: =224
+        Y: =131
+        ZIndex: =33
+
+    Label13_8 As label:
+        Color: =RGBA(184, 0, 0, 1)
+        Height: =28
+        Size: =15
+        Text: ="*"
+        Width: =43
+        X: =140
+        Y: =198
+        ZIndex: =34
+
+    Label13_9 As label:
+        Color: =RGBA(184, 0, 0, 1)
+        Height: =28
+        Size: =15
+        Text: ="*"
+        Width: =43
+        X: =127
+        Y: =272
+        ZIndex: =35
+
+    Label13_10 As label:
+        Color: =RGBA(184, 0, 0, 1)
+        Height: =28
+        Size: =15
+        Text: ="*"
+        Width: =43
+        X: =119
+        Y: =340
+        ZIndex: =36
+
+    Label13_11 As label:
+        Color: =RGBA(184, 0, 0, 1)
+        Height: =28
+        Size: =15
+        Text: ="*"
+        Width: =43
+        X: =140
+        Y: =411
+        ZIndex: =37
+
+    Label13_12 As label:
+        Color: =RGBA(184, 0, 0, 1)
+        Height: =28
+        Size: =15
+        Text: ="*"
+        Width: =43
+        X: =130
+        Y: =486
+        ZIndex: =38
+
+    Label13_14 As label:
+        Color: =RGBA(184, 0, 0, 1)
+        Height: =28
+        Size: =15
+        Text: ="*"
+        Width: =43
+        X: =109
+        Y: =636
+        ZIndex: =40
+

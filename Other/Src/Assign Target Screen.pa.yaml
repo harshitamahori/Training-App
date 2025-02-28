@@ -1,0 +1,540 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps is in preview. The schema is being actively developed.
+# Content may be incomplete and subject to change.
+# This file is read-only and should only be used to review changes made within Power Apps Studio.
+# This file isn't used when loading the app. External editing, merging and conflict resolution are
+# not supported.
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  Assign Target Screen:
+    Properties:
+      Fill: =RGBA(241, 244, 249, 1)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+      OnVisible: |+
+        =ClearCollect(
+            colEmployees, 
+            AddColumns(
+            ShowColumns(Employee_sales,EmployeeID,Name,Role,Team),
+            'Display Name',cr371_name
+            )
+        );
+
+        ClearCollect(
+            colTeams, 
+            AddColumns(
+            ShowColumns(Team_sales,TeamID,'Team Name'),
+            'Display Name',cr371_teamname
+            )
+        );
+    Children:
+      - head_rectangle:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            BorderThickness: =2
+            Fill: =RGBA(0, 16, 96, 1)
+            Height: =86
+            Width: =640
+      - back-icon:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =42
+            Icon: =Icon.ArrowLeft
+            OnSelect: =Navigate(ManagerHomeScreen);
+            Width: =59
+            X: =13
+            Y: =18
+      - hamburger:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =42
+            Icon: =Icon.Hamburger
+            Width: =65
+            X: =557
+            Y: =18
+      - Target Heading:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =52
+            Size: =25
+            Text: ="Assign Target"
+            Width: =376
+            X: =119
+            Y: =13
+      - Assign Label:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =40
+            Size: =19
+            Text: ="Assign To"
+            Width: =154
+            X: =16
+            Y: =201
+      - AssignTo_Dropdown:
+          Control: Classic/DropDown@2.3.1
+          Properties:
+            AllowEmptySelection: =true
+            BorderColor: =RGBA(0, 18, 107, 1)
+            ChevronBackground: =RGBA(56, 96, 178, 1)
+            ChevronFill: =RGBA(255, 255, 255, 1)
+            ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+            ChevronHoverFill: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            Height: =38
+            HoverFill: =RGBA(186, 202, 226, 1)
+            Items: |+
+              =//ShowColumns(Filter(Employee_sales,Role='Role (Employee_sales)'.User),Name)
+              /*If(AssignType_dropdown.Selected.Value="Individual",
+              ShowColumns(Filter(Employee_sales,Role='Role (Employee_sales)'.User),Name)
+              //ShowColumns(Team_sales,'Team Name')
+              )*/
+              colFilteredOptions
+
+            Items.Value: =Display Name
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(0, 18, 107, 1)
+            SelectionColor: =RGBA(255, 255, 255, 1)
+            SelectionFill: =RGBA(56, 96, 178, 1)
+            Size: =18
+            Width: =309
+            X: =290
+            Y: =201
+      - DescriptionLabel:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =40
+            Size: =19
+            Text: ="Description"
+            Width: =208
+            X: =16
+            Y: =703
+      - DescriptionInp:
+          Control: Classic/TextInput@2.3.2
+          Properties:
+            Align: =Align.Justify
+            BorderColor: =RGBA(166, 166, 166, 1)
+            Default: =
+            Font: =Font.'Open Sans'
+            Height: =206
+            HintText: ="Description"
+            HoverBorderColor: =RGBA(0, 18, 107, 1)
+            HoverFill: =RGBA(186, 202, 226, 1)
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Size: =18
+            Width: =309
+            X: =290
+            Y: =703
+      - TargetValueLabel:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =40
+            Size: =19
+            Text: ="Target Value (in units)"
+            Width: =298
+            X: =13
+            Y: =562
+      - TargetValueInp:
+          Control: Classic/TextInput@2.3.2
+          Properties:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            Default: =
+            Font: =Font.'Open Sans'
+            Format: =TextFormat.Number
+            Height: =43
+            HoverBorderColor: =RGBA(0, 18, 107, 1)
+            HoverFill: =RGBA(186, 202, 226, 1)
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Size: =18
+            Width: =309
+            X: =290
+            Y: =562
+      - Assign Label_3:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =40
+            Size: =19
+            Text: ="Start Date"
+            Width: =204
+            X: =14
+            Y: =414
+      - EndDateLabel:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =40
+            Size: =19
+            Text: ="End Date"
+            Width: =200
+            X: =13
+            Y: =482
+      - startDate:
+          Control: Classic/DatePicker@2.6.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =38
+            IconBackground: =RGBA(56, 96, 178, 1)
+            IconFill: =RGBA(255, 255, 255, 1)
+            OnChange: =
+            Size: =18
+            Width: =309
+            X: =290
+            Y: =416
+      - endDate:
+          Control: Classic/DatePicker@2.6.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            DefaultDate: =Today()+1
+            Font: =Font.'Open Sans'
+            Height: =38
+            IconBackground: =RGBA(56, 96, 178, 1)
+            IconFill: =RGBA(255, 255, 255, 1)
+            Size: =18
+            Width: =309
+            X: =290
+            Y: =490
+      - startdateInvalidLabel_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(168, 0, 0, 1)
+            Font: =Font.'Open Sans'
+            Height: =34
+            Size: =15
+            Text: ="Please select a future date"
+            Visible: |+
+              =If(
+                  endDate.SelectedDate < startDate.SelectedDate + 1,
+                  true,
+                  false
+              )
+            Width: =266
+            X: =290
+            Y: =522
+      - Button2:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =ColorFade(Self.Fill, -15%)
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(0, 16, 96, 1)
+            Font: =Font.'Open Sans'
+            Height: =43
+            HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+            OnSelect: "=If(\r\n    //Check Start Date & End Date Validation\r\n    IsBlank(startDate.SelectedDate) || IsBlank(endDate.SelectedDate),\r\n    Notify(\"Please select both Start and End Dates.\", NotificationType.Error),\r\n    \r\n    startDate.SelectedDate < Today(),\r\n    Notify(\"Start Date must be today or later.\", NotificationType.Error),\r\n\r\n    endDate.SelectedDate <= startDate.SelectedDate,\r\n    Notify(\"End Date must be at least one day after Start Date.\", NotificationType.Error),\r\n\r\n    //Check Target Value Validation\r\n    IsBlank(TargetValueInp.Text) || !IsNumeric(TargetValueInp.Text) || Value(TargetValueInp.Text) <= 0,\r\n    Notify(\"Please enter a valid positive Target Value.\", NotificationType.Error),\r\n\r\n    //Check Assignment Type Validation\r\n    IsBlank(AssignType_dropdown.Selected.Value),\r\n    Notify(\"Please select an Assignment Type (Individual/Team).\", NotificationType.Error),\r\n\r\n    AssignType_dropdown.Selected.Value = \"Individual\" && IsBlank(AssignTo_Dropdown.Selected.'Display Name'),\r\n    Notify(\"Please select an Employee for Individual Assignment.\", NotificationType.Error),\r\n\r\n    AssignType_dropdown.Selected.Value = \"Team\" && IsBlank(AssignTo_Dropdown.Selected.'Display Name'),\r\n    Notify(\"Please select a Team for Team Assignment.\", NotificationType.Error),\r\n\r\n    //Check Category & Product Selection\r\n    IsBlank(Category_dp.Selected.'Category Name'),\r\n    Notify(\"Please select a Category.\", NotificationType.Error),\r\n\r\n    IsBlank(prod_dp.Selected.'Product Name'),\r\n    Notify(\"Please select a Product.\", NotificationType.Error),\r\n\r\n    // Check Priority Selection\r\n    IsBlank(Priority_dropdown.Selected.Value),\r\n    Notify(\"Please select a Priority level.\", NotificationType.Error),\r\n\r\n    // If all validations pass, proceed with the Patch\r\n    Set(VarNewItem,\r\n    Patch(\r\n        Target_sales,\r\n        Defaults(Target_sales),\r\n        {\r\n           Assignment_Type: AssignType_dropdown.SelectedText.Value,\r\n           AssignedTo: If(\r\n               AssignType_dropdown.Selected.Value = \"Individual\",\r\n               LookUp(Employee_sales, Name = AssignTo_Dropdown.Selected.'Display Name'),\r\n               Blank()\r\n           ),\r\n           AssignedBy: LookUp(Employee_sales, Email = varUser.Email),\r\n           TeamID: If(\r\n               AssignType_dropdown.Selected.Value = \"Team\",\r\n               LookUp(Team_sales, 'Team Name' = AssignTo_Dropdown.Selected.'Display Name'),Blank()),\r\n           Description: DescriptionInp.Text,\r\n           'Target Value': Value(TargetValueInp.Text),\r\n           Priority: Priority_dropdown.Selected.Value,\r\n           'Start Date': startDate.SelectedDate,\r\n           'End Date': endDate.SelectedDate,\r\n           CategoryID: LookUp(Category_sales, 'Category Name' = Category_dp.Selected.'Category Name'),\r\n           ProductID: LookUp(Product_sales, 'Product Name' = prod_dp.Selected.'Product Name')\r\n        }\r\n    )\r\n    ),\r\n\r\n    Notify(\"Target assigned successfully!\", NotificationType.Success);\r\n\r\n    // Add Notification Patch\r\n    Patch(Notification_sales,\r\n        Defaults(Notification_sales),\r\n        {\r\n            EmployeeID: LookUp(Employee_sales, Name = AssignTo_Dropdown.Selected.'Display Name'),\r\n            Title: \"New Sales Target Assigned\",\r\n            TargetID: LookUp(Target_sales, TargetID = VarNewItem.TargetID),\r\n            Message: \"You have been assigned a new sales target!\",\r\n            'Notification Date': Today(),\r\n            'Read status': 'Read status (Notification_sales)'.No,\r\n            isEmailSent: 'isEmailSent (Notification_sales)'.No,\r\n            'Notification Type': 'Notification Type (Notification_sales)'.'New Target Assigned',\r\n            'Recipient Email': LookUp(Employee_sales, Name = AssignTo_Dropdown.Selected.'Display Name').Email\r\n        }\r\n    );\r\n\r\n    //  Reset Input Fields\r\n    Reset(AssignTo_Dropdown); \r\n    Reset(DescriptionInp);\r\n    Reset(TargetValueInp);\r\n    Reset(Priority_dropdown);\r\n    Reset(startDate);\r\n    Reset(endDate);\r\n    Reset(Category_dp);\r\n    Reset(prod_dp);\r\n\r\n    //  Navigate to Manager Home Screen\r\n    Navigate(ManagerHomeScreen, ScreenTransition.Fade)\r\n)\r\n"
+            PressedBorderColor: =Self.Fill
+            PressedColor: =Self.Fill
+            PressedFill: =Self.Color
+            Size: =20
+            Text: |-
+              ="Assign Target
+              "
+            Width: =268
+            X: =173
+            Y: =967
+      - Assign Label_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =40
+            Size: =19
+            Text: ="Assignment Type"
+            Width: =215
+            X: =16
+            Y: =129
+      - AssignType_dropdown:
+          Control: Classic/DropDown@2.3.1
+          Properties:
+            AllowEmptySelection: =true
+            BorderColor: =RGBA(0, 18, 107, 1)
+            ChevronBackground: =RGBA(56, 96, 178, 1)
+            ChevronFill: =RGBA(255, 255, 255, 1)
+            ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+            ChevronHoverFill: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            Height: =38
+            HoverFill: =RGBA(186, 202, 226, 1)
+            Items: |+
+              =["Team","Individual"]
+            OnChange: |+
+              =ClearCollect( 
+                  colFilteredOptions, 
+                  If(
+                      AssignType_dropdown.Selected.Value = "Individual",
+                      Filter(colEmployees, cr371_role='Role (Employee_sales)'.User),
+                      colTeams
+                  )
+              );
+
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(0, 18, 107, 1)
+            SelectionColor: =RGBA(255, 255, 255, 1)
+            SelectionFill: =RGBA(56, 96, 178, 1)
+            Size: =18
+            Width: =309
+            X: =290
+            Y: =131
+      - Priority-label:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =40
+            Size: =19
+            Text: ="Priority"
+            Width: =208
+            X: =13
+            Y: =636
+      - Priority_dropdown:
+          Control: Classic/DropDown@2.3.1
+          Properties:
+            AllowEmptySelection: =true
+            BorderColor: =RGBA(0, 18, 107, 1)
+            ChevronBackground: =RGBA(56, 96, 178, 1)
+            ChevronFill: =RGBA(255, 255, 255, 1)
+            ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+            ChevronHoverFill: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            Height: =38
+            HoverFill: =RGBA(186, 202, 226, 1)
+            Items: =Choices('Priority (Target_sales)')
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(0, 18, 107, 1)
+            SelectionColor: =RGBA(255, 255, 255, 1)
+            SelectionFill: =RGBA(56, 96, 178, 1)
+            Size: =18
+            Width: =309
+            X: =290
+            Y: =636
+      - footer:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =65
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =640
+            Y: =1069
+          Children:
+            - hm:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(128, 128, 128, 1)
+                  Height: =51
+                  Icon: =Icon.Home
+                  OnSelect: =Navigate(ManagerHomeScreen,ScreenTransition.Fade)
+                  Width: =57
+                  X: =549
+                  Y: =10
+            - prof:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(128, 128, 128, 1)
+                  Height: =51
+                  Icon: =Icon.Person
+                  Width: =57
+                  X: =41
+                  Y: =10
+      - Cat-lbl:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =40
+            Size: =19
+            Text: ="Category"
+            Width: =136
+            X: =13
+            Y: =269
+      - Category_dp:
+          Control: Classic/DropDown@2.3.1
+          Properties:
+            AllowEmptySelection: =true
+            BorderColor: =RGBA(0, 18, 107, 1)
+            ChevronBackground: =RGBA(56, 96, 178, 1)
+            ChevronFill: =RGBA(255, 255, 255, 1)
+            ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+            ChevronHoverFill: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            Height: =38
+            HoverFill: =RGBA(186, 202, 226, 1)
+            Items: =Sort(Category_sales,'Category Name',SortOrder.Ascending)
+            Items.Value: =cr371_categoryname
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(0, 18, 107, 1)
+            SelectionColor: =RGBA(255, 255, 255, 1)
+            SelectionFill: =RGBA(56, 96, 178, 1)
+            Size: =18
+            Width: =309
+            X: =290
+            Y: =267
+      - prod-lbl:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =40
+            Size: =19
+            Text: ="Product"
+            Width: =136
+            X: =13
+            Y: =338
+      - prod_dp:
+          Control: Classic/DropDown@2.3.1
+          Properties:
+            AllowEmptySelection: =true
+            BorderColor: =RGBA(0, 18, 107, 1)
+            ChevronBackground: =RGBA(56, 96, 178, 1)
+            ChevronFill: =RGBA(255, 255, 255, 1)
+            ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+            ChevronHoverFill: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            Height: =39
+            HoverFill: =RGBA(186, 202, 226, 1)
+            Items: =Sort(Filter(Product_sales,CategoryID.CategoryID=Category_dp.Selected.CategoryID),'Product Name',SortOrder.Ascending)
+            Items.Value: =cr371_productname
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(0, 18, 107, 1)
+            SelectionColor: =RGBA(255, 255, 255, 1)
+            SelectionFill: =RGBA(56, 96, 178, 1)
+            Size: =18
+            Width: =309
+            X: =290
+            Y: =338
+      - startdateInvalidLabel_2:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(168, 0, 0, 1)
+            Font: =Font.'Open Sans'
+            Height: =34
+            Size: =15
+            Text: ="Please select a future date"
+            Visible: |+
+              =If(
+                  startDate.SelectedDate < Today(), 
+                  true, 
+                  false
+              )
+
+            Width: =266
+            X: =290
+            Y: =448
+      - Label13_7:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(184, 0, 0, 1)
+            Font: =Font.'Open Sans'
+            Height: =28
+            Size: =15
+            Text: ="*"
+            Width: =43
+            X: =224
+            Y: =131
+      - Label13_8:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(184, 0, 0, 1)
+            Font: =Font.'Open Sans'
+            Height: =28
+            Size: =15
+            Text: ="*"
+            Width: =43
+            X: =140
+            Y: =198
+      - Label13_9:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(184, 0, 0, 1)
+            Font: =Font.'Open Sans'
+            Height: =28
+            Size: =15
+            Text: ="*"
+            Width: =43
+            X: =127
+            Y: =272
+      - Label13_10:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(184, 0, 0, 1)
+            Font: =Font.'Open Sans'
+            Height: =28
+            Size: =15
+            Text: ="*"
+            Width: =43
+            X: =119
+            Y: =340
+      - Label13_11:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(184, 0, 0, 1)
+            Font: =Font.'Open Sans'
+            Height: =28
+            Size: =15
+            Text: ="*"
+            Width: =43
+            X: =140
+            Y: =411
+      - Label13_12:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(184, 0, 0, 1)
+            Font: =Font.'Open Sans'
+            Height: =28
+            Size: =15
+            Text: ="*"
+            Width: =43
+            X: =130
+            Y: =486
+      - Label13_14:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(184, 0, 0, 1)
+            Font: =Font.'Open Sans'
+            Height: =28
+            Size: =15
+            Text: ="*"
+            Width: =43
+            X: =109
+            Y: =636

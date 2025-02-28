@@ -1,0 +1,193 @@
+UserHomeScreen As screen:
+
+    Label1 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(0, 18, 107, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =70
+        Size: =21
+        Text: |-
+            ="User Home Screen
+            "
+        Width: =640
+        ZIndex: =1
+
+    Button4 As button:
+        Height: =70
+        OnSelect: =Navigate('Personal Targets Screen',ScreenTransition.Fade);
+        Size: =24
+        Text: |-
+            ="My Targets
+            "
+        Width: =280
+        X: =168
+        Y: =572
+        ZIndex: =2
+
+    TotalAssign_1 As rectangle:
+        Fill: =RGBA(221, 79, 14, 1)
+        Height: =147
+        OnSelect: |-
+            =Set(varUserDashboardStatusFilter,Blank());
+            Navigate('Personal Targets Screen');
+        Width: =265
+        X: =36
+        Y: =117
+        ZIndex: =3
+
+    "'Ta-label_1' As label":
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =39
+        Size: =15
+        Text: ="Total Targets"
+        Width: =242
+        X: =47
+        Y: =140
+        ZIndex: =4
+
+    "'Ta-count_1' As label":
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =60
+        Size: =21
+        Text: |
+            =If(
+                IsEmpty(Filter(Target_sales, AssignedTo.EmployeeID = varCurrentUser.EmployeeID)), 
+                0, 
+                CountRows(Filter(Target_sales, AssignedTo.EmployeeID = varCurrentUser.EmployeeID))
+            )
+        Width: =118
+        X: =94
+        Y: =184
+        ZIndex: =5
+
+    CompleteTarget_2 As rectangle:
+        Fill: =RGBA(127, 178, 57, 1)
+        Height: =147
+        OnSelect: |-
+            =Set(varUserDashboardStatusFilter, 'status (Target_sales)'.Completed);
+            Navigate('Personal Targets Screen');
+        Width: =250
+        X: =344
+        Y: =281
+        ZIndex: =6
+
+    "'CT-label_2' As label":
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =39
+        Size: =15
+        Text: ="Completed "
+        Width: =234
+        X: =352
+        Y: =304
+        ZIndex: =7
+
+    "'CT-count_2' As label":
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =60
+        OnSelect: |
+            =IfError(CountIf(Target_sales, status = 'status (Target_sales)'.Completed), 0)
+        Size: =21
+        Text: |-
+            =If(
+                IsEmpty(Filter(Target_sales,AssignedTo.EmployeeID=varCurrentUser.EmployeeID && status='status (Target_sales)'.Completed)),
+                0,
+                CountRows(Filter(Target_sales,AssignedTo.EmployeeID=varCurrentUser.EmployeeID && status='status (Target_sales)'.Completed))
+            )
+        Width: =118
+        X: =406
+        Y: =348
+        ZIndex: =8
+
+    CompleteTarget_3 As rectangle:
+        Fill: =RGBA(102, 113, 166, 1)
+        Height: =147
+        OnSelect: |-
+            =Set(varUserDashboardStatusFilter, 'status (Target_sales)'.'In Progress');
+            Navigate('Personal Targets Screen');
+        Width: =265
+        X: =36
+        Y: =281
+        ZIndex: =9
+
+    "'CT-count_3' As label":
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =60
+        OnSelect: |
+            =IfError(CountIf(Target_sales, status = 'status (Target_sales)'.Completed), 0)
+        Size: =21
+        Text: |
+            =If(
+                IsEmpty(Filter(Target_sales,AssignedTo.EmployeeID=varCurrentUser.EmployeeID && status='status (Target_sales)'.'In Progress')),
+                0,
+                CountRows(Filter(Target_sales,AssignedTo.EmployeeID=varCurrentUser.EmployeeID && status='status (Target_sales)'.'In Progress'))
+            )
+        Width: =118
+        X: =94
+        Y: =339
+        ZIndex: =10
+
+    "'CT-label_3' As label":
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =39
+        Size: =15
+        Text: ="In progress"
+        Width: =234
+        X: =47
+        Y: =300
+        ZIndex: =11
+
+    AssignedTargets_1 As rectangle:
+        Fill: =RGBA(151, 0, 0, 1)
+        Height: =147
+        OnSelect: |
+            =Set(varUserDashboardStatusFilter, 'status (Target_sales)'.Assigned);
+            Navigate('Personal Targets Screen');
+        Width: =250
+        X: =344
+        Y: =117
+        ZIndex: =12
+
+    "'AT-label_1' As label":
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =39
+        Size: =15
+        Text: ="Assigned"
+        Width: =234
+        X: =352
+        Y: =136
+        ZIndex: =13
+
+    "'AT-count_1' As label":
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =60
+        OnSelect: |
+            =IfError(CountIf(Target_sales, status = 'status (Target_sales)'.Completed), 0)
+        Size: =21
+        Text: |
+            =If(
+                IsEmpty(Filter(Target_sales,AssignedTo.EmployeeID=varCurrentUser.EmployeeID && status='status (Target_sales)'.Assigned)),
+                0,
+                CountRows(Filter(Target_sales,AssignedTo.EmployeeID=varCurrentUser.EmployeeID && status='status (Target_sales)'.Assigned))
+            )
+        Width: =118
+        X: =406
+        Y: =175
+        ZIndex: =14
+

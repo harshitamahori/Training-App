@@ -1,0 +1,62 @@
+App As appinfo:
+    BackEnabled: =true
+    OnStart: |+
+        =
+        
+        Set(IsPasswordValidError, false);
+        
+        /*If(
+            !IsBlank(varSavedUser),
+            Set(varEmail, varSavedUser.Email);
+            Set(varPassword, varSavedUser.Password);
+            Set(isRemembered, true) 
+        );*/
+        //Filter Panel for Manager
+        Set(varFilterName, Blank());
+        Set(varFilterTargetMax, Blank());
+        Set(varFilterTargetMin,Blank());
+        Set(varFilterDate, Blank());
+        Set(varFilterStatus, Blank());
+        Set(varFilterPriority,Blank());
+        Set(varFiltersApplied, false);
+        
+        //Sort Panel for Manager Screen
+        Set(varShowSortPanel, false);
+        Set(varSortBy, "Recently Added");
+        
+        //Filter Panel for Employees
+        Set(varEmpFilterDesc, Blank());
+        Set(varEmpFilterTargetMax, Blank());
+        Set(varEmpFilterTargetMin, Blank());
+        Set(varEmpFilterDate, Blank());
+        Set(varEmpFilterStatus, Blank());
+        Set(varEmpFilterPriority, Blank());
+        Set(varEmpFiltersApplied, false);
+        
+        //Sort Panel for Employee Screen
+        Set(varEmpShowSortPanel, false);
+        Set(varEmpSortBy, "Recently Added");
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    StartScreen: |
+        =If(Param("screen")="New_Password",ResetPassword_screen)
+    Theme: =PowerAppsTheme
+
+    Host As hostControl.DefaultHostControlVariant:
+        OnCancel: =false
+        OnEdit: =false
+        OnNew: =false
+        OnSave: =false
+        OnView: =false
+

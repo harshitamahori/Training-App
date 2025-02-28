@@ -1,0 +1,317 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps is in preview. The schema is being actively developed.
+# Content may be incomplete and subject to change.
+# This file is read-only and should only be used to review changes made within Power Apps Studio.
+# This file isn't used when loading the app. External editing, merging and conflict resolution are
+# not supported.
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+ComponentDefinitions:
+  TargetAssigned_Filter_User:
+    DefinitionType: CanvasComponent
+    AccessAppScope: true
+    CustomProperties:
+      Visible_custom:
+        PropertyKind: Input
+        DisplayName: Visible_custom
+        Description: A custom property
+        DataType: Boolean
+    Properties:
+      Fill: =RGBA(0,0,0,0.1)
+    Children:
+      - Container3_1:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            BorderThickness: =1
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =If(IsBlank(varUserDashboardStatusFilter),440,364)
+            Width: =313
+            X: =320
+          Children:
+            - TargetVal-label_2:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =28
+                  Size: =15
+                  Text: |-
+                    ="Target Value:
+                    "
+                  Width: =149
+                  X: =21
+                  Y: =104
+            - dueDate-label_2:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =28
+                  Size: =15
+                  Text: ="Due Date:"
+                  Width: =149
+                  X: =21
+                  Y: =208
+            - dueDatePicker_2:
+                Control: Classic/DatePicker@2.6.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  DefaultDate: |+
+                    =If(IsBlank(varEmpFilterDate), Blank(), varEmpFilterDate)
+                  Font: =Font.'Open Sans'
+                  Height: =27
+                  IconBackground: =RGBA(56, 96, 178, 1)
+                  IconFill: =RGBA(255, 255, 255, 1)
+                  OnChange: |+
+                    =Set(varEmpFilterDate,dueDatePicker_2.SelectedDate);
+                  Size: =15
+                  Width: =276
+                  X: =21
+                  Y: =234
+            - status-label_2:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =28
+                  Size: =15
+                  Text: ="Status:"
+                  Visible: |+
+                    =//IsBlank(varUserDashboardStatusFilter)
+                    If(IsBlank(varUserDashboardStatusFilter), true, false)
+
+                  Width: =149
+                  X: =21
+                  Y: =279
+            - status-dropdown_2:
+                Control: Classic/DropDown@2.3.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  ChevronBackground: =RGBA(56, 96, 178, 1)
+                  ChevronFill: =RGBA(255, 255, 255, 1)
+                  ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                  ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =27
+                  HoverFill: =RGBA(186, 202, 226, 1)
+                  Items: |+
+                    =Ungroup(
+                        Table(
+                            {Value: ""}, // Blank option
+                            Choices('status (Target_sales)')
+                        ),
+                        Value
+                    )
+                  OnChange: =Set(varEmpFilterStatus,'status-dropdown_2'.Selected.Value);
+                  PressedColor: =RGBA(255, 255, 255, 1)
+                  PressedFill: =RGBA(0, 18, 107, 1)
+                  SelectionColor: =RGBA(255, 255, 255, 1)
+                  SelectionFill: =RGBA(56, 96, 178, 1)
+                  Size: =15
+                  Visible: |+
+                    =//IsBlank(varUserDashboardStatusFilter)
+                    If(IsBlank(varUserDashboardStatusFilter), true, false)
+
+                  Width: =276
+                  X: =21
+                  Y: =307
+            - Prior-lbl_2:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =28
+                  Size: =15
+                  Text: ="Priority:"
+                  Width: =149
+                  X: =21
+                  Y: =If(IsBlank(varUserDashboardStatusFilter),345,279)
+            - Rectangle3_2:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Fill: =RGBA(166, 166, 166, 1)
+                  Height: =1
+                  Width: =315
+                  Y: =35
+            - Prior_dropdown_2:
+                Control: Classic/DropDown@2.3.1
+                Properties:
+                  AllowEmptySelection: =true
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  ChevronBackground: =RGBA(56, 96, 178, 1)
+                  ChevronFill: =RGBA(255, 255, 255, 1)
+                  ChevronHoverBackground: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                  ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =27
+                  HoverFill: =RGBA(186, 202, 226, 1)
+                  Items: =Choices('Priority (Target_sales)')
+                  OnChange: =Set(varEmpFilterPriority,Prior_dropdown_2.Selected.Value)
+                  PressedColor: =RGBA(255, 255, 255, 1)
+                  PressedFill: =RGBA(0, 18, 107, 1)
+                  SelectionColor: =RGBA(255, 255, 255, 1)
+                  SelectionFill: =RGBA(56, 96, 178, 1)
+                  Size: =15
+                  Width: =276
+                  X: =21
+                  Y: =If(IsBlank(varUserDashboardStatusFilter),373,307)
+            - TextInput1:
+                Control: Classic/TextInput@2.3.2
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Default: =
+                  Font: =Font.'Open Sans'
+                  Height: =28
+                  HintText: =" Search by description....."
+                  HoverBorderColor: =RGBA(0, 18, 107, 1)
+                  HoverFill: =RGBA(186, 202, 226, 1)
+                  OnChange: =Set(varEmpFilterDesc , TextInput1.Text)
+                  PaddingLeft: =35
+                  Size: =15
+                  Width: =276
+                  X: =21
+                  Y: =56
+            - Icon8:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(0, 18, 107, 1)
+                  Height: =18
+                  Icon: =Icon.Search
+                  Width: =22
+                  X: =30
+                  Y: =61
+            - TargetValInpMin_2:
+                Control: Classic/TextInput@2.3.2
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Default: =
+                  Font: =Font.'Open Sans'
+                  Height: =27
+                  HintText: ="Min value"
+                  HoverBorderColor: =RGBA(0, 18, 107, 1)
+                  HoverFill: =RGBA(186, 202, 226, 1)
+                  OnChange: =Set(varEmpFilterTargetMin, Value(TargetValInpMin_2.Text))
+                  OnSelect: |+
+                    =false
+                  Size: =15
+                  Width: =124
+                  X: =21
+                  Y: =162
+            - TargetValInpMax_3:
+                Control: Classic/TextInput@2.3.2
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Default: =
+                  Font: =Font.'Open Sans'
+                  Height: =27
+                  HintText: ="Max value"
+                  HoverBorderColor: =RGBA(0, 18, 107, 1)
+                  HoverFill: =RGBA(186, 202, 226, 1)
+                  OnChange: =Set(varEmpFilterTargetMax, Value(TargetValInpMax_3.Text))
+                  OnSelect: |+
+                    =false
+                  Size: =15
+                  Width: =124
+                  X: =173
+                  Y: =160
+            - TargetVal-label_5:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =28
+                  Size: =14
+                  Text: ="Min:"
+                  Width: =72
+                  X: =21
+                  Y: =134
+            - TargetVal-label_6:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =28
+                  Size: =14
+                  Text: ="Max:"
+                  Width: =72
+                  X: =173
+                  Y: =132
+            - cancel_btn_1:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  Align: =Align.Left
+                  BorderColor: =//ColorFade(Self.Fill, -15%)
+                  BorderStyle: =//BorderStyle.Solid
+                  BorderThickness: =0
+                  Color: =RGBA(50, 86, 160, 1)
+                  DisabledBorderColor: =//RGBA(166, 166, 166, 1)
+                  DisabledColor: =//RGBA(166, 166, 166, 1)
+                  DisabledFill: =//RGBA(255, 255, 255, 1)
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FocusedBorderColor: =//Self.BorderColor
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Bold
+                  Height: =26
+                  HoverBorderColor: =//ColorFade(Self.BorderColor, 20%)
+                  HoverColor: =//RGBA(255, 255, 255, 1)
+                  HoverFill: =//ColorFade(RGBA(56, 96, 178, 1), -20%)
+                  OnSelect: |+
+                    =Set(varEmpShowFilterPanel,false);
+                    Set(varEmpFilterDesc,Blank());
+                    Set(varEmpFilterTargetMax,Blank());
+                    Set(varEmpFilterTargetMin,Blank());
+                    Set(varEmpFilterDate,Blank());
+                    Set(varEmpFilterStatus,Blank());
+                    Set(varEmpFilterPriority,Blank());
+
+                    //reset controls
+                    Reset(dueDatePicker_2);
+                    Reset(TextInput1);
+                    Reset('status-dropdown_2');
+                    Reset(Prior_dropdown_2);
+                    Reset(TargetValInpMax_3);
+                    Reset(TargetValInpMin_2);
+
+
+
+                  PressedBorderColor: =//Self.Fill
+                  PressedColor: =RGBA(0,0,0,1)
+                  PressedFill: =//Self.Color
+                  Size: =12
+                  Text: ="Cancel"
+                  Width: =71
+                  Y: =9
+            - Done_btn_1:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  Align: =Align.Left
+                  BorderColor: =//ColorFade(Self.Fill, -15%)
+                  BorderStyle: =//BorderStyle.Solid
+                  BorderThickness: =0
+                  Color: =RGBA(50, 86, 160, 1)
+                  DisabledBorderColor: =//RGBA(166, 166, 166, 1)
+                  DisabledColor: =//RGBA(166, 166, 166, 1)
+                  DisabledFill: =//RGBA(255, 255, 255, 1)
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FocusedBorderColor: =//Self.BorderColor
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Bold
+                  Height: =26
+                  HoverBorderColor: =//ColorFade(Self.BorderColor, 20%)
+                  HoverColor: =//RGBA(255, 255, 255, 1)
+                  HoverFill: =//ColorFade(RGBA(56, 96, 178, 1), -20%)
+                  OnSelect: |-
+                    =Set(varEmpFiltersApplied,true);
+                    Set(varEmpShowFilterPanel,false);
+                  PressedBorderColor: =//Self.Fill
+                  PressedColor: =RGBA(0,0,0,1)
+                  PressedFill: =//Self.Color
+                  Size: =12
+                  Text: ="Done"
+                  Width: =61
+                  X: =252
+                  Y: =9

@@ -1,0 +1,98 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cr371_category_saleses",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cr371_category_sales",
+    "MaxGetRowsCount": 500,
+    "Name": "Category_sales",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr371_category_sales_AsyncOperations": "System Jobs",
+      "cr371_category_sales_BulkDeleteFailures": "Bulk Delete Failures",
+      "cr371_category_sales_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cr371_category_sales_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cr371_category_sales_ProcessSession": "Process Sessions",
+      "cr371_category_sales_SyncErrors": "Sync Errors",
+      "cr371_category_salesid": "Category_sales",
+      "cr371_categoryid": "CategoryID",
+      "cr371_categoryname": "Category Name",
+      "cr371_product_sales_CategoryID_cr371_category_sales": "Product_sales",
+      "cr371_target_sales_CategoryID_cr371_category_sales": "Target_sales",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Category_sales",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Category_sales (Views)",
+    "Name": "_cr371_category_sales_views",
+    "RelatedEntityName": "Category_sales",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "4970b65d-7e78-4326-b786-1bea7b510b12": "Inactive Category_sales",
+      "5a6a16df-f90e-411a-b12f-2d6e2f461c44": "Category_sales Lookup View",
+      "8e54d51e-50bf-403a-a376-ae0b4d991528": "Active Category_sales",
+      "dc7d2065-8200-43c8-bed8-921873b419a3": "Category_sales Advanced Find View",
+      "eaeb0679-4385-4537-add5-1abf26ea34d7": "Category_sales Associated View"
+    }
+  },
+  {
+    "DisplayName": "Status (Category_sales)",
+    "Name": "cr371_category_sales_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Category_sales"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Category_sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Category_sales)",
+    "Name": "cr371_category_sales_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Category_sales"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Category_sales",
+    "Type": "OptionSetInfo"
+  }
+]

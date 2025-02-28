@@ -1,0 +1,168 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cr371_notification_saleses",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cr371_notification_sales",
+    "MaxGetRowsCount": 500,
+    "Name": "Notification_sales",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr371_EmployeeID": "EmployeeID",
+      "cr371_isemailsent": "isEmailSent",
+      "cr371_message": "Message",
+      "cr371_notification_sales_AsyncOperations": "System Jobs",
+      "cr371_notification_sales_BulkDeleteFailures": "Bulk Delete Failures",
+      "cr371_notification_sales_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cr371_notification_sales_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cr371_notification_sales_ProcessSession": "Process Sessions",
+      "cr371_notification_sales_SyncErrors": "Sync Errors",
+      "cr371_notification_salesid": "Notification_sales",
+      "cr371_notificationdate": "Notification Date",
+      "cr371_notificationid": "NotificationID",
+      "cr371_notificationtyoe": "Notification Type",
+      "cr371_readstatus": "Read status",
+      "cr371_recipientemail": "Recipient Email",
+      "cr371_TargetID": "TargetID",
+      "cr371_title": "Title",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Notification_sales",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Notification_sales (Views)",
+    "Name": "_cr371_notification_sales_views",
+    "RelatedEntityName": "Notification_sales",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "26c6b3c6-ae11-4db7-8ab7-8e8181ab74c9": "Inactive Notification_sales",
+      "3aeafa76-788f-4363-990e-1d899b105bdc": "Notification_sales Lookup View",
+      "4fde1bed-20ea-4205-842c-041f751518dc": "Notification_sales Advanced Find View",
+      "7c89fd0f-4775-4b92-a1ce-4d3afd5b4169": "Active Notification_sales",
+      "b5e474b8-dbe7-4290-8abf-5eded71efa7d": "Notification_sales Associated View"
+    }
+  },
+  {
+    "DisplayName": "isEmailSent (Notification_sales)",
+    "Name": "cr371_notification_sales_cr371_isemailsent",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr371_isemailsent",
+        "OptionSetReferenceEntityName": "Notification_sales"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "cr371_isemailsent",
+    "RelatedEntityName": "Notification_sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Notification Type (Notification_sales)",
+    "Name": "cr371_notification_sales_cr371_notificationtyoe",
+    "OptionSetInfoNameMapping": {
+      "852020000": "Deadline",
+      "852020001": "Achievement",
+      "852020002": "Reminder",
+      "852020003": "Milestone",
+      "852020004": "Overdue",
+      "852020005": "New Target Assigned"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr371_notificationtyoe",
+        "OptionSetReferenceEntityName": "Notification_sales"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr371_notificationtyoe",
+    "RelatedEntityName": "Notification_sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Read status (Notification_sales)",
+    "Name": "cr371_notification_sales_cr371_readstatus",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr371_readstatus",
+        "OptionSetReferenceEntityName": "Notification_sales"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "cr371_readstatus",
+    "RelatedEntityName": "Notification_sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Notification_sales)",
+    "Name": "cr371_notification_sales_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Notification_sales"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Notification_sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Notification_sales)",
+    "Name": "cr371_notification_sales_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Notification_sales"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Notification_sales",
+    "Type": "OptionSetInfo"
+  }
+]

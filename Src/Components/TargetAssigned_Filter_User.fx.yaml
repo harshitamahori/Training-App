@@ -1,0 +1,252 @@
+TargetAssigned_Filter_User As CanvasComponent:
+    Fill: =RGBA(0,0,0,0.1)
+    Height: =640
+    Visible_custom: =true
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    Container3_1 As groupContainer.manualLayoutContainer:
+        BorderThickness: =1
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =If(IsBlank(varUserDashboardStatusFilter),440,364)
+        Width: =313
+        X: =320
+        ZIndex: =1
+
+        "'TargetVal-label_2' As label":
+            Height: =28
+            Size: =15
+            Text: |-
+                ="Target Value:
+                "
+            Width: =149
+            X: =21
+            Y: =104
+            ZIndex: =1
+
+        "'dueDate-label_2' As label":
+            Height: =28
+            Size: =15
+            Text: |-
+                ="Due Date:"
+            Width: =149
+            X: =21
+            Y: =208
+            ZIndex: =3
+
+        dueDatePicker_2 As datepicker:
+            DefaultDate: |
+                =If(IsBlank(varEmpFilterDate), Blank(), varEmpFilterDate)
+            Height: =27
+            OnChange: |
+                =Set(varEmpFilterDate,dueDatePicker_2.SelectedDate);
+            Size: =15
+            Width: =276
+            X: =21
+            Y: =234
+            ZIndex: =4
+
+        "'status-label_2' As label":
+            Height: =28
+            Size: =15
+            Text: |-
+                ="Status:"
+            Visible: |+
+                =//IsBlank(varUserDashboardStatusFilter)
+                If(IsBlank(varUserDashboardStatusFilter), true, false)
+                
+            Width: =149
+            X: =21
+            Y: =279
+            ZIndex: =5
+
+        "'status-dropdown_2' As dropdown":
+            Height: =27
+            Items: |
+                =Ungroup(
+                    Table(
+                        {Value: ""}, // Blank option
+                        Choices('status (Target_sales)')
+                    ),
+                    Value
+                )
+            OnChange: =Set(varEmpFilterStatus,'status-dropdown_2'.Selected.Value);
+            Size: =15
+            Visible: |+
+                =//IsBlank(varUserDashboardStatusFilter)
+                If(IsBlank(varUserDashboardStatusFilter), true, false)
+                
+            Width: =276
+            X: =21
+            Y: =307
+            ZIndex: =6
+
+        "'Prior-lbl_2' As label":
+            Height: =28
+            Size: =15
+            Text: |-
+                ="Priority:"
+            Width: =149
+            X: =21
+            Y: =If(IsBlank(varUserDashboardStatusFilter),345,279)
+            ZIndex: =7
+
+        Rectangle3_2 As rectangle:
+            Fill: =RGBA(166, 166, 166, 1)
+            Height: =1
+            Width: =315
+            Y: =35
+            ZIndex: =11
+
+        Prior_dropdown_2 As dropdown:
+            AllowEmptySelection: =true
+            Height: =27
+            Items: =Choices('Priority (Target_sales)')
+            OnChange: =Set(varEmpFilterPriority,Prior_dropdown_2.Selected.Value)
+            Size: =15
+            Width: =276
+            X: =21
+            Y: =If(IsBlank(varUserDashboardStatusFilter),373,307)
+            ZIndex: =12
+
+        TextInput1 As text:
+            Default: =
+            Height: =28
+            HintText: =" Search by description....."
+            OnChange: =Set(varEmpFilterDesc , TextInput1.Text)
+            PaddingLeft: =35
+            Size: =15
+            Width: =276
+            X: =21
+            Y: =56
+            ZIndex: =13
+
+        Icon8 As icon.Search:
+            Height: =18
+            Icon: =Icon.Search
+            Width: =22
+            X: =30
+            Y: =61
+            ZIndex: =14
+
+        TargetValInpMin_2 As text:
+            Default: =
+            Height: =27
+            HintText: ="Min value"
+            OnChange: =Set(varEmpFilterTargetMin, Value(TargetValInpMin_2.Text))
+            OnSelect: |
+                =false
+            Size: =15
+            Width: =124
+            X: =21
+            Y: =162
+            ZIndex: =15
+
+        TargetValInpMax_3 As text:
+            Default: =
+            Height: =27
+            HintText: ="Max value"
+            OnChange: =Set(varEmpFilterTargetMax, Value(TargetValInpMax_3.Text))
+            OnSelect: |
+                =false
+            Size: =15
+            Width: =124
+            X: =173
+            Y: =160
+            ZIndex: =16
+
+        "'TargetVal-label_5' As label":
+            Height: =28
+            Size: =14
+            Text: |-
+                ="Min:"
+            Width: =72
+            X: =21
+            Y: =134
+            ZIndex: =17
+
+        "'TargetVal-label_6' As label":
+            Height: =28
+            Size: =14
+            Text: |-
+                ="Max:"
+            Width: =72
+            X: =173
+            Y: =132
+            ZIndex: =18
+
+        cancel_btn_1 As button:
+            Align: =Align.Left
+            BorderColor: =//ColorFade(Self.Fill, -15%)
+            BorderStyle: =//BorderStyle.Solid
+            BorderThickness: =0
+            Color: =RGBA(50, 86, 160, 1)
+            DisabledBorderColor: =//RGBA(166, 166, 166, 1)
+            DisabledColor: =//RGBA(166, 166, 166, 1)
+            DisabledFill: =//RGBA(255, 255, 255, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            FocusedBorderColor: =//Self.BorderColor
+            FontWeight: =FontWeight.Bold
+            Height: =26
+            HoverBorderColor: =//ColorFade(Self.BorderColor, 20%)
+            HoverColor: =//RGBA(255, 255, 255, 1)
+            HoverFill: =//ColorFade(RGBA(56, 96, 178, 1), -20%)
+            OnSelect: |+
+                =Set(varEmpShowFilterPanel,false);
+                Set(varEmpFilterDesc,Blank());
+                Set(varEmpFilterTargetMax,Blank());
+                Set(varEmpFilterTargetMin,Blank());
+                Set(varEmpFilterDate,Blank());
+                Set(varEmpFilterStatus,Blank());
+                Set(varEmpFilterPriority,Blank());
+                
+                //reset controls
+                Reset(dueDatePicker_2);
+                Reset(TextInput1);
+                Reset('status-dropdown_2');
+                Reset(Prior_dropdown_2);
+                Reset(TargetValInpMax_3);
+                Reset(TargetValInpMin_2);
+                
+                
+                
+            PressedBorderColor: =//Self.Fill
+            PressedColor: =RGBA(0,0,0,1)
+            PressedFill: =//Self.Color
+            Size: =12
+            Text: ="Cancel"
+            Width: =71
+            Y: =9
+            ZIndex: =19
+
+        Done_btn_1 As button:
+            Align: =Align.Left
+            BorderColor: =//ColorFade(Self.Fill, -15%)
+            BorderStyle: =//BorderStyle.Solid
+            BorderThickness: =0
+            Color: =RGBA(50, 86, 160, 1)
+            DisabledBorderColor: =//RGBA(166, 166, 166, 1)
+            DisabledColor: =//RGBA(166, 166, 166, 1)
+            DisabledFill: =//RGBA(255, 255, 255, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            FocusedBorderColor: =//Self.BorderColor
+            FontWeight: =FontWeight.Bold
+            Height: =26
+            HoverBorderColor: =//ColorFade(Self.BorderColor, 20%)
+            HoverColor: =//RGBA(255, 255, 255, 1)
+            HoverFill: =//ColorFade(RGBA(56, 96, 178, 1), -20%)
+            OnSelect: |-
+                =Set(varEmpFiltersApplied,true);
+                Set(varEmpShowFilterPanel,false);
+            PressedBorderColor: =//Self.Fill
+            PressedColor: =RGBA(0,0,0,1)
+            PressedFill: =//Self.Color
+            Size: =12
+            Text: ="Done"
+            Width: =61
+            X: =252
+            Y: =9
+            ZIndex: =20
+

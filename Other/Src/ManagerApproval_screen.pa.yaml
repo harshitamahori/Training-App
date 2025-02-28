@@ -1,0 +1,577 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps is in preview. The schema is being actively developed.
+# Content may be incomplete and subject to change.
+# This file is read-only and should only be used to review changes made within Power Apps Studio.
+# This file isn't used when loading the app. External editing, merging and conflict resolution are
+# not supported.
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  ManagerApproval_screen:
+    Properties:
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+      OnVisible: |-
+        =Refresh(Progress_sales);
+        Refresh(Target_sales);
+    Children:
+      - screen_heading_1:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Bold
+            Height: =87
+            Size: =30
+            Text: ="Request Approval"
+            Width: =640
+      - Gallery1:
+          Control: Gallery@2.15.0
+          Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
+          Properties:
+            BorderColor: =RGBA(128, 128, 128, 1)
+            BorderThickness: =1
+            Height: =775
+            Items: =Progress_sales
+            TemplateSize: =595
+            Y: =299
+          Children:
+            - Rectangle3:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Fill: =RGBA(0, 18, 107, 1)
+                  Height: =
+                  OnSelect: =Select(Parent)
+                  Visible: =ThisItem.IsSelected
+                  Width: =4
+            - Container6:
+                Control: GroupContainer@1.3.0
+                Variant: ManualLayout
+                Properties:
+                  Fill: =RGBA(241, 244, 249, 1)
+                  Height: =569
+                  Width: |+
+                    =Parent.TemplateWidth-25
+
+
+                  X: =10
+                  Y: =12
+                Children:
+                  - Label8:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Bold
+                        Height: =38
+                        Size: =20
+                        Text: =LookUp(Employee_sales,EmployeeID=ThisItem.'Updated By'.EmployeeID,Name)
+                        Width: =395
+                        X: =205
+                        Y: =20
+                  - Label9:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Color: =RGBA(116, 116, 116, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =30
+                        Size: =15
+                        Text: |+
+                          =If(
+                              DateDiff(ThisItem.'Updated Date', Now(),TimeUnit.Days) = 0, 
+                              "Today",
+                              If(
+                                  DateDiff(ThisItem.'Updated Date', Now(),TimeUnit.Days) = 1,
+                                  "1 Day Ago",
+                                  DateDiff(ThisItem.'Updated Date', Now(),TimeUnit.Days) & " Days Ago"
+                              )
+                          )
+                        Width: =278
+                        X: =205
+                        Y: =58
+                  - Image2:
+                      Control: Image@2.2.3
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Height: =75
+                        RadiusBottomLeft: =75
+                        RadiusBottomRight: =75
+                        RadiusTopLeft: =75
+                        RadiusTopRight: =75
+                        Width: =75
+                        X: =16
+                        Y: =13
+                  - Label9_1:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Color: =RGBA(26, 26, 26, 1)
+                        Font: =Font.'Open Sans'
+                        Height: =35
+                        Size: =18
+                        Text: |+
+                          =ThisItem.TargetID.TargetID
+                        Width: =278
+                        X: =300
+                        Y: =116
+                  - Label14:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =35
+                        Size: =18
+                        Text: ="Requested Value :"
+                        Width: =225
+                        X: =16
+                        Y: =273
+                  - Label9_2:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Color: =RGBA(26, 26, 26, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =35
+                        Size: =18
+                        Text: |+
+                          ="Target ID : "
+                        Width: =150
+                        X: =16
+                        Y: =116
+                  - Label9_3:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Color: =RGBA(26, 26, 26, 1)
+                        Font: =Font.'Open Sans'
+                        Height: =35
+                        Size: =18
+                        Text: |+
+                          =ThisItem.'Progress Value'
+                        Width: =120
+                        X: =300
+                        Y: =271
+                  - Label14_1:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =35
+                        Size: =18
+                        Text: ="Approval Status :"
+                        Width: =210
+                        X: =16
+                        Y: =329
+                  - Button10:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        DisplayMode: =DisplayMode.View
+                        Fill: |-
+                          =Switch(
+                              ThisItem.'Approval Status',
+                              'Approval Status (Progress_sales)'.Approved,Color.Green,
+                              'Approval Status (Progress_sales)'.Pending,Color.Orange,
+                              'Approval Status (Progress_sales)'.Rejected,Color.Red,
+                              'Approval Status (Progress_sales)'.Cancelled,Color.Gray
+                          )
+                        Font: =Font.'Open Sans'
+                        Height: =35
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        Size: =18
+                        Text: =ThisItem.'Approval Status'
+                        Width: =130
+                        X: =300
+                        Y: =329
+                  - Label14_2:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =35
+                        Size: =18
+                        Text: ="Remarks :"
+                        Width: =150
+                        X: =16
+                        Y: =386
+                  - Label14_3:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Font: =Font.'Open Sans'
+                        Height: =35
+                        Size: =18
+                        Text: =Coalesce(ThisItem.Remarks,"No remarks")
+                        Width: =210
+                        X: =300
+                        Y: =370
+                  - Label14_4:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =35
+                        Size: =18
+                        Text: ="Invoice :"
+                        Width: =150
+                        X: =16
+                        Y: =439
+                  - Icon13:
+                      Control: Classic/Icon@2.5.0
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Color: =RGBA(0, 18, 107, 1)
+                        Height: =37
+                        Icon: =Icon.Download
+                        OnSelect: =
+                        Width: =60
+                        X: =285
+                        Y: =437
+                  - Button11:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        Fill: =RGBA(99, 139, 44, 1)
+                        Font: =Font.'Open Sans'
+                        Height: =42
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(127,178,57,1)
+                        OnSelect: |+
+                          =With(
+                              {
+                                  remainingTargetValue: 
+                                      LookUp(Target_sales, TargetID = ThisItem.TargetID.TargetID, 'Target Value') - ThisItem.'Progress Value'
+                              },
+
+                              Patch(
+                                  Progress_sales,
+                                  ThisItem,
+                                  {
+                                      'Approval Status': 'Approval Status (Progress_sales)'.Approved,
+                                      ApprovalDate:Now(),
+                                      ApprovedBy:LookUp(Employee_sales,EmployeeID=varCurrentUser.EmployeeID)
+                                  }
+                              );
+
+                              Patch(
+                                  Target_sales,
+                                  LookUp(Target_sales, TargetID = ThisItem.TargetID.TargetID),
+                                  {
+                                      'Target Value': remainingTargetValue
+                                  }
+                              );
+
+                              Notify("Request Approved & Target Value Updated!", NotificationType.Success);
+                          );
+                          Refresh(Target_sales);
+                          Refresh(Progress_sales);
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        Size: =18
+                        Text: ="APPROVE"
+                        Visible: =ThisItem.'Approval Status'='Approval Status (Progress_sales)'.Pending
+                        Width: =208
+                        X: =35
+                        Y: =500
+                  - Button11_1:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        Fill: =RGBA(184, 0, 0, 1)
+                        Font: =Font.'Open Sans'
+                        Height: =42
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(203,102,102,1)
+                        OnSelect: |+
+                          =Patch(
+                              Progress_sales,
+                              ThisItem,
+                              {
+                                  'Approval Status': 'Approval Status (Progress_sales)'.Rejected
+                              }
+                          );
+
+                          Notify("Request has been rejected!", NotificationType.Error);
+                          Refresh(Progress_sales);
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        Size: =18
+                        Text: ="REJECT"
+                        Visible: =ThisItem.'Approval Status'='Approval Status (Progress_sales)'.Pending
+                        Width: =208
+                        X: =370
+                        Y: =500
+                  - Label9_4:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Color: =RGBA(26, 26, 26, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =35
+                        Size: =18
+                        Text: |+
+                          ="Target Value : "
+                        Width: =173
+                        X: =16
+                        Y: =169
+                  - Label9_5:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Color: =RGBA(26, 26, 26, 1)
+                        Font: =Font.'Open Sans'
+                        Height: =35
+                        Size: =18
+                        Text: |+
+                          =ThisItem.TargetID.'Target Value'
+                        Width: =120
+                        X: =300
+                        Y: =169
+                  - Label9_6:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Color: =RGBA(26, 26, 26, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =35
+                        Size: =18
+                        Text: |+
+                          ="Description : "
+                        Width: =173
+                        X: =16
+                        Y: =220
+                  - Label14_5:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(128, 128, 128, 1)
+                        BorderThickness: =1
+                        Font: =Font.'Open Sans'
+                        Height: =35
+                        Overflow: =Overflow.Scroll
+                        Size: =18
+                        Text: =ThisItem.TargetID.Description
+                        Width: =300
+                        X: =300
+                        Y: =219
+      - Icon14:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(128, 128, 128, 1)
+            Height: =54
+            Icon: =Icon.Home
+            OnSelect: =Navigate(ManagerHomeScreen,ScreenTransition.Fade)
+            Width: =61
+            X: =289
+            Y: =1074
+      - Container5_5:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            Height: =140
+            Width: =126
+            X: =389
+            Y: =106
+      - Container5_6:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            Height: =140
+            Width: =126
+            X: =261
+            Y: =106
+      - Container5_7:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            Height: =140
+            Width: =126
+            X: =2
+            Y: =106
+      - Container5_8:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            Height: =140
+            Width: =126
+            X: =131
+            Y: =106
+      - Label16_10:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(50, 86, 160, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =40
+            Size: =15
+            Text: ="Total"
+            Width: =110
+            X: =9
+            Y: =115
+      - Label16_11:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(50, 86, 160, 1)
+            Font: =Font.'Open Sans'
+            Height: =73
+            Size: =25
+            Text: =If(IsEmpty(Progress_sales),0,CountIf(Progress_sales,true))
+            Width: =110
+            X: =9
+            Y: =163
+      - Label16_12:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(221, 79, 14, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =40
+            Size: =15
+            Text: ="Pending"
+            Width: =110
+            X: =140
+            Y: =115
+      - Label16_13:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(221, 79, 14, 1)
+            Font: =Font.'Open Sans'
+            Height: =73
+            Size: =25
+            Text: =If(IsEmpty(Progress_sales),0,CountIf(Progress_sales,'Approval Status'='Approval Status (Progress_sales)'.Pending))
+            Width: =110
+            X: =140
+            Y: =163
+      - Label16_14:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(127, 178, 57, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =40
+            Size: =15
+            Text: ="Approved"
+            Width: =110
+            X: =268
+            Y: =115
+      - Label16_15:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(127, 178, 57, 1)
+            Font: =Font.'Open Sans'
+            Height: =73
+            Size: =25
+            Text: =If(IsEmpty(Progress_sales),0,CountIf(Progress_sales,'Approval Status'='Approval Status (Progress_sales)'.Approved))
+            Width: =110
+            X: =268
+            Y: =163
+      - Label16_16:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(151, 0, 0, 1)
+            Font: =Font.'Open Sans'
+            Height: =40
+            Size: =15
+            Text: ="Rejected"
+            Width: =110
+            X: =396
+            Y: =115
+      - Label16_17:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(151, 0, 0, 1)
+            Font: =Font.'Open Sans'
+            Height: =72
+            Size: =25
+            Text: =If(IsEmpty(Progress_sales),0,CountIf(Progress_sales,'Approval Status'='Approval Status (Progress_sales)'.Rejected))
+            Width: =110
+            X: =396
+            Y: =163
+      - Container5_9:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            Height: =140
+            Width: =126
+            X: =514
+            Y: =106
+      - Label16_18:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(128, 128, 128, 1)
+            Font: =Font.'Open Sans'
+            Height: =40
+            Size: =15
+            Text: ="Cancelled"
+            Width: =110
+            X: =521
+            Y: =115
+      - Label16_19:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(128, 128, 128, 1)
+            Font: =Font.'Open Sans'
+            Height: =72
+            Size: =25
+            Text: =If(IsEmpty(Progress_sales),0,CountIf(Progress_sales,'Approval Status'='Approval Status (Progress_sales)'.Cancelled))
+            Width: =110
+            X: =521
+            Y: =163

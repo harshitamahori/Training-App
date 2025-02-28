@@ -1,0 +1,63 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps is in preview. The schema is being actively developed.
+# Content may be incomplete and subject to change.
+# This file is read-only and should only be used to review changes made within Power Apps Studio.
+# This file isn't used when loading the app. External editing, merging and conflict resolution are
+# not supported.
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+App:
+  Properties:
+    OnStart: |+
+      =
+
+      Set(IsPasswordValidError, false);
+
+      /*If(
+          !IsBlank(varSavedUser),
+          Set(varEmail, varSavedUser.Email);
+          Set(varPassword, varSavedUser.Password);
+          Set(isRemembered, true) 
+      );*/
+      //Filter Panel for Manager
+      Set(varFilterName, Blank());
+      Set(varFilterTargetMax, Blank());
+      Set(varFilterTargetMin,Blank());
+      Set(varFilterDate, Blank());
+      Set(varFilterStatus, Blank());
+      Set(varFilterPriority,Blank());
+      Set(varFiltersApplied, false);
+
+      //Sort Panel for Manager Screen
+      Set(varShowSortPanel, false);
+      Set(varSortBy, "Recently Added");
+
+      //Filter Panel for Employees
+      Set(varEmpFilterDesc, Blank());
+      Set(varEmpFilterTargetMax, Blank());
+      Set(varEmpFilterTargetMin, Blank());
+      Set(varEmpFilterDate, Blank());
+      Set(varEmpFilterStatus, Blank());
+      Set(varEmpFilterPriority, Blank());
+      Set(varEmpFiltersApplied, false);
+
+      //Sort Panel for Employee Screen
+      Set(varEmpShowSortPanel, false);
+      Set(varEmpSortBy, "Recently Added");
+
+
+
+
+
+
+
+
+
+
+
+
+
+    StartScreen: |+
+      =If(Param("screen")="New_Password",ResetPassword_screen)
+    Theme: =PowerAppsTheme

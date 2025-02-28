@@ -1,0 +1,409 @@
+"'Personal Targets Screen' As screen":
+    OnVisible: |
+        =Set(varEmpSortBy, "Priority : High to Low");
+
+    Rectangle4 As rectangle:
+        Fill: =RGBA(0, 18, 107, 1)
+        Height: =86
+        Width: =640
+        ZIndex: =2
+
+    head As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =57
+        Size: =25
+        Text: ="Assigned Targets"
+        Width: =380
+        X: =129
+        Y: =14
+        ZIndex: =3
+
+    bell As icon.Bell:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =45
+        Icon: =Icon.Bell
+        Width: =61
+        X: =555
+        Y: =20
+        ZIndex: =4
+
+    bck As icon.BackArrow:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =49
+        Icon: =Icon.BackArrow
+        OnSelect: =Navigate(UserHomeScreen,ScreenTransition.Fade);
+        Width: =62
+        X: =18
+        Y: =18
+        ZIndex: =5
+
+    Container4 As groupContainer.manualLayoutContainer:
+        Height: =992
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =640
+        Y: =144
+        ZIndex: =6
+
+        Icon3_2 As icon.Home:
+            Color: =RGBA(128, 128, 128, 1)
+            Height: =51
+            Icon: =Icon.Home
+            OnSelect: =Navigate(UserHomeScreen,ScreenTransition.Fade)
+            Width: =57
+            X: =276
+            Y: =931
+            ZIndex: =1
+
+        Icon6_2 As icon.Person:
+            Color: =RGBA(128, 128, 128, 1)
+            Height: =51
+            Icon: =Icon.Person
+            Width: =57
+            X: =52
+            Y: =931
+            ZIndex: =2
+
+        sep6_3 As rectangle:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(166, 166, 166, 1)
+            Height: =1
+            Width: =640
+            Y: =917
+            ZIndex: =3
+
+        "MyTraget_Gallery As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0'":
+            DelayItemLoading: =true
+            Fill: =RGBA(241, 244, 249, 1)
+            Height: =918
+            Items: |+
+                =Sort(
+                    AddColumns(
+                        If( 
+                            varEmpFiltersApplied,
+                            Filter(
+                                Target_sales,
+                                AssignedTo.EmployeeID = varCurrentUser.EmployeeID &&
+                                (IsBlank(varEmpFilterDesc) || StartsWith(Description, varEmpFilterDesc)) &&
+                                (IsBlank(varEmpFilterTargetMin) || 'Target Value' >= varEmpFilterTargetMin) && 
+                                (IsBlank(varEmpFilterTargetMax) || 'Target Value' <= varEmpFilterTargetMax) &&  
+                                (IsBlank(varEmpFilterDate) || 'End Date' >= varEmpFilterDate && 'End Date' < DateAdd(varEmpFilterDate, 1, TimeUnit.Days)) &&
+                                (IsBlank(varEmpFilterStatus) || status = varEmpFilterStatus) &&
+                                (IsBlank(varEmpFilterPriority) || Priority = varEmpFilterPriority) &&
+                                (IsBlank(varUserDashboardStatusFilter) || status = varUserDashboardStatusFilter)
+                            ),
+                            Filter(
+                                Target_sales, 
+                                AssignedTo.EmployeeID = varCurrentUser.EmployeeID &&
+                                (IsBlank(varUserDashboardStatusFilter) || status = varUserDashboardStatusFilter) 
+                            )
+                        ),
+                        'PriorityValEmp', 
+                        Switch(
+                            Priority, 
+                            'Priority (Target_sales)'.Low, 1, 
+                            'Priority (Target_sales)'.Medium, 2, 
+                            'Priority (Target_sales)'.High, 3
+                        )
+                    ),
+                    If(
+                        varEmpSortBy = "Recently Added", 'Created On',
+                        varEmpSortBy = "Target Value : Low to High", 'Target Value',
+                        varEmpSortBy = "Target Value : High to Low", 'Target Value',
+                        varEmpSortBy = "Priority : Low to High", 'PriorityValEmp',
+                        varEmpSortBy = "Priority : High to Low", 'PriorityValEmp',
+                        'Created On'
+                    ),
+                    If(
+                        Or(
+                            varEmpSortBy = "Target Value : Low to High",
+                            varEmpSortBy = "Priority : Low to High"
+                        ), 
+                        SortOrder.Ascending, 
+                        SortOrder.Descending
+                    )
+                )
+                
+                
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            OnSelect: |-
+                =Set(varSelectedUserRecord,MyTraget_Gallery.Selected);
+                Navigate(DetailedTargetScreen_User);
+            TemplatePadding: =0
+            TemplateSize: =279
+            Visible: |
+                =true
+            ZIndex: =4
+
+            Title1 As label:
+                Color: =RGBA(0, 0, 0, 1)
+                FontWeight: =FontWeight.Bold
+                Height: =43
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =15
+                Text: |-
+                    ="Target : "&Text(ThisItem.Description)
+                VerticalAlign: =VerticalAlign.Top
+                Width: =560
+                X: =33
+                Y: =18
+                ZIndex: =2
+
+            NextArrow1 As icon.ChevronRight:
+                AccessibleLabel: =Self.Tooltip
+                BorderColor: =RGBA(0, 0, 0, 1)
+                Color: =RGBA(166, 166, 166, 1)
+                DisabledBorderColor: =RGBA(56, 56, 56, 1)
+                DisabledColor: =RGBA(119, 119, 119, 1)
+                Height: =50
+                Icon: =Icon.ChevronRight
+                OnSelect: =Navigate(DetailedTargetScreen_User,ScreenTransition.Fade);
+                PaddingBottom: =16
+                PaddingLeft: =16
+                PaddingRight: =16
+                PaddingTop: =16
+                Tooltip: ="View item details"
+                Width: =50
+                X: =Parent.TemplateWidth - Self.Width - 12
+                Y: =(Parent.TemplateHeight / 2) - (Self.Height / 2)
+                ZIndex: =4
+
+            Label5 As label:
+                Height: =27
+                OnSelect: =Select(Parent)
+                Size: =15
+                Text: =Text(ThisItem.'Start Date',DateTimeFormat.ShortDate,"en")
+                Width: =224
+                X: =248
+                Y: =62
+                ZIndex: =6
+
+            Label5_1 As label:
+                Height: =27
+                OnSelect: =Select(Parent)
+                Size: =15
+                Text: =Text(ThisItem.'End Date',DateTimeFormat.ShortDate,"en")
+                Width: =224
+                X: =248
+                Y: =103
+                ZIndex: =7
+
+            Label6 As label:
+                Height: =28
+                OnSelect: =Select(Parent)
+                Size: =15
+                Text: =ThisItem.'Target Value'
+                Width: =131
+                X: =248
+                Y: =144
+                ZIndex: =8
+
+            separator As rectangle:
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =2
+                OnSelect: =Select(Parent)
+                Width: =Parent.Width
+                Y: =277
+                ZIndex: =9
+
+            Label6_1 As label:
+                Color: |-
+                    =Switch(ThisItem.status,
+                    'status (Target_sales)'.Assigned,Color.Red,
+                    'status (Target_sales)'.'In Progress',Color.Blue,
+                    'status (Target_sales)'.Completed,Color.Green,
+                    Color.Gray
+                    )
+                Height: =28
+                OnSelect: =Select(Parent)
+                Size: =15
+                Text: =ThisItem.status
+                Width: =131
+                X: =248
+                Y: =231
+                ZIndex: =10
+
+            Icon5 As icon.Flag:
+                Color: |-
+                    =Switch(
+                        ThisItem.Priority,
+                        'Priority (Target_sales)'.High,Color.Red,
+                        'Priority (Target_sales)'.Medium,Color.DarkOrange,
+                        'Priority (Target_sales)'.Low,Color.Green,
+                        Color.Gray
+                        )
+                Height: =34
+                Icon: =Icon.Flag
+                OnSelect: =Select(Parent)
+                Width: =45
+                X: =261
+                Y: =189
+                ZIndex: =11
+
+            Label6_2 As label:
+                Color: =
+                FontWeight: =FontWeight.Semibold
+                Height: =28
+                OnSelect: =Select(Parent)
+                Size: =15
+                Text: |-
+                    ="Start Date :"
+                Width: =131
+                X: =25
+                Y: =61
+                ZIndex: =12
+
+            Label6_3 As label:
+                Color: =
+                FontWeight: =FontWeight.Semibold
+                Height: =28
+                OnSelect: =Select(Parent)
+                Size: =15
+                Text: |-
+                    ="End Date :"
+                Width: =131
+                X: =25
+                Y: =103
+                ZIndex: =13
+
+            Label6_4 As label:
+                Color: =
+                FontWeight: =FontWeight.Semibold
+                Height: =27
+                OnSelect: =Select(Parent)
+                Size: =15
+                Text: |-
+                    ="Target Value :"
+                Width: =178
+                X: =25
+                Y: =146
+                ZIndex: =14
+
+            Label6_5 As label:
+                Color: =
+                FontWeight: =FontWeight.Semibold
+                Height: =38
+                OnSelect: =Select(Parent)
+                Size: =15
+                Text: |-
+                    ="Priority :"
+                X: =25
+                Y: =185
+                ZIndex: =15
+
+            Label6_6 As label:
+                Color: =
+                FontWeight: =FontWeight.Semibold
+                Height: =28
+                OnSelect: =Select(Parent)
+                Size: =15
+                Text: |-
+                    ="Status :"
+                Width: =131
+                X: =25
+                Y: =231
+                ZIndex: =16
+
+        Icon11 As icon.Money:
+            Color: =RGBA(128, 128, 128, 1)
+            Height: =51
+            Icon: =Icon.Money
+            Width: =57
+            X: =500
+            Y: =931
+            ZIndex: =5
+
+        TargetAssigned_Filter_User_1 As TargetAssigned_Filter_User:
+            Height: =918
+            Visible: =varEmpShowFilterPanel
+            ZIndex: =6
+
+        sortBy_Filter_User_1 As sortBy_Filter_User:
+            Height: =915
+            Visible: =varEmpShowSortPanel
+            ZIndex: =7
+
+        Label7 As label:
+            Align: =Align.Center
+            Color: =RGBA(128, 128, 128, 1)
+            Height: =709
+            Size: =21
+            Text: ="Sorry, we couldn't find any results"
+            Visible: =IsEmpty(MyTraget_Gallery.AllItems)&&varEmpFiltersApplied
+            Width: =640
+            Y: =205
+            ZIndex: =8
+
+        cry_cat As image:
+            Height: =77
+            Image: =cry
+            Visible: =IsEmpty(MyTraget_Gallery.AllItems) && varEmpFiltersApplied
+            Width: =136
+            X: =252
+            Y: =461
+            ZIndex: =9
+
+    Filterbtn_2 As button:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        BorderThickness: =1
+        Color: =RGBA(0, 0, 0, 1)
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =56
+        HoverFill: =RGBA(136, 160, 209, 1)
+        OnSelect: =Set(varEmpShowFilterPanel,!varEmpShowFilterPanel)
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =20
+        Text: ="Filter"
+        Width: =319
+        X: =321
+        Y: =86
+        ZIndex: =7
+
+    SortBy_3 As button:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        BorderThickness: =1
+        Color: =RGBA(0, 0, 0, 1)
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =56
+        HoverFill: =RGBA(136, 160, 209, 1)
+        OnSelect: =Set(varEmpShowSortPanel,!varEmpShowSortPanel)
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =20
+        Text: ="Sort By "
+        Width: =319
+        Y: =86
+        ZIndex: =8
+
+    "'filter-icon_1' As icon.Filter":
+        Color: =RGBA(0, 0, 0, 1)
+        Height: =27
+        Icon: =Icon.Filter
+        Width: =38
+        X: =392
+        Y: =101
+        ZIndex: =9
+
+    "'sortBy-icon_1' As icon.ArrowsUpDown":
+        Color: =RGBA(0, 0, 0, 1)
+        Height: =24
+        Icon: =Icon.Sort
+        Width: =52
+        X: =49
+        Y: =104
+        ZIndex: =10
+

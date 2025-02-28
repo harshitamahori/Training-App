@@ -1,0 +1,9 @@
+PDFdownloadScreen As screen:
+
+    PdfViewer1 As pdfViewer:
+        BorderColor: =RGBA(0, 0, 0, 1)
+        Document: =varPDFGenerator
+        Fill: =RGBA(0, 0, 0, 0.5)
+        Height: =969
+        ZIndex: =1
+

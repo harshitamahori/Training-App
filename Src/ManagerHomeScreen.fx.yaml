@@ -1,0 +1,194 @@
+ManagerHomeScreen As screen:
+
+    Rectangle5 As rectangle:
+        Fill: =RGBA(237, 237, 237, 1)
+        Height: =372
+        Width: =640
+        Y: =84
+        ZIndex: =1
+
+    Label3 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(0, 18, 107, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =84
+        Size: =21
+        Text: ="Manager Home Screen"
+        Width: =640
+        ZIndex: =2
+
+    Button3 As button:
+        Fill: =RGBA(0, 18, 107, 1)
+        Height: =54
+        OnSelect: =Navigate('Assign Target Screen',ScreenTransition.Fade);
+        Size: =24
+        Text: ="Assign New target"
+        Width: =388
+        X: =112
+        Y: =552
+        ZIndex: =3
+
+    Button3_1 As button:
+        Fill: =RGBA(0, 18, 107, 1)
+        Height: =56
+        OnSelect: =Navigate(TargetAssignedListScreen,ScreenTransition.Fade);
+        Size: =24
+        Text: |-
+            ="View Assigned Targets
+            "
+        Width: =388
+        X: =112
+        Y: =696
+        ZIndex: =4
+
+    TotalAssign As rectangle:
+        Fill: =RGBA(221, 79, 14, 1)
+        Height: =147
+        OnSelect: |-
+            =Set(varManagerDashboardStatusFilter,Blank());
+            Navigate('TargetAssignedListScreen');
+        Width: =265
+        X: =36
+        Y: =117
+        ZIndex: =5
+
+    "'Ta-label' As label":
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =39
+        Size: =15
+        Text: ="Total Targets"
+        Width: =242
+        X: =44
+        Y: =140
+        ZIndex: =6
+
+    "'Ta-count' As label":
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =60
+        Size: =21
+        Text: |
+            =CountIf(Target_sales, true)
+        Width: =118
+        X: =94
+        Y: =184
+        ZIndex: =7
+
+    CompleteTarget As rectangle:
+        Fill: =RGBA(127, 178, 57, 1)
+        Height: =147
+        OnSelect: |-
+            =Set(varManagerDashboardStatusFilter,'status (Target_sales)'.Completed);
+            Navigate('TargetAssignedListScreen');
+        Width: =250
+        X: =334
+        Y: =117
+        ZIndex: =8
+
+    "'CT-label' As label":
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =39
+        Size: =15
+        Text: ="Completed"
+        Width: =234
+        X: =342
+        Y: =140
+        ZIndex: =9
+
+    "'CT-count' As label":
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =60
+        OnSelect: |
+            =IfError(CountIf(Target_sales, status = 'status (Target_sales)'.Completed), 0)
+        Size: =21
+        Text: |
+            =IfError(CountIf(Target_sales, status = 'status (Target_sales)'.Completed), 0)
+        Width: =118
+        X: =396
+        Y: =184
+        ZIndex: =10
+
+    CompleteTarget_1 As rectangle:
+        Fill: =RGBA(102, 113, 166, 1)
+        Height: =147
+        OnSelect: |-
+            =Set(varManagerDashboardStatusFilter,'status (Target_sales)'.'In Progress');
+            Navigate('TargetAssignedListScreen');
+        Width: =265
+        X: =36
+        Y: =281
+        ZIndex: =11
+
+    "'CT-count_1' As label":
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =60
+        OnSelect: |
+            =IfError(CountIf(Target_sales, status = 'status (Target_sales)'.Completed), 0)
+        Size: =21
+        Text: |
+            =IfError(CountIf(Target_sales, status = 'status (Target_sales)'.'In Progress'), 0)
+        Width: =118
+        X: =94
+        Y: =339
+        ZIndex: =12
+
+    "'CT-label_1' As label":
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =39
+        Size: =15
+        Text: ="In progress "
+        Width: =234
+        X: =51
+        Y: =300
+        ZIndex: =13
+
+    AssignedTargets As rectangle:
+        Fill: =RGBA(151, 0, 0, 1)
+        Height: =147
+        OnSelect: |-
+            =Set(varManagerDashboardStatusFilter,'status (Target_sales)'.Assigned);
+            Navigate('TargetAssignedListScreen');
+        Width: =250
+        X: =334
+        Y: =281
+        ZIndex: =14
+
+    "'AT-label' As label":
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =39
+        Size: =15
+        Text: ="Assigned"
+        Width: =234
+        X: =342
+        Y: =300
+        ZIndex: =15
+
+    "'AT-count' As label":
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =60
+        OnSelect: |
+            =IfError(CountIf(Target_sales, status = 'status (Target_sales)'.Completed), 0)
+        Size: =21
+        Text: |
+            =IfError(CountIf(Target_sales, status = 'status (Target_sales)'.Assigned), 0)
+        Width: =118
+        X: =396
+        Y: =339
+        ZIndex: =16
+

@@ -1,0 +1,463 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps is in preview. The schema is being actively developed.
+# Content may be incomplete and subject to change.
+# This file is read-only and should only be used to review changes made within Power Apps Studio.
+# This file isn't used when loading the app. External editing, merging and conflict resolution are
+# not supported.
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  TargetAssignedListScreen:
+    Properties:
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+      OnVisible: |-
+        =Set(varSortBy,"Priority : High to Low");
+    Children:
+      - LblAppName1:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 0, 0, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =88
+            Size: =27
+            Text: ="Assigned Target List"
+            Width: =Parent.Width
+      - Canvas1:
+          Control: FluidGrid@2.3.0
+          Properties:
+            BorderThickness: =0
+            Height: =Parent.Height - Self.Y
+            Width: =Parent.Width
+            Y: =
+          Children:
+            - DataCard1:
+                Control: DataCard@1.0.2
+                Properties:
+                  Height: =1049
+                  Width: =640
+      - TargetAssign_ManagerGallery:
+          Control: Gallery@2.15.0
+          Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Fill: =RGBA(241, 244, 249, 1)
+            Height: =912
+            Items: |+
+              =Sort(
+                  AddColumns(
+                      If( 
+                          varFiltersApplied,
+                          Filter(
+                              Target_sales,
+                              (IsBlank(varFilterName) || AssignedTo.Name = varFilterName) &&
+                              (IsBlank(varFilterTargetMin) || 'Target Value' >= varFilterTargetMin) &&
+                              (IsBlank(varFilterTargetMax) || 'Target Value' <= varFilterTargetMax) &&  
+                              (IsBlank(varFilterDate) || 'End Date' >= varFilterDate && 'End Date' < DateAdd(varFilterDate, 1, TimeUnit.Days)) &&
+                              (IsBlank(varFilterStatus) || status = varFilterStatus) &&
+                              (IsBlank(varFilterPriority) || Priority = varFilterPriority) &&
+                              (IsBlank(varManagerDashboardStatusFilter) || status = varManagerDashboardStatusFilter) 
+                          ),
+                          Filter(
+                              Target_sales,
+                              IsBlank(varManagerDashboardStatusFilter) || status = varManagerDashboardStatusFilter
+                          )
+                      ),
+                      'PriorityVal', 
+                      Switch(
+                          Priority, 
+                          'Priority (Target_sales)'.Low, 1, 
+                          'Priority (Target_sales)'.Medium, 2, 
+                          'Priority (Target_sales)'.High, 3
+                      )
+                  ),
+                  If(
+                      varSortBy = "Recently Added", 'Created On',
+                      varSortBy = "Target Value : Low to High", 'Target Value',
+                      varSortBy = "Target Value : High to Low", 'Target Value',
+                      varSortBy = "Priority : Low to High", 'PriorityVal',
+                      varSortBy = "Priority : High to Low", 'PriorityVal'
+                  ),
+                  If(
+                      Or(
+                          varSortBy = "Target Value : Low to High",
+                          varSortBy = "Priority : Low to High"
+                      ), 
+                      SortOrder.Ascending, 
+                      SortOrder.Descending
+                  )
+              )
+            OnSelect: |-
+              =Set(varSelectedRecord, TargetAssign_ManagerGallery.Selected);
+              Navigate(AssignedTarget_DetailedScreen,ScreenTransition.Fade);
+            TemplateSize: =326
+            Y: =144
+          Children:
+            - Description-show:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =24
+                  OnSelect: =Select(Parent)
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =15
+                  Text: =ThisItem.Description
+                  VerticalAlign: =VerticalAlign.Top
+                  Width: =313
+                  X: =211
+                  Y: =61
+            - Tragetvalue-show:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =23
+                  OnSelect: =Select(Parent)
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =15
+                  Text: =ThisItem.'Target Value'
+                  VerticalAlign: =VerticalAlign.Top
+                  Width: =74
+                  X: =211
+                  Y: =103
+            - Separator4:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Fill: =RGBA(255, 255, 255, 1)
+                  Height: =5
+                  OnSelect: =Select(Parent)
+                  Width: =Parent.TemplateWidth
+                  Y: =Parent.TemplateHeight - Self.Height
+            - Name-label:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Bold
+                  Height: =38
+                  OnSelect: =Select(Parent)
+                  Size: =20
+                  Text: =LookUp(Employee_sales,EmployeeID=ThisItem.AssignedTo.EmployeeID,Name)
+                  Width: =309
+                  X: =16
+                  Y: =11
+            - Traget Value -lable:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =27
+                  OnSelect: =Select(Parent)
+                  Size: =15
+                  Text: ="Target Value"
+                  Width: =132
+                  X: =16
+                  Y: =99
+            - DueDate-label:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =22
+                  OnSelect: =Select(Parent)
+                  Size: =15
+                  Text: ="Due Date"
+                  Width: =112
+                  X: =16
+                  Y: =143
+            - endDate-show:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =23
+                  OnSelect: =Select(Parent)
+                  Size: =14
+                  Text: =Text(ThisItem.'End Date',"dd mmmm yyyy")
+                  Width: =236
+                  X: =211
+                  Y: =142
+            - Description-label:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =25
+                  OnSelect: =Select(Parent)
+                  Size: =15
+                  Text: ="Description"
+                  Width: =129
+                  X: =16
+                  Y: =60
+            - Label11:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: |+
+                    =Switch(ThisItem.status,
+                    'status (Target_sales)'.Assigned,Color.Red,
+                    'status (Target_sales)'.'In Progress',Color.Blue,
+                    'status (Target_sales)'.Completed,Color.Green,
+                    Color.Gray
+                    )
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Bold
+                  Height: =24
+                  OnSelect: =Select(Parent)
+                  Size: =14
+                  Text: =ThisItem.status
+                  Width: =114
+                  X: =211
+                  Y: =185
+            - Label12:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =27
+                  OnSelect: =Select(Parent)
+                  Size: =15
+                  Text: ="Progress"
+                  Width: =112
+                  X: =16
+                  Y: =226
+            - Rectangle1:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Fill: =RGBA(237, 237, 237, 1)
+                  Height: =22
+                  OnSelect: =Select(Parent)
+                  Width: =170
+                  X: =211
+                  Y: =228
+            - Status-label:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =23
+                  OnSelect: =Select(Parent)
+                  Size: =15
+                  Text: ="Status"
+                  Width: =89
+                  X: =16
+                  Y: =183
+            - Priority-lbl:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =24
+                  OnSelect: =Select(Parent)
+                  Size: =15
+                  Text: ="Priority"
+                  Width: =89
+                  X: =16
+                  Y: =278
+            - Icon1:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: |+
+                    =Switch(
+                        ThisItem.Priority, 
+                        'Priority (Target_sales)'.High, Color.Red,
+                        'Priority (Target_sales)'.Medium, Color.DarkOrange,
+                        'Priority (Target_sales)'.Low, Color.Green,
+                        Color.Gray
+                    )
+                  Height: =36
+                  Icon: =Icon.Flag
+                  OnSelect: =Select(Parent)
+                  Width: =53
+                  X: =211
+                  Y: =266
+            - Rectangle3_3:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Fill: =RGBA(0, 18, 107, 1)
+                  Height: =
+                  OnSelect: =Select(Parent)
+                  Visible: =ThisItem.IsSelected
+                  Width: =4
+      - SortBy:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            BorderThickness: =1
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            Height: =56
+            HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(136, 160, 209, 1)
+            OnSelect: =Set(varShowSortPanel,!varShowSortPanel);
+            PressedBorderColor: =Self.Fill
+            PressedColor: =Self.Fill
+            PressedFill: =Self.Color
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =20
+            Text: ="Sort By "
+            Width: =319
+            Y: =88
+      - sortBy-icon:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            Height: =24
+            Icon: =Icon.Sort
+            Width: =52
+            X: =49
+            Y: =104
+      - SortBy_1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            BorderThickness: =1
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            Height: =56
+            HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(136, 160, 209, 1)
+            OnSelect: =Set(varShowFilterPanel,!varShowFilterPanel)
+            PressedBorderColor: =Self.Fill
+            PressedColor: =Self.Fill
+            PressedFill: =Self.Color
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =20
+            Text: ="Filter"
+            Width: =319
+            X: =319
+            Y: =88
+      - filter-icon:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            Height: =27
+            Icon: =Icon.Filter
+            Width: =38
+            X: =393
+            Y: =104
+      - Arrow2:
+          Control: Arrow@2.3.0
+          Variant: BackArrow
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =47
+            OnSelect: =Navigate(ManagerHomeScreen);
+            Width: =49
+            X: =15
+            Y: =20
+      - sortBy_Filter_1:
+          Control: CanvasComponent
+          ComponentName: sortBy_Filter_Manager
+          Properties:
+            Fill: =RGBA(0,0,0,0.1)
+            Height: =913
+            Visible: =varShowSortPanel
+            Width: =638
+            Y: =144
+      - Icon3_1:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(128, 128, 128, 1)
+            Height: =51
+            Icon: =Icon.Home
+            OnSelect: =Navigate(ManagerHomeScreen,ScreenTransition.Fade)
+            Width: =57
+            X: =276
+            Y: =1070
+      - Icon4_1:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(128, 128, 128, 1)
+            Height: =51
+            Icon: =Icon.Add
+            OnSelect: =Navigate('Assign Target Screen',ScreenTransition.Fade);
+            Width: =57
+            X: =517
+            Y: =1070
+      - Icon6_1:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(128, 128, 128, 1)
+            Height: =51
+            Icon: =Icon.Person
+            Width: =57
+            X: =52
+            Y: =1070
+      - sep6_2:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(166, 166, 166, 1)
+            Height: =1
+            Width: =640
+            Y: =1056
+      - TargetAssigned_Filter_1:
+          Control: CanvasComponent
+          ComponentName: TargetAssigned_Filter_Manager
+          Properties:
+            Fill: =RGBA(0,0,0,0.1)
+            Height: =912
+            Visible: =varShowFilterPanel
+            Visible_custom: =true
+            Y: =144
+      - Label7_1:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(128, 128, 128, 1)
+            Font: =Font.'Open Sans'
+            Height: =709
+            Text: ="Sorry, we couldn't find any results"
+            Visible: =IsEmpty(TargetAssign_ManagerGallery.AllItems)&&varEmpFiltersApplied
+            Width: =640
+            Y: =347
+      - cry_cat_1:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Height: =77
+            Image: =cry
+            Visible: =IsEmpty(TargetAssign_ManagerGallery.AllItems)&&varEmpFiltersApplied
+            Width: =136
+            X: =245
+            Y: =606

@@ -1,0 +1,539 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps is in preview. The schema is being actively developed.
+# Content may be incomplete and subject to change.
+# This file is read-only and should only be used to review changes made within Power Apps Studio.
+# This file isn't used when loading the app. External editing, merging and conflict resolution are
+# not supported.
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  DetailedTargetScreen_User:
+    Properties:
+      Fill: =RGBA(245,245,245,0.2)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+      OnVisible: |-
+        =ClearCollect(
+            UserTargetProductCatData,
+            AddColumns(
+                Target_sales,
+                ProductName,LookUp(Product_sales,ProductID=MyTraget_Gallery.Selected.ProductID.ProductID,'Product Name'),
+                CategoryName,LookUp(Category_sales,CategoryID=MyTraget_Gallery.Selected.CategoryID.CategoryID,'Category Name')
+            )
+        );
+    Children:
+      - Head-details_1:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Fill: =RGBA(0, 18, 107, 1)
+            Height: =87
+            Width: =640
+      - Arrow1_1:
+          Control: Arrow@2.3.0
+          Variant: BackArrow
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =60
+            OnSelect: =Navigate('Personal Targets Screen',ScreenTransition.Fade);
+            Width: =62
+            X: =14
+            Y: =13
+      - Heading-detail_1:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Bold
+            Height: =60
+            Size: =30
+            Text: ="Target Detail"
+            Width: =402
+            X: =112
+            Y: =13
+      - Icon7_1:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =44
+            Icon: =Icon.DocumentPDF
+            OnSelect: |+
+              =Set(varPDFGenerator,
+              PDF(DetailedTargetScreen_User,{ExpandContainers:true}));
+
+              Navigate(PDFdownloadScreen,ScreenTransition.Fade);
+
+            Width: =48
+            X: =574
+            Y: =21
+      - assignedOn_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(128, 128, 128, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =28
+            Size: =15
+            Text: ="Assigned On " & Text(varSelectedUserRecord.'Start Date',"dd mmmm yyyy")
+            Width: =306
+            X: =20
+            Y: =183
+      - sep1_1:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Fill: =RGBA(166, 166, 166, 1)
+            Height: =25
+            Width: =1
+            X: =322
+            Y: =182
+      - assignedBy_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(128, 128, 128, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =25
+            Size: =15
+            Text: ="Assigned By Harshita Mahori"
+            Width: =297
+            X: =332
+            Y: =185
+      - sep2_1:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(166, 166, 166, 1)
+            Height: =1
+            Width: =618
+            X: =8
+            Y: =213
+      - cat-llbl_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =16
+            Text: |-
+              ="Category Name  : "
+            Width: =216
+            X: =22
+            Y: =233
+      - cat-val_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =29
+            Size: =16
+            Text: |-
+              =//LookUp(Category_sales,CategoryID=MyTraget_Gallery.Selected.CategoryID.CategoryID,'Category Name')
+              LookUp(UserTargetProductCatData,CategoryID.CategoryID=varSelectedUserRecord.CategoryID.CategoryID,CategoryName)
+            Width: =308
+            X: =279
+            Y: =233
+      - prod-llbl_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =16
+            Text: |-
+              ="Product Name  : "
+            Width: =216
+            X: =22
+            Y: =280
+      - Label4_3:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =29
+            Size: =16
+            Text: |-
+              =//LookUp(Product_sales,ProductID=MyTraget_Gallery.Selected.ProductID.ProductID,'Product Name')
+              LookUp(UserTargetProductCatData,ProductID.ProductID=varSelectedUserRecord.ProductID.ProductID,ProductName)
+            Width: =308
+            X: =279
+            Y: =280
+      - descrip_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(184, 0, 0, 1)
+            Color: =RGBA(184, 0, 0, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Bold
+            Height: =50
+            Size: =16
+            Text: =varSelectedUserRecord.Description
+            Width: =433
+            X: =172
+            Y: =117
+      - descrip-label_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =50
+            Size: =20
+            Text: |-
+              ="Target : "
+            Width: =120
+            X: =38
+            Y: =117
+      - val-label_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =16
+            Text: |-
+              ="Target Value : "
+            Width: =216
+            X: =20
+            Y: =330
+      - val_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =29
+            Size: =16
+            Text: =varSelectedUserRecord.'Target Value'
+            Width: =216
+            X: =284
+            Y: =330
+      - sep3_1:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(166, 166, 166, 1)
+            Height: =1
+            Width: =618
+            X: =13
+            Y: =376
+      - StartDate_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =34
+            Size: =16
+            Text: =Text(varSelectedUserRecord.'Start Date',"dd mmmm yyyy")
+            Width: =207
+            X: =398
+            Y: =388
+      - StartDate-lbl_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =16
+            Text: |-
+              ="Start Date : "
+            Width: =138
+            X: =20
+            Y: =394
+      - EndDate_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =29
+            Size: =16
+            Text: =Text(varSelectedUserRecord.'End Date',"dd mmmm yyyy")
+            Width: =207
+            X: =398
+            Y: =439
+      - EndDate-lbl_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =26
+            Size: =16
+            Text: |-
+              ="End Date : "
+            Width: =115
+            X: =20
+            Y: =442
+      - sep4_1:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(166, 166, 166, 1)
+            Height: =1
+            Width: =618
+            X: =8
+            Y: =481
+      - status-lbl_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =27
+            Size: =16
+            Text: |-
+              ="Status :  "
+            Width: =137
+            X: =23
+            Y: =498
+      - status-view_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: |-
+              =Switch(
+                  varSelectedUserRecord.status,
+                  'status (Target_sales)'.Assigned,Color.Red,
+                  'status (Target_sales)'.'In Progress',Color.Blue,
+                  'status (Target_sales)'.Completed,Color.Green,
+                  Color.Gray
+              )
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Bold
+            Height: =27
+            Size: =16
+            Text: =varSelectedUserRecord.status
+            Width: =161
+            X: =464
+            Y: =498
+      - sep5_1:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(166, 166, 166, 1)
+            Height: =1
+            Width: =618
+            X: =11
+            Y: =544
+      - Prior-flag_1:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: |-
+              =Switch(
+                  varSelectedUserRecord.Priority,
+                  'Priority (Target_sales)'.High,Color.Red,
+                  'Priority (Target_sales)'.Medium,Color.DarkOrange,
+                  'Priority (Target_sales)'.Low,Color.Green,
+                  Color.Gray
+              )
+            Height: =41
+            Icon: =Icon.Flag
+            Width: =44
+            X: =491
+            Y: =560
+      - Pri-lbl_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =27
+            Size: =16
+            Text: |-
+              ="Priority :  "
+            Width: =137
+            X: =25
+            Y: =568
+      - sep5_3:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(166, 166, 166, 1)
+            Height: =1
+            Width: =618
+            X: =11
+            Y: =616
+      - lastUpdate_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =33
+            Size: =16
+            Text: |-
+              ="Last Update Date :  "
+            Width: =200
+            X: =22
+            Y: =637
+      - Progress_lbl_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =33
+            Size: =16
+            Text: ="Progress  "
+            Width: =200
+            X: =22
+            Y: =690
+      - ProgressBar_1:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Fill: =RGBA(166, 166, 166, 1)
+            Height: =21
+            Width: =191
+            X: =417
+            Y: =696
+      - Rectangle2_1:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Fill: =RGBA(56, 96, 178, 1)
+            Height: =12
+            Width: =190
+            X: =418
+            Y: =700
+      - Icon2_1:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(0, 18, 107, 1)
+            Height: =29
+            Icon: =Icon.Note
+            Width: =53
+            X: =491
+            Y: =737
+      - Remarks-lbl_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =16
+            Text: ="Remarks "
+            Width: =137
+            X: =25
+            Y: =743
+      - sep6_4:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(166, 166, 166, 1)
+            Height: =1
+            Width: =618
+            X: =13
+            Y: =807
+      - IncentAmt_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =32
+            Size: =16
+            Text: |-
+              ="Incentive Amount :  "
+            Width: =220
+            X: =18
+            Y: =833
+      - BadgeEarned_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =33
+            Size: =16
+            Text: |-
+              ="Badge Earned :  "
+            Width: =200
+            X: =18
+            Y: =884
+      - RewardDate-lbl_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =33
+            Size: =16
+            Text: |-
+              ="Reward Date :  "
+            Width: =200
+            X: =21
+            Y: =938
+      - sep6_5:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(166, 166, 166, 1)
+            Height: =1
+            Width: =640
+            Y: =1067
+      - Icon6_3:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(128, 128, 128, 1)
+            Height: =51
+            Icon: =Icon.Person
+            Width: =57
+            X: =52
+            Y: =1081
+      - Icon3_3:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(128, 128, 128, 1)
+            Height: =51
+            Icon: =Icon.Home
+            OnSelect: =Navigate(UserHomeScreen,ScreenTransition.Fade)
+            Width: =57
+            X: =276
+            Y: =1081
+      - progress-icon:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(128, 128, 128, 1)
+            Height: =51
+            Icon: =Icon.Trending
+            Width: =57
+            X: =508
+            Y: =1081
+      - Button5:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =ColorFade(Self.Fill, -15%)
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Bold
+            Height: =47
+            HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+            OnSelect: =Navigate(UpdateProgress_Screen,ScreenTransition.Fade);
+            PressedBorderColor: =Self.Fill
+            PressedColor: =Self.Fill
+            PressedFill: =Self.Color
+            Size: =17
+            Text: ="Update Progress"
+            Width: =210
+            X: =206
+            Y: =987
