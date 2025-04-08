@@ -15,7 +15,9 @@ UserHomeScreen As screen:
 
     Button4 As button:
         Height: =70
-        OnSelect: =Navigate('Personal Targets Screen',ScreenTransition.Fade);
+        OnSelect: |-
+            =Set(varUserDashboardStatusFilter,Blank());
+            Navigate('Personal Targets Screen',ScreenTransition.Fade);
         Size: =24
         Text: |-
             ="My Targets
@@ -30,7 +32,7 @@ UserHomeScreen As screen:
         Height: =147
         OnSelect: |-
             =Set(varUserDashboardStatusFilter,Blank());
-            Navigate('Personal Targets Screen');
+            Navigate('Personal Targets Screen',ScreenTransition.Fade);
         Width: =265
         X: =36
         Y: =117
@@ -190,4 +192,16 @@ UserHomeScreen As screen:
         X: =406
         Y: =175
         ZIndex: =14
+
+    Button4_1 As button:
+        Height: =67
+        OnSelect: =Navigate('Request Update Screen',ScreenTransition.Fade);
+        Size: =24
+        Text: |-
+            ="View Update Request
+            "
+        Width: =356
+        X: =130
+        Y: =712
+        ZIndex: =15
 

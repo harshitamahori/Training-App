@@ -14,6 +14,7 @@
     "AppCreationSource": "AppFromScratch",
     "AppDescription": "",
     "AppPreviewFlagsMap": {
+      "adaptivepaging": false,
       "aibuilderserviceenrollment": false,
       "allowmultiplescreensincanvaspages": false,
       "appinsightserrortracing": false,
@@ -122,7 +123,7 @@
     "DocumentType": "App",
     "EnableInstrumentation": false,
     "FileID": "ee466ecf-880c-4774-a9eb-290b1b38b004",
-    "Id": "f810f5a7-fbe8-4f64-be3a-93d1f4e460ba",
+    "Id": "70cec1fc-245b-40bf-8c80-35b791707d50",
     "ManualOfflineProfileId": "",
     "Name": "Sales%2BTarget%2BAssignment%2Band%2BAnalysis.msapp",
     "OriginatingVersion": "1.345",

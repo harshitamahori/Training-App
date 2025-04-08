@@ -1,0 +1,125 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cr371_incentive_saleses",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cr371_incentive_sales",
+    "MaxGetRowsCount": 500,
+    "Name": "Incentive_sales",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr371_badgeearned": "Badge Earned",
+      "cr371_EmployeeID": "EmployeeID",
+      "cr371_incentive_sales_AsyncOperations": "System Jobs",
+      "cr371_incentive_sales_BulkDeleteFailures": "Bulk Delete Failures",
+      "cr371_incentive_sales_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cr371_incentive_sales_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cr371_incentive_sales_ProcessSession": "Process Sessions",
+      "cr371_incentive_sales_SyncErrors": "Sync Errors",
+      "cr371_incentive_salesid": "Incentive_sales",
+      "cr371_incentiveamount": "Incentive Amount",
+      "cr371_incentiveamount_base": "Incentive Amount (Base)",
+      "cr371_incentiveid": "IncentiveID",
+      "cr371_paiddate": "Paid Date ",
+      "cr371_paymentstatus": "PaymentStatus",
+      "cr371_rewarddate": "Reward Date",
+      "cr371_TargetID": "TargetID",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "exchangerate": "Exchange Rate",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "transactioncurrencyid": "Currency",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Incentive_sales",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Incentive_sales (Views)",
+    "Name": "_cr371_incentive_sales_views",
+    "RelatedEntityName": "Incentive_sales",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "23176022-ffec-4d9e-bfeb-532b160895dd": "Inactive Incentive_sales",
+      "68006c28-5f72-403c-a5b0-c74f077a7542": "Incentive_sales Lookup View",
+      "6f1390e1-c1f9-48a6-be6a-b8a34c7623fd": "Incentive_sales Associated View",
+      "dfa596da-5b64-41d9-ba87-e1846fcc65ea": "Active Incentive_sales",
+      "f785da94-0050-44fe-a1cc-03c9e41e1c22": "Incentive_sales Advanced Find View"
+    }
+  },
+  {
+    "DisplayName": "PaymentStatus (Incentive_sales)",
+    "Name": "cr371_incentive_sales_cr371_paymentstatus",
+    "OptionSetInfoNameMapping": {
+      "852020000": "Pending",
+      "852020001": "Paid"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr371_paymentstatus",
+        "OptionSetReferenceEntityName": "Incentive_sales"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr371_paymentstatus",
+    "RelatedEntityName": "Incentive_sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Incentive_sales)",
+    "Name": "cr371_incentive_sales_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Incentive_sales"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Incentive_sales",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Incentive_sales)",
+    "Name": "cr371_incentive_sales_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Incentive_sales"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Incentive_sales",
+    "Type": "OptionSetInfo"
+  }
+]

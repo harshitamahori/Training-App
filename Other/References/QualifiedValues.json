@@ -57,6 +57,18 @@
       }
     },
     {
+      "Kind": "default.cds_cr371_incentive_sales_forms",
+      "Namespace": "Incentive_sales (Forms)",
+      "Values": {
+        "Information": "8f29466e-831f-4b6e-a891-f7090dda4cbc"
+      }
+    },
+    {
+      "Kind": "default.cds_fileattachment_forms",
+      "Namespace": "FileAttachments (Forms)",
+      "Values": {}
+    },
+    {
       "Kind": "default.cds_cr371_userauthentication_sales_forms",
       "Namespace": "UserAuthentication_sales (Forms)",
       "Values": {

@@ -83,8 +83,51 @@
     "dataSources": [],
     "dependencies": {},
     "dependents": [
-      "4706e0d0-8a46-4975-864d-253451c512ae"
+      "4706e0d0-8a46-4975-864d-253451c512ae",
+      "86637524-3a30-48ef-8d43-45b977b92d8e"
     ],
     "id": "4d066db0-1187-4a8e-ab46-c051a7703af3"
+  },
+  "86637524-3a30-48ef-8d43-45b977b92d8e": {
+    "appActions": [],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Logic flows",
+      "iconUri": "https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/releases/v1.0.1725/1.0.1725.4004/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "4d066db0-1187-4a8e-ab46-c051a7703af3": {
+          "value": "shared_commondataserviceforapps"
+        },
+        "workflowDisplayName": {
+          "value": "Download Invoice Flow"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "2263b555-7605-4002-a305-e58e95939640"
+        }
+      },
+      "parameterHintsV2": {
+        "shared_commondataserviceforapps": {
+          "value": "4d066db0-1187-4a8e-ab46-c051a7703af3"
+        },
+        "workflowDisplayName": {
+          "value": "Download Invoice Flow"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "2263b555-7605-4002-a305-e58e95939640"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "DownloadInvoiceFlow"
+    ],
+    "dependencies": {
+      "shared_commondataserviceforapps": "4d066db0-1187-4a8e-ab46-c051a7703af3"
+    },
+    "dependents": [],
+    "id": "86637524-3a30-48ef-8d43-45b977b92d8e"
   }
 }

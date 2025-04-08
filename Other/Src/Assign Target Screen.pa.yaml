@@ -236,7 +236,7 @@ Screens:
               )
             Width: =266
             X: =290
-            Y: =522
+            Y: =528
       - Button2:
           Control: Classic/Button@2.2.0
           Properties:
@@ -453,7 +453,7 @@ Screens:
 
             Width: =266
             X: =290
-            Y: =448
+            Y: =455
       - Label13_7:
           Control: Label@2.5.1
           Properties:

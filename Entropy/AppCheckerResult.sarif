@@ -3644,19 +3644,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "ManagerApproval_screen.Gallery1.AccessibleLabel"
+                  "fullyQualifiedName": "ManagerApproval_screen.Icon15.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "ManagerApproval_screen.Gallery1.AccessibleLabel",
+                  "fullyQualifiedName": "ManagerApproval_screen.Icon15.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "ManagerApproval_screen",
-                "type": "ManagerApproval_screen.Gallery1"
+                "type": "ManagerApproval_screen.Icon15"
               }
             }
           ],
@@ -3674,19 +3674,139 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "ManagerApproval_screen.Gallery1.TabIndex"
+                  "fullyQualifiedName": "ManagerApproval_screen.Icon15.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "ManagerApproval_screen.Gallery1.TabIndex",
+                  "fullyQualifiedName": "ManagerApproval_screen.Icon15.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
                 "module": "ManagerApproval_screen",
-                "type": "ManagerApproval_screen.Gallery1"
+                "type": "ManagerApproval_screen.Icon15"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "ManagerApproval_screen.RequestApproval_Gallery.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "ManagerApproval_screen.RequestApproval_Gallery.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ManagerApproval_screen",
+                "type": "ManagerApproval_screen.RequestApproval_Gallery"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "ManagerApproval_screen.RequestApproval_Gallery.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "ManagerApproval_screen.RequestApproval_Gallery.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "ManagerApproval_screen",
+                "type": "ManagerApproval_screen.RequestApproval_Gallery"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "ManagerApproval_screen.RequestApproval_Gallery.Container6.Icon13.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "ManagerApproval_screen.RequestApproval_Gallery.Container6.Icon13.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "ManagerApproval_screen",
+                "type": "ManagerApproval_screen.RequestApproval_Gallery.Container6.Icon13"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "ManagerApproval_screen.RequestApproval_Gallery.Container6.Icon13.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "ManagerApproval_screen.RequestApproval_Gallery.Container6.Icon13.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "ManagerApproval_screen",
+                "type": "ManagerApproval_screen.RequestApproval_Gallery.Container6.Icon13"
               }
             }
           ],
@@ -3747,6 +3867,66 @@
                 "member": "TabIndex",
                 "module": "ManagerApproval_screen",
                 "type": "ManagerApproval_screen.Icon14"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Request Update Screen'.Icon15_1.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Update Screen'.Icon15_1.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Request Update Screen",
+                "type": "'Request Update Screen'.Icon15_1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Request Update Screen'.Icon15_1.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Update Screen'.Icon15_1.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "Request Update Screen",
+                "type": "'Request Update Screen'.Icon15_1"
               }
             }
           ],
