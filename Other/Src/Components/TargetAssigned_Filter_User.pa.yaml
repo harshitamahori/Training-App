@@ -17,6 +17,7 @@ ComponentDefinitions:
         DisplayName: Visible_custom
         Description: A custom property
         DataType: Boolean
+        Default: =true
     Properties:
       Fill: =RGBA(0,0,0,0.1)
     Children:

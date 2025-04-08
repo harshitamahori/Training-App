@@ -28,16 +28,25 @@ Screens:
             Size: =30
             Text: ="Request Approval"
             Width: =640
-      - Gallery1:
+      - RequestApproval_Gallery:
           Control: Gallery@2.15.0
           Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
           Properties:
             BorderColor: =RGBA(128, 128, 128, 1)
             BorderThickness: =1
-            Height: =775
-            Items: =Progress_sales
-            TemplateSize: =595
-            Y: =299
+            Height: =722
+            Items: |+
+              =SortByColumns(
+                  Filter(
+                      Progress_sales,
+                      IsBlank(varUpdateManagerFilter) || 'Approval Status' = varUpdateManagerFilter
+                  ),
+                  "cr371_updateddate",
+                  SortOrder.Descending
+              )
+            TemplateSize: =587
+            X: =1
+            Y: =309
           Children:
             - Rectangle3:
                 Control: Rectangle@2.3.0
@@ -53,7 +62,7 @@ Screens:
                 Variant: ManualLayout
                 Properties:
                   Fill: =RGBA(241, 244, 249, 1)
-                  Height: =569
+                  Height: =563
                   Width: |+
                     =Parent.TemplateWidth-25
 
@@ -241,11 +250,26 @@ Screens:
                         Color: =RGBA(0, 18, 107, 1)
                         Height: =37
                         Icon: =Icon.Download
-                        OnSelect: =
+                        OnSelect: |-
+                          =//Download("https://org5b5b5b82.crm.dynamics.com/api/data/v9.2/cr371_product_saleses("&ThisItem.Progress_sales &")/cr371_invoiceattachment/$value")
+                          //Launch("https://org5b5b5b82.crm.dynamics.com/api/data/v9.2/cr371_product_saleses(" & ThisItem.Progress_sales & ")/cr371_invoiceattachment/$value")
+                          //Set(varFile, DownloadInvoiceFlow.Run(RequestApproval_Gallery.Selected.Progress_sales));
+                          //Download(varFile.filecontent) // Ensure 'File' matches what Power Automate returns.
+                          // Store the Power Automate response in a variable
+                          /*Set(pdfResponse,DownloadInvoiceFlow.Run(RequestApproval_Gallery.Selected.Progress_sales));
+
+                          // Ensure the response is in a collection
+                          ClearCollect(pdfData, { filecontent: pdfResponse.filecontent });
+
+                          // Download the file
+                          Download(pdfResponse.filecontent);
+                          */
+                          //Set(pdfResponse, DownloadInvoiceFlow.Run(RequestApproval_Gallery.Selected.Progress_sales));
+                          //Notify("Flow Response: " & JSON(pdfResponse, JSONFormat.IncludeBinaryData), NotificationType.Information);
                         Width: =60
                         X: =285
                         Y: =437
-                  - Button11:
+                  - Approve-btn:
                       Control: Classic/Button@2.2.0
                       Properties:
                         BorderColor: =ColorFade(Self.Fill, -15%)
@@ -257,35 +281,7 @@ Screens:
                         HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
                         HoverColor: =RGBA(255, 255, 255, 1)
                         HoverFill: =RGBA(127,178,57,1)
-                        OnSelect: |+
-                          =With(
-                              {
-                                  remainingTargetValue: 
-                                      LookUp(Target_sales, TargetID = ThisItem.TargetID.TargetID, 'Target Value') - ThisItem.'Progress Value'
-                              },
-
-                              Patch(
-                                  Progress_sales,
-                                  ThisItem,
-                                  {
-                                      'Approval Status': 'Approval Status (Progress_sales)'.Approved,
-                                      ApprovalDate:Now(),
-                                      ApprovedBy:LookUp(Employee_sales,EmployeeID=varCurrentUser.EmployeeID)
-                                  }
-                              );
-
-                              Patch(
-                                  Target_sales,
-                                  LookUp(Target_sales, TargetID = ThisItem.TargetID.TargetID),
-                                  {
-                                      'Target Value': remainingTargetValue
-                                  }
-                              );
-
-                              Notify("Request Approved & Target Value Updated!", NotificationType.Success);
-                          );
-                          Refresh(Target_sales);
-                          Refresh(Progress_sales);
+                        OnSelect: "=// approval button\r\nWith(\r\n    {\r\n        remainingTargetValue: \r\n            LookUp(Target_sales, TargetID = ThisItem.TargetID.TargetID, 'Target Value') - ThisItem.'Progress Value',\r\n        incentiveAmount: If(\r\n            ThisItem.'Progress Value' >= LookUp(Target_sales, TargetID = ThisItem.TargetID.TargetID, 'Target Value'),\r\n            LookUp(Target_sales, TargetID = ThisItem.TargetID.TargetID, 'Target Value') * 0.1, // 10% incentive if target achieved\r\n            ThisItem.'Progress Value' * 0.05 // 5% for partial completion\r\n        )\r\n    },\r\n    \r\n    // Update Progress Sales Approval Status\r\n    Patch(\r\n        Progress_sales,\r\n        ThisItem,\r\n        {\r\n            'Approval Status': 'Approval Status (Progress_sales)'.Approved,\r\n            ApprovalDate: Now(),\r\n            ApprovedBy: LookUp(Employee_sales, EmployeeID = varCurrentUser.EmployeeID)\r\n        }\r\n    );\r\n\r\n    // Update Remaining Target Value\r\n    Patch(\r\n        Target_sales,\r\n        LookUp(Target_sales, TargetID = ThisItem.TargetID.TargetID),\r\n        {\r\n            'Target Value': remainingTargetValue\r\n        }\r\n    );\r\n\r\n    // Insert Incentive Record\r\n    Patch(\r\n        Incentive_sales,\r\n        Defaults(Incentive_sales),\r\n        {\r\n            EmployeeID:LookUp(Employee_sales,EmployeeID=ThisItem.'Updated By'.EmployeeID),\r\n            TargetID: LookUp(Target_sales,TargetID=ThisItem.TargetID.TargetID),\r\n            'Incentive Amount':incentiveAmount,\r\n            'Badge Earned': If(ThisItem.'Progress Value' >= LookUp(Target_sales, TargetID = ThisItem.TargetID.TargetID, 'Target Value'), \"Gold\", \"Silver\"),\r\n            'Reward Date':Today(),\r\n            PaymentStatus:'PaymentStatus (Incentive_sales)'.Pending\r\n        }\r\n    );\r\n\r\n    Notify(\"Request Approved, Target Value Updated & Incentive Recorded!\", NotificationType.Success);\r\n);\r\n\r\nRefresh(Target_sales);\r\nRefresh(Progress_sales);\r\nRefresh(Incentive_sales);\r\n"
                         PressedBorderColor: =Self.Fill
                         PressedColor: =Self.Fill
                         PressedFill: =Self.Color
@@ -295,7 +291,7 @@ Screens:
                         Width: =208
                         X: =35
                         Y: =500
-                  - Button11_1:
+                  - Reject-btn:
                       Control: Classic/Button@2.2.0
                       Properties:
                         BorderColor: =ColorFade(Self.Fill, -15%)
@@ -381,6 +377,19 @@ Screens:
                         Width: =300
                         X: =300
                         Y: =219
+                  - Label15:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        BorderThickness: =1
+                        Font: =Font.'Open Sans'
+                        Height: =34
+                        Overflow: =Overflow.Scroll
+                        Size: =14
+                        Text: =Text(ThisItem.InvoiceAttachment.FileName)
+                        Width: =268
+                        X: =340
+                        Y: =438
       - Icon14:
           Control: Classic/Icon@2.5.0
           Properties:
@@ -575,3 +584,160 @@ Screens:
             Width: =110
             X: =521
             Y: =163
+      - Rejected-btn_1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(172, 62, 11, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(172, 62, 11, 1)
+            Font: =Font.'Open Sans'
+            Height: =47
+            HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(221,79,14,1)
+            OnSelect: =UpdateContext({varUpdateManagerFilter:'Approval Status (Progress_sales)'.Pending})
+            PressedBorderColor: =Self.Fill
+            PressedColor: =Self.Fill
+            PressedFill: =Self.Color
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =18
+            Text: ="Pending"
+            Width: =128
+            X: =128
+            Y: =261
+      - Approved-btn_1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(127, 178, 57, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(99, 139, 44, 1)
+            Font: =Font.'Open Sans'
+            Height: =47
+            HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(127,178,51,1)
+            OnSelect: =UpdateContext({varUpdateManagerFilter:'Approval Status (Progress_sales)'.Approved})
+            PressedBorderColor: =Self.Fill
+            PressedColor: =Self.Fill
+            PressedFill: =Self.Color
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =18
+            Text: ="Approved"
+            Width: =128
+            X: =259
+            Y: =261
+      - Pending-btn_1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(128, 128, 128, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(151, 0, 0, 1)
+            Font: =Font.'Open Sans'
+            Height: =47
+            HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+            HoverColor: =RGBA(255,255,255,1)
+            HoverFill: =RGBA(151,0,0,1)
+            OnSelect: =UpdateContext({varUpdateManagerFilter:'Approval Status (Progress_sales)'.Rejected})
+            PressedBorderColor: =Self.Fill
+            PressedColor: =Self.Fill
+            PressedFill: =Self.Color
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =18
+            Text: ="Rejected"
+            Width: =128
+            X: =387
+            Y: =261
+      - All-btn_2:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(128, 128, 128, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(50, 86, 160, 1)
+            Font: =Font.'Open Sans'
+            Height: =47
+            HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(136,160,209,1)
+            OnSelect: =UpdateContext({varUpdateManagerFilter:Blank()})
+            PressedBorderColor: =Self.Fill
+            PressedColor: =Self.Fill
+            PressedFill: =Self.Color
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =18
+            Text: ="All"
+            Width: =128
+            Y: =261
+      - All-btn_3:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(128, 128, 128, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(102, 102, 102, 1)
+            Font: =Font.'Open Sans'
+            Height: =47
+            HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(128,128,128,1)
+            OnSelect: =UpdateContext({varUpdateManagerFilter:'Approval Status (Progress_sales)'.Cancelled})
+            PressedBorderColor: =Self.Fill
+            PressedColor: =Self.Fill
+            PressedFill: =Self.Color
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =18
+            Text: ="Cancelled"
+            Width: =128
+            X: =512
+            Y: =261
+      - Label7_3:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(128, 128, 128, 1)
+            Font: =Font.'Open Sans'
+            Height: =709
+            Text: ="Sorry, we couldn't find any results"
+            Visible: =IsEmpty(RequestApproval_Gallery.AllItems)
+            Width: =640
+            Y: =371
+      - cry_cat_3:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Height: =77
+            Image: =cry
+            Visible: =IsEmpty(RequestApproval_Gallery.AllItems)
+            Width: =136
+            X: =245
+            Y: =630
+      - Icon15:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =52
+            Icon: =Icon.BackArrow
+            OnSelect: =Navigate(ManagerHomeScreen,ScreenTransition.Fade);
+            Width: =61
+            X: =9
+            Y: =17

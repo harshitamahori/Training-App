@@ -14,17 +14,26 @@ ManagerApproval_screen As screen:
         Width: =640
         ZIndex: =1
 
-    "Gallery1 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0'":
+    "RequestApproval_Gallery As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0'":
         BorderColor: =RGBA(128, 128, 128, 1)
         BorderThickness: =1
         DelayItemLoading: =true
-        Height: =775
-        Items: =Progress_sales
+        Height: =722
+        Items: |
+            =SortByColumns(
+                Filter(
+                    Progress_sales,
+                    IsBlank(varUpdateManagerFilter) || 'Approval Status' = varUpdateManagerFilter
+                ),
+                "cr371_updateddate",
+                SortOrder.Descending
+            )
         Layout: =Layout.Vertical
         LoadingSpinner: =LoadingSpinner.Data
         TemplatePadding: =0
-        TemplateSize: =595
-        Y: =299
+        TemplateSize: =587
+        X: =1
+        Y: =309
         ZIndex: =2
 
         Rectangle3 As rectangle:
@@ -36,7 +45,7 @@ ManagerApproval_screen As screen:
 
         Container6 As groupContainer.manualLayoutContainer:
             Fill: =RGBA(241, 244, 249, 1)
-            Height: =569
+            Height: =563
             Width: |+
                 =Parent.TemplateWidth-25
                 
@@ -191,33 +200,56 @@ ManagerApproval_screen As screen:
             Icon13 As icon.Download:
                 Height: =37
                 Icon: =Icon.Download
-                OnSelect: =
+                OnSelect: |-
+                    =//Download("https://org5b5b5b82.crm.dynamics.com/api/data/v9.2/cr371_product_saleses("&ThisItem.Progress_sales &")/cr371_invoiceattachment/$value")
+                    //Launch("https://org5b5b5b82.crm.dynamics.com/api/data/v9.2/cr371_product_saleses(" & ThisItem.Progress_sales & ")/cr371_invoiceattachment/$value")
+                    //Set(varFile, DownloadInvoiceFlow.Run(RequestApproval_Gallery.Selected.Progress_sales));
+                    //Download(varFile.filecontent) // Ensure 'File' matches what Power Automate returns.
+                    // Store the Power Automate response in a variable
+                    /*Set(pdfResponse,DownloadInvoiceFlow.Run(RequestApproval_Gallery.Selected.Progress_sales));
+                    
+                    // Ensure the response is in a collection
+                    ClearCollect(pdfData, { filecontent: pdfResponse.filecontent });
+                    
+                    // Download the file
+                    Download(pdfResponse.filecontent);
+                    */
+                    //Set(pdfResponse, DownloadInvoiceFlow.Run(RequestApproval_Gallery.Selected.Progress_sales));
+                    //Notify("Flow Response: " & JSON(pdfResponse, JSONFormat.IncludeBinaryData), NotificationType.Information);
                 Width: =60
                 X: =285
                 Y: =437
                 ZIndex: =14
 
-            Button11 As button:
+            "'Approve-btn' As button":
                 Fill: =RGBA(99, 139, 44, 1)
                 Height: =42
                 HoverFill: =RGBA(127,178,57,1)
                 OnSelect: |
-                    =With(
+                    =// approval button
+                    With(
                         {
                             remainingTargetValue: 
-                                LookUp(Target_sales, TargetID = ThisItem.TargetID.TargetID, 'Target Value') - ThisItem.'Progress Value'
+                                LookUp(Target_sales, TargetID = ThisItem.TargetID.TargetID, 'Target Value') - ThisItem.'Progress Value',
+                            incentiveAmount: If(
+                                ThisItem.'Progress Value' >= LookUp(Target_sales, TargetID = ThisItem.TargetID.TargetID, 'Target Value'),
+                                LookUp(Target_sales, TargetID = ThisItem.TargetID.TargetID, 'Target Value') * 0.1, // 10% incentive if target achieved
+                                ThisItem.'Progress Value' * 0.05 // 5% for partial completion
+                            )
                         },
-                    
+                        
+                        // Update Progress Sales Approval Status
                         Patch(
                             Progress_sales,
                             ThisItem,
                             {
                                 'Approval Status': 'Approval Status (Progress_sales)'.Approved,
-                                ApprovalDate:Now(),
-                                ApprovedBy:LookUp(Employee_sales,EmployeeID=varCurrentUser.EmployeeID)
+                                ApprovalDate: Now(),
+                                ApprovedBy: LookUp(Employee_sales, EmployeeID = varCurrentUser.EmployeeID)
                             }
                         );
                     
+                        // Update Remaining Target Value
                         Patch(
                             Target_sales,
                             LookUp(Target_sales, TargetID = ThisItem.TargetID.TargetID),
@@ -226,10 +258,26 @@ ManagerApproval_screen As screen:
                             }
                         );
                     
-                        Notify("Request Approved & Target Value Updated!", NotificationType.Success);
+                        // Insert Incentive Record
+                        Patch(
+                            Incentive_sales,
+                            Defaults(Incentive_sales),
+                            {
+                                EmployeeID:LookUp(Employee_sales,EmployeeID=ThisItem.'Updated By'.EmployeeID),
+                                TargetID: LookUp(Target_sales,TargetID=ThisItem.TargetID.TargetID),
+                                'Incentive Amount':incentiveAmount,
+                                'Badge Earned': If(ThisItem.'Progress Value' >= LookUp(Target_sales, TargetID = ThisItem.TargetID.TargetID, 'Target Value'), "Gold", "Silver"),
+                                'Reward Date':Today(),
+                                PaymentStatus:'PaymentStatus (Incentive_sales)'.Pending
+                            }
+                        );
+                    
+                        Notify("Request Approved, Target Value Updated & Incentive Recorded!", NotificationType.Success);
                     );
+                    
                     Refresh(Target_sales);
                     Refresh(Progress_sales);
+                    Refresh(Incentive_sales);
                 Size: =18
                 Text: ="APPROVE"
                 Visible: =ThisItem.'Approval Status'='Approval Status (Progress_sales)'.Pending
@@ -238,7 +286,7 @@ ManagerApproval_screen As screen:
                 Y: =500
                 ZIndex: =15
 
-            Button11_1 As button:
+            "'Reject-btn' As button":
                 Fill: =RGBA(184, 0, 0, 1)
                 Height: =42
                 HoverFill: =RGBA(203,102,102,1)
@@ -307,6 +355,17 @@ ManagerApproval_screen As screen:
                 X: =300
                 Y: =219
                 ZIndex: =20
+
+            Label15 As label:
+                BorderThickness: =1
+                Height: =34
+                Overflow: =Overflow.Scroll
+                Size: =14
+                Text: =Text(ThisItem.InvoiceAttachment.FileName)
+                Width: =268
+                X: =340
+                Y: =438
+                ZIndex: =21
 
     Icon14 As icon.Home:
         Color: =RGBA(128, 128, 128, 1)
@@ -470,4 +529,124 @@ ManagerApproval_screen As screen:
         X: =521
         Y: =163
         ZIndex: =18
+
+    "'Rejected-btn_1' As button":
+        BorderColor: =RGBA(172, 62, 11, 1)
+        Fill: =RGBA(172, 62, 11, 1)
+        Height: =47
+        HoverFill: =RGBA(221,79,14,1)
+        OnSelect: |-
+            =UpdateContext({varUpdateManagerFilter:'Approval Status (Progress_sales)'.Pending})
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =18
+        Text: ="Pending"
+        Width: =128
+        X: =128
+        Y: =261
+        ZIndex: =19
+
+    "'Approved-btn_1' As button":
+        BorderColor: =RGBA(127, 178, 57, 1)
+        Fill: =RGBA(99, 139, 44, 1)
+        Height: =47
+        HoverFill: =RGBA(127,178,51,1)
+        OnSelect: |-
+            =UpdateContext({varUpdateManagerFilter:'Approval Status (Progress_sales)'.Approved})
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =18
+        Text: ="Approved"
+        Width: =128
+        X: =259
+        Y: =261
+        ZIndex: =20
+
+    "'Pending-btn_1' As button":
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =RGBA(151, 0, 0, 1)
+        Height: =47
+        HoverColor: =RGBA(255,255,255,1)
+        HoverFill: =RGBA(151,0,0,1)
+        OnSelect: |-
+            =UpdateContext({varUpdateManagerFilter:'Approval Status (Progress_sales)'.Rejected})
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =18
+        Text: ="Rejected"
+        Width: =128
+        X: =387
+        Y: =261
+        ZIndex: =21
+
+    "'All-btn_2' As button":
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =RGBA(50, 86, 160, 1)
+        Height: =47
+        HoverFill: =RGBA(136,160,209,1)
+        OnSelect: |-
+            =UpdateContext({varUpdateManagerFilter:Blank()})
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =18
+        Text: ="All"
+        Width: =128
+        Y: =261
+        ZIndex: =22
+
+    "'All-btn_3' As button":
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =RGBA(102, 102, 102, 1)
+        Height: =47
+        HoverFill: =RGBA(128,128,128,1)
+        OnSelect: |-
+            =UpdateContext({varUpdateManagerFilter:'Approval Status (Progress_sales)'.Cancelled})
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =18
+        Text: ="Cancelled"
+        Width: =128
+        X: =512
+        Y: =261
+        ZIndex: =23
+
+    Label7_3 As label:
+        Align: =Align.Center
+        Color: =RGBA(128, 128, 128, 1)
+        Height: =709
+        Size: =21
+        Text: ="Sorry, we couldn't find any results"
+        Visible: =IsEmpty(RequestApproval_Gallery.AllItems)
+        Width: =640
+        Y: =371
+        ZIndex: =24
+
+    cry_cat_3 As image:
+        Height: =77
+        Image: =cry
+        Visible: =IsEmpty(RequestApproval_Gallery.AllItems)
+        Width: =136
+        X: =245
+        Y: =630
+        ZIndex: =25
+
+    Icon15 As icon.BackArrow:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =52
+        Icon: =Icon.BackArrow
+        OnSelect: =Navigate(ManagerHomeScreen,ScreenTransition.Fade);
+        Width: =61
+        X: =9
+        Y: =17
+        ZIndex: =26
 

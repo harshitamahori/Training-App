@@ -36,7 +36,9 @@ Screens:
             HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
             HoverColor: =RGBA(255, 255, 255, 1)
             HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
-            OnSelect: =Navigate('Personal Targets Screen',ScreenTransition.Fade);
+            OnSelect: |-
+              =Set(varUserDashboardStatusFilter,Blank());
+              Navigate('Personal Targets Screen',ScreenTransition.Fade);
             PressedBorderColor: =Self.Fill
             PressedColor: =Self.Fill
             PressedFill: =Self.Color
@@ -53,7 +55,7 @@ Screens:
             Height: =147
             OnSelect: |-
               =Set(varUserDashboardStatusFilter,Blank());
-              Navigate('Personal Targets Screen');
+              Navigate('Personal Targets Screen',ScreenTransition.Fade);
             Width: =265
             X: =36
             Y: =117
@@ -227,3 +229,25 @@ Screens:
             Width: =118
             X: =406
             Y: =175
+      - Button4_1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =ColorFade(Self.Fill, -15%)
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(56, 96, 178, 1)
+            Font: =Font.'Open Sans'
+            Height: =67
+            HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+            OnSelect: =Navigate('Request Update Screen',ScreenTransition.Fade);
+            PressedBorderColor: =Self.Fill
+            PressedColor: =Self.Fill
+            PressedFill: =Self.Color
+            Text: |-
+              ="View Update Request
+              "
+            Width: =356
+            X: =130
+            Y: =712

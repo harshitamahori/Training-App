@@ -537,3 +537,34 @@ Screens:
             Width: =210
             X: =206
             Y: =987
+      - lastUpdate_4:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =33
+            Size: =16
+            Text: |-
+              =If(IsBlank(LookUp(ProgressData,TargetID.TargetID=varSelectedUserRecord.TargetID,'Updated Date')),
+                "No updates yet",
+                 Text(LookUp(ProgressData,TargetID.TargetID=varSelectedUserRecord.TargetID,'Updated Date'),"dd mmmm yyyy")
+              )
+            Width: =200
+            X: =408
+            Y: =634
+      - lastUpdate_5:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =33
+            Size: =16
+            Text: |+
+              =If(
+                  IsBlank(LookUp(Incentive_sales, TargetID.TargetID = varSelectedUserRecord.TargetID,'Incentive Amount')),  
+                  "No incentive yet",  
+                  Value(LookUp(Incentive_sales, TargetID.TargetID = varSelectedUserRecord.TargetID,'Incentive Amount'), "₹#,##0.00")  
+              )
+            Width: =200
+            X: =408
+            Y: =832

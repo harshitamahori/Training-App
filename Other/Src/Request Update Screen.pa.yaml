@@ -632,7 +632,7 @@ Screens:
             Width: =39
             X: =290
             Y: =1093
-      - All-btn_1:
+      - Cancel-btn:
           Control: Classic/Button@2.2.0
           Properties:
             BorderColor: =RGBA(128, 128, 128, 1)
@@ -702,3 +702,14 @@ Screens:
             Width: =110
             X: =521
             Y: =163
+      - Icon15_1:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =52
+            Icon: =Icon.BackArrow
+            OnSelect: =Navigate(UserHomeScreen,ScreenTransition.Fade);
+            Width: =61
+            X: =9
+            Y: =17

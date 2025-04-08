@@ -32,7 +32,9 @@ ManagerHomeScreen As screen:
     Button3_1 As button:
         Fill: =RGBA(0, 18, 107, 1)
         Height: =56
-        OnSelect: =Navigate(TargetAssignedListScreen,ScreenTransition.Fade);
+        OnSelect: |-
+            =Set(varManagerDashboardStatusFilter,Blank());
+            Navigate(TargetAssignedListScreen,ScreenTransition.Fade);
         Size: =24
         Text: |-
             ="View Assigned Targets
@@ -191,4 +193,15 @@ ManagerHomeScreen As screen:
         X: =396
         Y: =339
         ZIndex: =16
+
+    Button3_2 As button:
+        Fill: =RGBA(0, 18, 107, 1)
+        Height: =56
+        OnSelect: =Navigate(ManagerApproval_screen,ScreenTransition.Fade);
+        Size: =24
+        Text: ="Request Approval screen"
+        Width: =423
+        X: =108
+        Y: =834
+        ZIndex: =17
 
